@@ -348,10 +348,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <div class="section-mono">Free offer</div>
         <div class="section-title">Get your free territorial audit</div>
         <p class="section-sub">Tell us your business type and current location. We'll identify your top 3 expansion opportunities using real ABS Census and competitor data.</p>
-        <div class="audit-form">
-          <input type="email" placeholder="Your business email"/>
-          <button class="btn-white">Request audit</button>
-        </div>
+        <form class="audit-form" action="https://formspree.io/f/mbdqlnqv" method="POST">
+          <input type="email" name="email" placeholder="Your business email" required/>
+          <button type="submit" class="btn-white">Request audit</button>
+        </form>
         <p class="audit-note">Delivered within 5 business days · No sales call required</p>
       </div>
       <div>
@@ -395,18 +395,6 @@ const observer = new IntersectionObserver(entries => {
 }, {threshold:0.1});
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// Audit form
-document.querySelector('.audit-form button').addEventListener('click', () => {
-  const input = document.querySelector('.audit-form input');
-  if(input.value && input.value.includes('@')) {
-    input.value = '';
-    document.querySelector('.audit-form button').textContent = 'Request sent!';
-    setTimeout(() => document.querySelector('.audit-form button').textContent = 'Request audit', 3000);
-  } else {
-    input.style.borderColor = 'rgba(255,100,100,0.6)';
-    setTimeout(() => input.style.borderColor = '', 1500);
-  }
-});
 </script>
 </body>
 </html>
