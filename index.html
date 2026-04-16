@@ -79,7 +79,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 
 /* ── SERVICES ── */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .15s,transform .15s;cursor:default}
+.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .15s,transform .15s}
 .svc:hover{border-color:#AFA9EC;transform:translateY(-2px)}
 .svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
 .svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
@@ -136,16 +136,37 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .footer-right a:hover{color:var(--ink)}
 .footer-loc{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
 
+/* ── HAMBURGER / MOBILE NAV ── */
+.hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:20px;height:1.5px;background:var(--ink);display:block;transition:all .2s}
+.mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border);padding:12px 20px 16px;flex-direction:column}
+.mobile-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:11px 0;border-bottom:0.5px solid var(--border);display:block;transition:color .15s}
+.mobile-nav a:last-child{border-bottom:none;margin-top:8px}
+.mobile-nav a:hover{color:var(--ink)}
+.mobile-nav .nav-cta{background:var(--navy);color:var(--white);padding:10px 18px;border-radius:var(--radius);display:inline-block;font-size:13px;font-weight:500;text-align:center;border-bottom:none}
+.mobile-nav.open{display:flex}
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.testimonial{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white)}
+.testimonial-quote{font-size:13.5px;color:var(--ink);line-height:1.7;margin-bottom:20px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:10px}
+.testimonial-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.testimonial-name{font-size:13px;font-weight:500;color:var(--navy)}
+.testimonial-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+
 /* ── FADE IN ── */
 .fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fade-in.visible{opacity:1;transform:none}
 
 @media(max-width:768px){
-  .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid{grid-template-columns:1fr}
+  .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid,.testimonials-grid{grid-template-columns:1fr}
   .hero-map{display:none}
   nav{padding:0 20px}
   section,.hero{padding:48px 20px}
   footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
+  .nav-links{display:none}
+  .hamburger{display:flex}
 }
 </style>
 </head>
@@ -160,6 +181,15 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#work">Work</a>
     <a href="#process">How it works</a>
     <a href="#audit" class="nav-cta">Free audit</a>
+  </div>
+  <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-nav" id="mobileNav" role="navigation">
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#work" class="mobile-link">Work</a>
+    <a href="#process" class="mobile-link">How it works</a>
+    <a href="#audit" class="nav-cta mobile-link">Free audit</a>
   </div>
 </nav>
 
@@ -320,6 +350,50 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 
 <section style="background:var(--bg)">
   <div class="container fade-in">
+    <div class="section-mono">What clients say</div>
+    <div class="section-title">Results that speak</div>
+    <p class="section-sub">From boutique music schools to national franchise groups — we earn trust by delivering fast.</p>
+    <div class="testimonials-grid">
+
+      <div class="testimonial">
+        <p class="testimonial-quote">"The territorial audit gave us exactly what we needed before committing to a second location. We had assumptions about which suburb to target — Lokko's data proved us wrong and saved us from a costly mistake."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--teal-light);color:#085041">SC</div>
+          <div>
+            <div class="testimonial-name">Sarah C.</div>
+            <div class="testimonial-role">Operations Manager · Franchise Group, VIC</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">"Lokko cleaned 85,000 customer records in three weeks. Our analysts can finally do the analysis they were hired to do instead of spending half their time fixing addresses."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--blue-light);color:#0C447C">MR</div>
+          <div>
+            <div class="testimonial-name">Marcus R.</div>
+            <div class="testimonial-role">Head of Data · Insurance Broking, Melbourne</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">"Delivered in days, not months. The expansion analysis identified opportunities our internal team had been missing for two years. Genuinely surprised at how actionable the output was."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--purple-light);color:#3C3489">JT</div>
+          <div>
+            <div class="testimonial-name">James T.</div>
+            <div class="testimonial-role">Director · National Retail Group, AU</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--white)">
+  <div class="container fade-in">
     <div class="section-mono">Tech stack</div>
     <div class="section-title">Tools we work with</div>
     <p class="section-sub" style="margin-bottom:20px">We use industry-standard tools and free Australian government data sources to keep costs low and quality high.</p>
@@ -353,6 +427,8 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
           <input type="text" name="name" placeholder="Your name" required/>
           <input type="text" name="company" placeholder="Company name" required/>
           <input type="email" name="email" placeholder="Your business email" required/>
+          <input type="text" name="business_type" placeholder="Business type (e.g. franchise, retail, services)" required/>
+          <input type="text" name="location" placeholder="Current suburb or area" required/>
           <button type="submit" class="btn-white">Request audit</button>
         </form>
         <p class="audit-note">Delivered within 5 business days · No sales call required</p>
@@ -390,6 +466,20 @@ pattern.forEach(v => {
   const d = document.createElement('div');
   d.className = 'map-dot' + (v===3?' active':v===2?' hot':v===1?' warm':'');
   dots.appendChild(d);
+});
+
+// Hamburger menu
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+hamburgerBtn.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburgerBtn.setAttribute('aria-expanded', isOpen);
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  });
 });
 
 // Fade in on scroll
