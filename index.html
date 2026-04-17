@@ -154,6 +154,25 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .testimonial-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
 .testimonial-name{font-size:13px;font-weight:500;color:var(--navy)}
 .testimonial-role{font-size:11.5px;color:var(--muted);margin-top:1px}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
+.team-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:26px;background:var(--white);transition:border-color .15s,transform .15s}
+.team-card:hover{border-color:#AFA9EC;transform:translateY(-2px)}
+.team-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0}
+.team-name{font-size:16px;font-weight:500;color:var(--navy);margin-bottom:2px}
+.team-role{font-size:11px;font-weight:500;color:var(--blue);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px}
+.team-bio{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 14px}
+.team-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;margin:2px 2px 0 0}
+.values-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+.val-card{background:var(--bg);border-radius:var(--radius);padding:20px;border:0.5px solid var(--border)}
+.val-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.val-title{font-size:13.5px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.val-desc{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+.inclusion-bar{background:var(--navy);border-radius:var(--radius-lg);padding:32px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.inclusion-bar h3{font-size:19px;font-weight:500;color:var(--white);margin:0 0 10px;letter-spacing:-0.3px}
+.inclusion-bar p{font-size:13.5px;color:rgba(255,255,255,0.62);line-height:1.75;margin:0;max-width:520px}
+.ibadges{display:flex;flex-direction:column;gap:9px;flex-shrink:0;padding-top:4px}
+.ibadge{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);white-space:nowrap}
+.imark{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
 
 /* ── FADE IN ── */
 .fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
@@ -161,6 +180,8 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 
 @media(max-width:768px){
   .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid,.testimonials-grid{grid-template-columns:1fr}
+  .team-grid,.values-row{grid-template-columns:1fr}
+  .inclusion-bar{flex-direction:column;gap:20px}
   .hero-map{display:none}
   nav{padding:0 20px}
   section,.hero{padding:48px 20px}
@@ -180,6 +201,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#services">Services</a>
     <a href="#work">Work</a>
     <a href="#process">How it works</a>
+    <a href="#about">About us</a>
     <a href="#audit" class="nav-cta">Free audit</a>
   </div>
   <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
@@ -189,6 +211,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#services" class="mobile-link">Services</a>
     <a href="#work" class="mobile-link">Work</a>
     <a href="#process" class="mobile-link">How it works</a>
+    <a href="#about" class="mobile-link">About us</a>
     <a href="#audit" class="nav-cta mobile-link">Free audit</a>
   </div>
 </nav>
@@ -392,9 +415,92 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   </div>
 </section>
 
-<section style="background:var(--white)">
+<section id="about" style="background:var(--bg)">
   <div class="container fade-in">
-    <div class="section-mono">Tech stack</div>
+    <div class="section-mono">Who we are</div>
+    <h2 class="section-title">Built by people who know what it means to work harder to be heard</h2>
+    <p class="section-sub">Lokko is a boutique location intelligence consultancy based in Melbourne. We use data to help businesses find exactly where to grow — and we believe the best decisions come from evidence, not assumptions. That belief runs through everything we do.</p>
+
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:14px">
+          <div class="team-avatar" style="background:var(--purple-light);color:#3C3489">SZ</div>
+          <div>
+            <div class="team-name">Sandra Zuluaga</div>
+            <div class="team-role">Founder · Data &amp; Analytics</div>
+          </div>
+        </div>
+        <p class="team-bio">Sandra brings together data engineering, geospatial analysis and AI to build the kind of location intelligence that used to be available only to large enterprises. Originally from Colombia and now based in Melbourne, she built Lokko to make rigorous, data-driven site selection accessible to businesses of any size. She is hard of hearing and a firm believer that the best insights come from listening carefully — whether to data or to clients.</p>
+        <div>
+          <span class="team-pill" style="background:var(--purple-light);color:#3C3489">Geomarketing</span>
+          <span class="team-pill" style="background:var(--purple-light);color:#3C3489">Data engineering</span>
+          <span class="team-pill" style="background:var(--purple-light);color:#3C3489">AI consultancy</span>
+          <span class="team-pill" style="background:var(--teal-light);color:#085041">Bilingual EN · ES</span>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:14px">
+          <div class="team-avatar" style="background:var(--blue-light);color:#0C447C">DW</div>
+          <div>
+            <div class="team-name">Damon Watt</div>
+            <div class="team-role">Business Development</div>
+          </div>
+        </div>
+        <p class="team-bio">Damon is Lokko's commercial lead and the first conversation a prospective client has with us. A paraplegic Australian with a natural instinct for what decision-makers actually need to hear, Damon brings warmth, patience and genuine curiosity to every engagement. He understands from experience that the world doesn't always make things easy — and that good advice starts with understanding someone's real situation, not the one that looks neat on paper.</p>
+        <div>
+          <span class="team-pill" style="background:var(--blue-light);color:#0C447C">Client relationships</span>
+          <span class="team-pill" style="background:var(--blue-light);color:#0C447C">Sales strategy</span>
+          <span class="team-pill" style="background:var(--blue-light);color:#0C447C">Melbourne networks</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="values-row">
+      <div class="val-card">
+        <div class="val-icon" style="background:var(--teal-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7" stroke="#1D9E75" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="val-title">Evidence first</div>
+        <p class="val-desc">Every recommendation is grounded in real data — ABS Census, live competitor mapping and movement analytics. We don't do gut feel dressed up as strategy.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon" style="background:var(--purple-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2L11 7h5l-4 3 1.5 5L9 12l-4.5 3L6 10 2 7h5z" stroke="#534AB7" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="val-title">Accessible intelligence</div>
+        <p class="val-desc">The kind of location analysis we deliver used to require a large consulting team and a six-figure budget. We've built tools that make it available to businesses of any size.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon" style="background:var(--blue-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9a6 6 0 1 0 12 0A6 6 0 0 0 3 9z" stroke="#185FA5" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="val-title">Honest timelines</div>
+        <p class="val-desc">We say what we can deliver and when. A free audit in 5 business days means 5 business days. A full analysis is scoped clearly before we start, not after.</p>
+      </div>
+    </div>
+
+    <div class="inclusion-bar">
+      <div>
+        <h3>Inclusion isn't a policy. It's how we work.</h3>
+        <p>Lokko is founded and led by people who have had to prove themselves in rooms that weren't designed for them — a Colombian-Australian founder who is hard of hearing, and an Australian commercial lead who is paraplegic. We understand what it means when a client feels like the system wasn't built with them in mind. We are committed to accessible communication, flexible engagement, and analysis that gives every business the same quality of insight regardless of its size or background.</p>
+      </div>
+      <div class="ibadges">
+        <div class="ibadge"><div class="imark"></div>Accessible communication</div>
+        <div class="ibadge"><div class="imark"></div>Bilingual English · Spanish</div>
+        <div class="ibadge"><div class="imark"></div>Disability-inclusive team</div>
+        <div class="ibadge"><div class="imark"></div>Small business friendly</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container fade-in">
+    <div class="section-mono">Our stack</div>
     <div class="section-title">Tools we work with</div>
     <p class="section-sub" style="margin-bottom:20px">We use industry-standard tools and free Australian government data sources to keep costs low and quality high.</p>
     <div class="tools-flow">
@@ -424,7 +530,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <p class="section-sub">Tell us your business type and current location. We'll identify your top 3 expansion opportunities using real ABS Census and competitor data.</p>
         <form class="audit-form" action="https://formspree.io/f/mbdqlnqv" method="POST">
           <input type="hidden" name="_subject" value="New Lokko audit request"/>
-          <input type="hidden" name="_next" value="https://lokko.au?submitted=true"/>
           <input type="text" name="name" placeholder="Your name" required/>
           <input type="text" name="company" placeholder="Company name" required/>
           <input type="email" name="email" placeholder="Your business email" required/>
