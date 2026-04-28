@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lokko — Inteligencia de Ubicación para Colombia</title>
+<meta name="description" content="Lokko ayuda a pequeños negocios colombianos a encontrar exactamente dónde crecer — con datos reales del DANE, Google Places y análisis geoespacial."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#26215C;
+  --blue:#534AB7;
+  --blue-light:#EEEDFE;
+  --teal:#1D9E75;
+  --teal-light:#E1F5EE;
+  --purple:#7F77DD;
+  --purple-light:#EEEDFE;
+  --amber:#BA7517;
+  --amber-light:#FAEEDA;
+  --gold:#C9973A;
+  --gold-light:#FDF3E3;
+  --ink:#1A1730;
+  --muted:#5F6B7A;
+  --border:#E2E0F8;
+  --bg:#F7F6FE;
+  --white:#FFFFFF;
+  --radius:10px;
+  --radius-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border)}
+.logo{display:block;text-decoration:none}
+.logo img{height:36px;width:auto;display:block}
+.logo-text{font-size:22px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;font-family:'DM Sans',sans-serif}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:13.5px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-size:13px;font-weight:500;padding:8px 18px;border-radius:var(--radius);background:var(--navy);color:var(--white);text-decoration:none;transition:opacity .15s}
+.nav-cta:hover{opacity:0.85}
+.lang-switch{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.4px;text-decoration:none;transition:color .15s}
+.lang-switch:hover{color:var(--ink)}
+
+/* ── HERO ── */
+.hero{padding:80px 40px 72px;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,151,58,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--gold);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace}
+.hero-eyebrow span{width:24px;height:1px;background:var(--gold);display:inline-block}
+.hero h1{font-size:44px;font-weight:300;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px;color:var(--navy)}
+.hero h1 strong{font-weight:500}
+.hero h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:440px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+.btn-primary{font-size:13.5px;font-weight:500;padding:11px 22px;border-radius:var(--radius);background:var(--navy);color:var(--white);border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .15s}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{font-size:13.5px;padding:11px 22px;border-radius:var(--radius);border:0.5px solid var(--border);color:var(--muted);background:transparent;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .15s,color .15s}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.hero-stats{display:flex;gap:32px}
+.stat-n{font-size:24px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;line-height:1}
+.stat-l{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* ── MAP VISUAL ── */
+.map-visual{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:0.5px solid var(--border);background:var(--navy);min-height:320px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(38,33,92,0.12)}
+.map-svg-wrap{width:100%;height:100%;position:relative}
+.map-caption{position:absolute;bottom:14px;left:16px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.4px}
+.map-dot{animation:pulse 2.5s ease-in-out infinite}
+.map-dot:nth-child(2){animation-delay:.4s}
+.map-dot:nth-child(3){animation-delay:.8s}
+.map-dot:nth-child(4){animation-delay:1.2s}
+.map-dot:nth-child(5){animation-delay:1.6s}
+@keyframes pulse{0%,100%{opacity:0.5;r:5}50%{opacity:1;r:7}}
+
+/* ── SECTIONS ── */
+section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
+.container{max-width:1080px;margin:0 auto}
+.section-mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:28px;font-weight:400;letter-spacing:-0.8px;color:var(--navy);margin-bottom:8px}
+.section-sub{font-size:14.5px;color:var(--muted);line-height:1.6;max-width:500px;margin-bottom:36px}
+
+/* ── STATS BAND ── */
+.stats-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.stat-card{background:var(--white);padding:24px 28px}
+.stat-card-n{font-size:28px;font-weight:500;color:var(--navy);letter-spacing:-1px;margin-bottom:4px}
+.stat-card-label{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.4px;font-family:'DM Mono',monospace;margin-bottom:6px}
+.stat-card-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .2s,transform .2s}
+.svc:hover{border-color:#AFA9EC;transform:translateY(-2px)}
+.svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
+.svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.svc h3{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--navy)}
+.svc p{font-size:13px;color:var(--muted);line-height:1.6}
+.svc-items{margin-top:14px;display:flex;flex-direction:column;gap:5px}
+.svc-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.svc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.svc-price{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue)}
+
+/* ── CITIES ── */
+.cities-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.city-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 16px;text-align:center;background:var(--white);transition:border-color .2s,transform .2s}
+.city-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.city-flag{font-size:22px;margin-bottom:8px}
+.city-name{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.city-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* ── PROCESS ── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.process-step{padding:24px;border-right:0.5px solid var(--border)}
+.process-step:last-child{border-right:none}
+.process-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:12px}
+.process-step h4{font-size:13.5px;font-weight:500;margin-bottom:6px;color:var(--navy)}
+.process-step p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── ABOUT BAND ── */
+.about-band{background:var(--navy);border-radius:var(--radius-lg);padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-band h3{font-size:22px;font-weight:400;color:var(--white);letter-spacing:-0.5px;line-height:1.3;margin-bottom:12px}
+.about-band p{font-size:13.5px;color:rgba(255,255,255,0.62);line-height:1.75}
+.about-badges{display:flex;flex-direction:column;gap:10px}
+.about-badge{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.75)}
+.about-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* ── AUDIT CTA ── */
+.audit-section{background:var(--navy);border-bottom:none}
+.audit-section .section-mono{color:rgba(255,255,255,0.4)}
+.audit-section .section-title{color:var(--white)}
+.audit-section .section-sub{color:rgba(255,255,255,0.6)}
+.audit-form{display:flex;flex-direction:column;gap:10px;max-width:420px}
+.audit-form input{font-size:13.5px;padding:11px 14px;border-radius:var(--radius);border:0.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:var(--white);outline:none;font-family:'DM Sans',sans-serif;width:100%}
+.audit-form input::placeholder{color:rgba(255,255,255,0.35)}
+.audit-form input:focus{border-color:rgba(255,255,255,0.5)}
+.btn-white{font-size:13.5px;font-weight:500;padding:11px 22px;border-radius:var(--radius);background:var(--white);color:var(--navy);border:none;cursor:pointer;white-space:nowrap;transition:opacity .15s;width:100%}
+.btn-white:hover{opacity:0.9}
+.audit-note{font-size:12px;color:rgba(255,255,255,0.35);margin-top:10px}
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.audit-features{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.audit-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.65)}
+.audit-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* ── TOOLS ── */
+.tools-flow{display:flex;flex-wrap:wrap;gap:8px}
+.tool-pill{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace}
+
+/* ── FOOTER ── */
+footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border)}
+.footer-right{display:flex;gap:24px;align-items:center}
+.footer-right a{font-size:12.5px;color:var(--muted);text-decoration:none}
+.footer-right a:hover{color:var(--ink)}
+.footer-loc{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:20px;height:1.5px;background:var(--ink);display:block}
+.mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border);padding:12px 20px 16px;flex-direction:column}
+.mobile-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:11px 0;border-bottom:0.5px solid var(--border);display:block}
+.mobile-nav a:last-child{border-bottom:none;margin-top:8px}
+.mobile-nav .nav-cta{background:var(--navy);color:var(--white);padding:10px 18px;border-radius:var(--radius);display:inline-block;font-size:13px;font-weight:500;text-align:center;border-bottom:none}
+.mobile-nav.open{display:flex}
+
+/* ── FADE IN ── */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  .hero-grid,.services-grid,.process-grid,.audit-grid,.about-band,.stats-band{grid-template-columns:1fr}
+  .cities-grid{grid-template-columns:repeat(2,1fr)}
+  nav{padding:0 20px}
+  section,.hero{padding:48px 20px}
+  footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/es" class="logo">
+    <span class="logo-text">lokko</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#ciudades">Ciudades</a>
+    <a href="#proceso">Cómo funciona</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="/" class="lang-switch">EN</a>
+    <a href="#auditoria" class="nav-cta">Auditoría gratis</a>
+  </div>
+  <button class="hamburger" aria-label="Abrir menú" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#servicios" class="mobile-link">Servicios</a>
+    <a href="#ciudades" class="mobile-link">Ciudades</a>
+    <a href="#proceso" class="mobile-link">Cómo funciona</a>
+    <a href="#nosotros" class="mobile-link">Nosotros</a>
+    <a href="/" class="mobile-link">Ver en inglés (EN)</a>
+    <a href="#auditoria" class="nav-cta mobile-link">Auditoría gratis</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-grid container">
+    <div>
+      <div class="hero-eyebrow"><span></span>Colombia · Inteligencia de ubicación empresarial</div>
+      <h1>Decisiones de expansión<br/><strong>respaldadas por datos.</strong><br/><em>No por intuición.</em></h1>
+      <p class="hero-sub">Lokko es una consultora boutique de inteligencia de ubicación. Ayudamos a grupos de franquicias, cadenas de retail, aseguradoras y desarrolladores inmobiliarios en Colombia a tomar decisiones de expansión con datos reales del DANE, análisis competitivo en vivo y metodología de clase mundial.</p>
+      <div class="hero-btns">
+        <a href="#auditoria" class="btn-primary">Solicitar auditoría gratis</a>
+        <a href="#servicios" class="btn-ghost">Ver servicios</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-n">Desde $5k USD</div><div class="stat-l">Por proyecto</div></div>
+        <div><div class="stat-n">5 ciudades</div><div class="stat-l">Cobertura nacional</div></div>
+        <div><div class="stat-n">DANE + IA</div><div class="stat-l">Datos reales</div></div>
+      </div>
+    </div>
+
+    <!-- Colombia SVG Map -->
+    <div class="map-visual">
+      <svg viewBox="0 0 300 380" width="100%" height="320" xmlns="http://www.w3.org/2000/svg" style="display:block">
+        <!-- Colombia simplified outline -->
+        <defs>
+          <radialGradient id="glowBog" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1D9E75" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glowMed" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#534AB7" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#534AB7" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glowCali" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C9973A" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#C9973A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Colombia shape approximation -->
+        <path d="M 95 30
+                 L 140 20
+                 L 185 30
+                 L 220 55
+                 L 240 80
+                 L 255 110
+                 L 260 145
+                 L 250 170
+                 L 265 195
+                 L 270 225
+                 L 255 255
+                 L 235 270
+                 L 210 290
+                 L 185 310
+                 L 165 340
+                 L 150 360
+                 L 135 340
+                 L 115 315
+                 L 95 290
+                 L 75 265
+                 L 55 240
+                 L 40 210
+                 L 35 180
+                 L 45 155
+                 L 40 130
+                 L 55 105
+                 L 65 80
+                 L 75 55
+                 Z"
+              fill="rgba(83,74,183,0.15)"
+              stroke="rgba(83,74,183,0.5)"
+              stroke-width="1.5"
+              stroke-linejoin="round"/>
+
+        <!-- Glow halos for cities -->
+        <circle cx="158" cy="210" r="28" fill="url(#glowBog)" opacity="0.7"/>
+        <circle cx="120" cy="155" r="22" fill="url(#glowMed)" opacity="0.6"/>
+        <circle cx="100" cy="225" r="20" fill="url(#glowCali)" opacity="0.6"/>
+
+        <!-- City dots — animated -->
+        <!-- Bogotá -->
+        <circle class="map-dot" cx="158" cy="210" r="6" fill="#1D9E75" opacity="0.9"/>
+        <circle cx="158" cy="210" r="3" fill="#fff"/>
+        <text x="168" y="214" font-size="9" fill="rgba(255,255,255,0.8)" font-family="DM Mono, monospace">Bogotá</text>
+
+        <!-- Medellín -->
+        <circle class="map-dot" cx="120" cy="158" r="5" fill="#7F77DD" opacity="0.9"/>
+        <circle cx="120" cy="158" r="2.5" fill="#fff"/>
+        <text x="128" y="162" font-size="9" fill="rgba(255,255,255,0.8)" font-family="DM Mono, monospace">Medellín</text>
+
+        <!-- Cali -->
+        <circle class="map-dot" cx="100" cy="228" r="5" fill="#C9973A" opacity="0.9"/>
+        <circle cx="100" cy="228" r="2.5" fill="#fff"/>
+        <text x="108" y="232" font-size="9" fill="rgba(255,255,255,0.8)" font-family="DM Mono, monospace">Cali</text>
+
+        <!-- Barranquilla -->
+        <circle class="map-dot" cx="138" cy="55" r="4.5" fill="#534AB7" opacity="0.9"/>
+        <circle cx="138" cy="55" r="2" fill="#fff"/>
+        <text x="146" y="59" font-size="9" fill="rgba(255,255,255,0.8)" font-family="DM Mono, monospace">Barranquilla</text>
+
+        <!-- Bucaramanga -->
+        <circle class="map-dot" cx="162" cy="145" r="4" fill="#1D9E75" opacity="0.8"/>
+        <circle cx="162" cy="145" r="2" fill="#fff"/>
+        <text x="170" y="149" font-size="9" fill="rgba(255,255,255,0.7)" font-family="DM Mono, monospace">Bucaramanga</text>
+      </svg>
+      <div class="map-caption">DANE · Google Places · Análisis geoespacial</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATS BAND ── -->
+<section style="background:var(--bg);padding:32px 40px">
+  <div class="container">
+    <div class="stats-band">
+      <div class="stat-card">
+        <div class="stat-card-n">+50M</div>
+        <div class="stat-card-label" style="color:var(--blue)">Colombianos mapeados</div>
+        <div class="stat-card-desc">Usamos los datos del Censo DANE para identificar con precisión dónde se concentra tu mercado objetivo — por estrato, localidad y área de influencia comercial.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">20–30%</div>
+        <div class="stat-card-label" style="color:var(--teal)">Mercado sin cubrir</div>
+        <div class="stat-card-desc">Las cadenas y franquicias que expanden sin análisis de ubicación dejan ingresos sobre la mesa — o peor, comprometen capital en el mercado equivocado.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">5 días</div>
+        <div class="stat-card-label" style="color:var(--purple)">Auditoría entregada</div>
+        <div class="stat-card-desc">Te entregamos tus 3 mejores oportunidades de expansión en 5 días hábiles. Sin reuniones de ventas, sin compromiso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="servicios">
+  <div class="container fade-in">
+    <div class="section-mono">Qué hacemos</div>
+    <div class="section-title">Tres servicios, un equipo</div>
+    <p class="section-sub">La mayoría de clientes llegan con una pregunta — "¿dónde abrimos el próximo punto?" — y descubren dos más que no sabían que tenían. Trabajamos con franquicias, retail, aseguradoras y desarrolladores que necesitan certeza antes de comprometer capital.</p>
+    <div class="services-grid">
+
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-icon" style="background:var(--blue-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="8" r="3.5" stroke="#534AB7" stroke-width="1.3"/>
+            <path d="M9 2C5.69 2 3 4.69 3 8c0 4 6 10 6 10s6-6 6-10c0-3.31-2.69-6-6-6z" stroke="#534AB7" stroke-width="1.3" fill="none"/>
+          </svg>
+        </div>
+        <h3>Estrategia de expansión</h3>
+        <p>Te decimos exactamente en qué barrio o ciudad abrir tu próximo local — con datos del DANE, competencia en tiempo real y análisis de demanda por estrato.</p>
+        <div class="svc-items">
+          <div class="svc-item">Scoring de oportunidad por municipio</div>
+          <div class="svc-item">Análisis de área de influencia</div>
+          <div class="svc-item">Mapeo de competidores y zonas sin cubrir</div>
+          <div class="svc-item">Auditoría territorial gratuita para empezar</div>
+        </div>
+        <div class="svc-price">Desde $5.000 USD · Proyecto o retención</div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-icon" style="background:var(--teal-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2" y="2" width="14" height="14" rx="2" stroke="#1D9E75" stroke-width="1.3"/>
+            <path d="M5 9h8M5 6h5M5 12h6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Diseño de territorios de venta</h3>
+        <p>Si tienes vendedores en campo, diseñamos sus zonas usando datos reales — no por municipios arbitrarios. Menos traslapes, más cobertura efectiva.</p>
+        <div class="svc-items">
+          <div class="svc-item">Zonificación basada en demanda real</div>
+          <div class="svc-item">Rutas optimizadas para tu fuerza de ventas</div>
+          <div class="svc-item">Identificación de zonas de alto potencial</div>
+          <div class="svc-item">Dashboard de cobertura por territorio</div>
+        </div>
+        <div class="svc-price">Desde $6.000 USD · Proyecto</div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-icon" style="background:var(--purple-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 14l4-4 3 3 5-6" stroke="#534AB7" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="4" r="2.5" stroke="#534AB7" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <h3>Ingeniería de datos y automatización</h3>
+        <p>¿Tienes una base de datos de clientes desordenada? La limpiamos, geocodificamos y convertimos en inteligencia útil — automatizando los reportes que hoy te toman horas.</p>
+        <div class="svc-items">
+          <div class="svc-item">Limpieza y estandarización de direcciones</div>
+          <div class="svc-item">Geocodificación masiva de registros</div>
+          <div class="svc-item">Pipelines automatizados de datos</div>
+          <div class="svc-item">Reportes semanales sin intervención manual</div>
+        </div>
+        <div class="svc-price">Desde $7.000 USD · Proyecto o retención</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CITIES ── -->
+<section id="ciudades" style="background:var(--bg)">
+  <div class="container fade-in">
+    <div class="section-mono">Cobertura</div>
+    <div class="section-title">Cobertura en los principales mercados</div>
+    <p class="section-sub">Cubrimos los cinco grandes mercados urbanos de Colombia — donde se concentran las decisiones de expansión corporativa, el mayor poder adquisitivo y la competencia más intensa.</p>
+    <div class="cities-grid">
+      <div class="city-card">
+        <div class="city-flag">🏙️</div>
+        <div class="city-name">Bogotá</div>
+        <div class="city-desc">Capital · Alta competencia · Análisis por localidad y UPZ</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🌺</div>
+        <div class="city-name">Medellín</div>
+        <div class="city-desc">Innovación · Comunas y corregimientos · Mercado en expansión</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🎶</div>
+        <div class="city-name">Cali</div>
+        <div class="city-desc">Pacífico · Comunas sur y norte · Zonas de alto crecimiento</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🌊</div>
+        <div class="city-name">Barranquilla</div>
+        <div class="city-desc">Costa Atlántica · Puerto industrial · Expansión comercial</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">⛰️</div>
+        <div class="city-name">Bucaramanga</div>
+        <div class="city-desc">Santander · Municipios metropolitanos · Mercado emergente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="proceso">
+  <div class="container fade-in">
+    <div class="section-mono">Cómo funciona</div>
+    <div class="section-title">Simple desde el primer día</div>
+    <p class="section-sub">Todo empieza gratis. Nos ganamos tu confianza antes de pedirte cualquier inversión.</p>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-n">Paso 01</div>
+        <h4>Auditoría territorial gratis</h4>
+        <p>Analizamos tu negocio actual e identificamos tus 3 mejores oportunidades usando datos DANE y competencia real. Entregado en 5 días, sin compromiso.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-n">Paso 02</div>
+        <h4>Revisión de datos</h4>
+        <p>Si tienes registros de clientes o ventas, los revisamos primero. ¿No tienes datos propios? Construimos el análisis completo desde fuentes públicas — DANE, DIVIPOLA y Google Places.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-n">Paso 03</div>
+        <h4>Análisis y entrega</h4>
+        <p>Corremos el análisis geoespacial usando DANE, Google Places y tus datos limpios donde aplique. Entregado como mapa interactivo o reporte PDF.</p>
+      </div>
+      <div class="process-step" style="border-right:none">
+        <div class="process-n">Paso 04</div>
+        <h4>Inteligencia continua</h4>
+        <p>Retención opcional: un dashboard de ubicación en vivo que se actualiza con tu mercado. Agrega automatización IA para que los reportes se generen solos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA SOURCES ── -->
+<section style="background:var(--bg)">
+  <div class="container fade-in">
+    <div class="section-mono">Fuentes de datos</div>
+    <div class="section-title">Datos colombianos, análisis de clase mundial</div>
+    <p class="section-sub" style="margin-bottom:20px">Usamos las mismas fuentes que usan las grandes empresas — ahora accesibles para tu negocio.</p>
+    <div class="tools-flow">
+      <span class="tool-pill">DANE · Censo 2018</span>
+      <span class="tool-pill">DIVIPOLA</span>
+      <span class="tool-pill">Google Places API</span>
+      <span class="tool-pill">OpenStreetMap Colombia</span>
+      <span class="tool-pill">Python · GeoPandas</span>
+      <span class="tool-pill">QGIS</span>
+      <span class="tool-pill">Mapbox</span>
+      <span class="tool-pill">Claude AI API</span>
+      <span class="tool-pill">Supabase</span>
+      <span class="tool-pill">ReportLab PDF</span>
+      <span class="tool-pill">Estratificación socioeconómica</span>
+      <span class="tool-pill">Catastro IGAC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="nosotros">
+  <div class="container fade-in">
+    <div class="section-mono">Quiénes somos</div>
+    <div class="section-title">Metodología australiana, contexto colombiano</div>
+    <p class="section-sub">Lokko combina rigor técnico internacional con conocimiento profundo del mercado colombiano — una combinación que ninguna consultora local ofrece.</p>
+    <div class="about-band">
+      <div>
+        <h3>El rigor de los mercados desarrollados, aplicado a Colombia</h3>
+        <p>Soy Sandra Zuluaga, fundadora de Lokko. Construí mi carrera en ingeniería de datos y análisis geoespacial trabajando con empresas Fortune 500 en Australia — donde la inteligencia de ubicación es una disciplina establecida con metodologías probadas.<br/><br/>En Colombia, ese nivel de análisis estaba reservado para las multinacionales. Lokko lo hace accesible para grupos empresariales, cadenas de franquicias y desarrolladores colombianos que compiten en mercados cada vez más exigentes. Entiendo los estratos, las dinámicas de comunas y los patrones de consumo locales — y sé cómo convertirlos en ventaja competitiva real.</p>
+      </div>
+      <div class="about-badges">
+        <div class="about-badge"><div class="about-badge-dot"></div>Bilingüe — español e inglés</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Raíces colombianas, perspectiva global</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Datos DANE + metodología australiana</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Accesible para negocios de cualquier tamaño</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Comunicación directa, sin tecnicismos</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Equipo inclusivo y diverso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUDIT CTA ── -->
+<section id="auditoria" class="audit-section">
+  <div class="container">
+    <div class="audit-grid">
+      <div>
+        <div class="section-mono">Oferta gratuita</div>
+        <div class="section-title">Obtén tu auditoría territorial gratis</div>
+        <p class="section-sub">Cuéntanos tu modelo de negocio y mercado objetivo. Identificamos tus 3 mejores oportunidades de expansión con datos reales del DANE, análisis competitivo y metodología de clase mundial.</p>
+        <div class="audit-form" id="auditFormES">
+          <input type="text" id="es_name" placeholder="Tu nombre"/>
+          <input type="text" id="es_company" placeholder="Nombre del negocio"/>
+          <input type="email" id="es_email" placeholder="Tu correo electrónico"/>
+          <input type="text" id="es_business_type" placeholder="Tipo de negocio (ej. franquicia, retail, inmobiliaria, aseguradora)"/>
+          <input type="text" id="es_location" placeholder="Ciudad o barrio actual"/>
+          <button class="btn-white" id="esSubmitBtn" onclick="submitAuditES()">Solicitar auditoría</button>
+          <p id="esError" style="display:none;color:#f87171;font-size:12px;margin-top:4px"></p>
+        </div>
+        <div id="esSuccess" style="display:none;padding:24px;border-radius:var(--radius-lg);background:rgba(29,158,117,0.15);border:0.5px solid rgba(29,158,117,0.4)">
+          <div style="font-size:15px;font-weight:500;color:#fff;margin-bottom:6px">✓ Solicitud recibida</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6">Gracias — te escribimos en los próximos 5 días hábiles. Revisa tu bandeja de entrada para una confirmación de <strong style="color:rgba(255,255,255,0.9)">hello@lokko.au</strong></div>
+        </div>
+        <p class="audit-note" id="esNote">Entregado en 5 días hábiles · Sin reunión de ventas</p>
+      </div>
+      <div>
+        <div class="audit-features">
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Scoring de oportunidad por municipio con Censo DANE 2018</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Competencia mapeada dentro de tu zona de influencia</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Top 3 ubicaciones de expansión con justificación clara</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Reporte PDF de una página — compartible con tu equipo</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Completamente gratis — sin pitch, sin factura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:18px;font-weight:500;color:var(--navy);letter-spacing:-0.3px">lokko</div>
+  <div class="footer-loc">Melbourne, Australia · Colombia</div>
+  <div class="footer-right">
+    <a href="mailto:hello@lokko.au">hello@lokko.au</a>
+    <a href="https://www.linkedin.com/company/lokko-au" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="/">Ver en inglés</a>
+  </div>
+</footer>
+
+<script>
+// Hamburger
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+hamburgerBtn.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburgerBtn.setAttribute('aria-expanded', isOpen);
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Audit form submit
+async function submitAuditES() {
+  const btn = document.getElementById('esSubmitBtn');
+  const errorEl = document.getElementById('esError');
+  const name = document.getElementById('es_name').value.trim();
+  const company = document.getElementById('es_company').value.trim();
+  const email = document.getElementById('es_email').value.trim();
+  const business_type = document.getElementById('es_business_type').value.trim();
+  const location = document.getElementById('es_location').value.trim();
+
+  errorEl.style.display = 'none';
+
+  if (!name || !company || !email || !business_type || !location) {
+    errorEl.textContent = 'Por favor completa todos los campos antes de enviar.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.textContent = 'Por favor ingresa un correo electrónico válido.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btn.textContent = 'Enviando…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mbdqlnqv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name, company, email, business_type, location,
+        _subject: 'Nueva solicitud de auditoría Lokko — Colombia',
+        _replyto: email,
+        source: 'lokko.au/es'
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('auditFormES').style.display = 'none';
+      document.getElementById('esNote').style.display = 'none';
+      document.getElementById('esSuccess').style.display = 'block';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(e) {
+    btn.textContent = 'Solicitar auditoría';
+    btn.disabled = false;
+    errorEl.textContent = 'Algo salió mal. Escríbenos directamente a hello@lokko.au';
+    errorEl.style.display = 'block';
+  }
+}
+</script>
+
+</body>
+</html>
