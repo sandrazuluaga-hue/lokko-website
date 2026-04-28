@@ -1,1 +1,7 @@
 .DS_Store
+# Private Business Logic & Pipelines
+lokko-analytics/
+SQL/
+Documents Training/
+.claude/
+.env
