@@ -42,7 +42,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 
 /* ── HERO ── */
 .hero{padding:80px 40px 72px;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace}
 .hero-eyebrow span{width:24px;height:1px;background:var(--blue);display:inline-block}
 .hero h1{font-size:44px;font-weight:300;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px;color:var(--navy)}
@@ -58,6 +58,18 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .stat-n{font-size:24px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;line-height:1}
 .stat-l{font-size:12px;color:var(--muted);margin-top:3px}
 
+/* Hero map graphic */
+.hero-map{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:28px;position:relative;overflow:hidden}
+.map-dots{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.map-dot{width:100%;aspect-ratio:1;border-radius:50%;background:var(--border);transition:background .3s}
+.map-dot.hot{background:var(--blue)}
+.map-dot.warm{background:#85B7EB}
+.map-dot.active{background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.map-label{position:absolute;bottom:16px;left:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.map-legend{display:flex;gap:12px;margin-top:12px;font-size:11px;color:var(--muted);align-items:center}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+
 /* ── SECTIONS ── */
 section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .container{max-width:1080px;margin:0 auto}
@@ -65,38 +77,10 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .section-title{font-size:28px;font-weight:400;letter-spacing:-0.8px;color:var(--navy);margin-bottom:8px}
 .section-sub{font-size:14.5px;color:var(--muted);line-height:1.6;max-width:480px;margin-bottom:36px}
 
-/* ── FLIP CARDS ── */
+/* ── SERVICES ── */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.flip-wrap{height:420px;perspective:1200px;cursor:pointer}
-.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
-.flip-wrap.flipped .flip-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-lg);padding:24px;border:0.5px solid var(--border);background:var(--white);overflow:hidden}
-.flip-back{transform:rotateY(180deg);display:flex;flex-direction:column}
-.flip-hint{position:absolute;bottom:14px;right:16px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px;transition:opacity .2s}
-.flip-wrap:hover .flip-hint{opacity:0.5}
-.flip-back-title{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px}
-.flip-back-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.4}
-.chart-area{flex:1;position:relative;min-height:0}
-.flip-back-price{margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);display:flex;justify-content:space-between;align-items:center}
-.flip-back-close{font-size:10px;color:var(--muted);cursor:pointer;padding:2px 6px;border:0.5px solid var(--border);border-radius:4px;font-family:'DM Mono',monospace}
-.flip-back-close:hover{color:var(--ink);border-color:var(--ink)}
-
-/* ── PROCESS & CASES ── */
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
-.process-step{padding:24px;border-right:0.5px solid var(--border)}
-.process-step:last-child{border-right:none}
-.process-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:12px}
-.process-step h4{font-size:13.5px;font-weight:500;margin-bottom:6px;color:var(--navy)}
-.process-step p{font-size:12px;color:var(--muted);line-height:1.5}
-
-.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.case-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:22px;background:var(--white)}
-.case-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:14px}
-.case-card h3{font-size:14px;font-weight:500;margin-bottom:8px;color:var(--navy);line-height:1.3}
-.case-card p{font-size:12.5px;color:var(--muted);line-height:1.5}
-.case-result{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border);font-size:12px;font-weight:500;color:var(--teal)}
-
-/* ── OTHER STYLES ── */
+.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .15s,transform .15s}
+.svc:hover{border-color:#AFA9EC;transform:translateY(-2px)}
 .svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
 .svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
 .svc h3{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--navy)}
@@ -106,6 +90,23 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .svc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
 .svc-price{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue)}
 
+/* ── PROCESS ── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.process-step{padding:24px;border-right:0.5px solid var(--border)}
+.process-step:last-child{border-right:none}
+.process-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:12px}
+.process-step h4{font-size:13.5px;font-weight:500;margin-bottom:6px;color:var(--navy)}
+.process-step p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── CASES ── */
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.case-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:22px;background:var(--white)}
+.case-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:14px}
+.case-card h3{font-size:14px;font-weight:500;margin-bottom:8px;color:var(--navy);line-height:1.3}
+.case-card p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.case-result{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border);font-size:12px;font-weight:500;color:var(--teal)}
+
+/* ── TOOLS ── */
 .tools-flow{display:flex;flex-wrap:wrap;gap:8px}
 .tool-pill{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace}
 
@@ -126,7 +127,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .audit-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.65)}
 .audit-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
 
-/* ── FOOTER & MOBILE NAV ── */
+/* ── FOOTER ── */
 footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border)}
 .footer-logo{display:block}
 .footer-logo img{height:28px;width:auto;display:block}
@@ -135,6 +136,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .footer-right a:hover{color:var(--ink)}
 .footer-loc{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
 
+/* ── HAMBURGER / MOBILE NAV ── */
 .hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;background:none;border:none;padding:4px}
 .hamburger span{width:20px;height:1.5px;background:var(--ink);display:block;transition:all .2s}
 .mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border);padding:12px 20px 16px;flex-direction:column}
@@ -144,7 +146,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .mobile-nav .nav-cta{background:var(--navy);color:var(--white);padding:10px 18px;border-radius:var(--radius);display:inline-block;font-size:13px;font-weight:500;text-align:center;border-bottom:none}
 .mobile-nav.open{display:flex}
 
-/* ── TESTIMONIALS & TEAM ── */
+/* ── TESTIMONIALS ── */
 .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .testimonial{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white)}
 .testimonial-quote{font-size:13.5px;color:var(--ink);line-height:1.7;margin-bottom:20px;font-style:italic}
@@ -152,7 +154,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .testimonial-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
 .testimonial-name{font-size:13px;font-weight:500;color:var(--navy)}
 .testimonial-role{font-size:11.5px;color:var(--muted);margin-top:1px}
-
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
 .team-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:26px;background:var(--white);transition:border-color .15s,transform .15s}
 .team-card:hover{border-color:#AFA9EC;transform:translateY(-2px)}
@@ -161,13 +162,11 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .team-role{font-size:11px;font-weight:500;color:var(--blue);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px}
 .team-bio{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 14px}
 .team-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;margin:2px 2px 0 0}
-
 .values-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
 .val-card{background:var(--bg);border-radius:var(--radius);padding:20px;border:0.5px solid var(--border)}
 .val-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .val-title{font-size:13.5px;font-weight:500;color:var(--navy);margin-bottom:5px}
 .val-desc{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
-
 .inclusion-bar{background:var(--navy);border-radius:var(--radius-lg);padding:32px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
 .inclusion-bar h3{font-size:19px;font-weight:500;color:var(--white);margin:0 0 10px;letter-spacing:-0.3px}
 .inclusion-bar p{font-size:13.5px;color:rgba(255,255,255,0.62);line-height:1.75;margin:0;max-width:520px}
@@ -183,6 +182,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid,.testimonials-grid{grid-template-columns:1fr}
   .team-grid,.values-row{grid-template-columns:1fr}
   .inclusion-bar{flex-direction:column;gap:20px}
+  .hero-map{display:none}
   nav{padding:0 20px}
   section,.hero{padding:48px 20px}
   footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
@@ -190,7 +190,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   .hamburger{display:flex}
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -203,7 +202,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#work">Work</a>
     <a href="#process">How it works</a>
     <a href="#about">About us</a>
-    <a href="/es" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.4px">ES</a>
     <a href="#audit" class="nav-cta">Free audit</a>
   </div>
   <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
@@ -222,144 +220,93 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="hero-grid container">
     <div>
       <div class="hero-eyebrow"><span></span>Melbourne · Australia</div>
-      <h1>Stop guessing<br/><strong>where to grow.</strong><br/><em>We show you exactly.</em></h1>
-      <p class="hero-sub">Lokko is a boutique location intelligence consultancy. We help Australian businesses identify their best expansion locations, design efficient sales territories, and automate the reporting that used to take days — all backed by ABS Census data and live competitor intelligence.</p>
+      <h1>Your data knows<br/><strong>where to grow.</strong><br/><em>We make it visible.</em></h1>
+      <p class="hero-sub">Lokko is a boutique location intelligence consultancy. We help Australian businesses find their best customers, optimise territories, and build AI systems that run themselves.</p>
       <div class="hero-btns">
         <a href="#audit" class="btn-primary">Get a free territorial audit</a>
         <a href="#work" class="btn-ghost">See our work</a>
       </div>
-        <div class="hero-stats">
-        <div><div class="stat-n">From $5k</div><div class="stat-l">Project pricing</div></div>
-        <div><div class="stat-n">3 practices</div><div class="stat-l">Geo · RTM · AI</div></div>
+      <div class="hero-stats">
+        <div><div class="stat-n">$5k–$30k</div><div class="stat-l">Typical project</div></div>
+        <div><div class="stat-n">3 practices</div><div class="stat-l">Geo · Data · AI</div></div>
         <div><div class="stat-n">ABS + AI</div><div class="stat-l">Census + automation</div></div>
       </div>
     </div>
-    
-    <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 40px rgba(38,33,92,0.12); border: 0.5px solid var(--border); transform: rotate(1deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='rotate(0deg)'" onmouseout="this.style.transform='rotate(1deg)'">
-      <img src="dashboard_preview.jpg" alt="Lokko Interactive Dashboard Preview" style="width: 100%; display: block; height: auto;">
+    <div class="hero-map">
+      <div class="map-dots" id="mapDots"></div>
+      <div class="map-legend">
+        <div class="legend-dot" style="background:#1D9E75"></div><span>High opportunity</span>
+        <div class="legend-dot" style="background:#534AB7;margin-left:8px"></div><span>Strong</span>
+        <div class="legend-dot" style="background:#E2E0F8;margin-left:8px"></div><span>Low</span>
+      </div>
+      <div class="map-label">Western Melbourne · Opportunity scan</div>
     </div>
-    
   </div>
 </div>
-
-<section style="background:var(--bg);padding:32px 40px;border-bottom:0.5px solid var(--border)">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--radius-lg);overflow:hidden">
-      <div style="background:var(--white);padding:24px 28px">
-        <div style="font-size:28px;font-weight:500;color:var(--navy);letter-spacing:-1px;margin-bottom:4px">$150k+</div>
-        <div style="font-size:12px;font-weight:500;color:var(--blue);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px;font-family:'DM Mono',monospace">Cost of wrong location</div>
-        <div style="font-size:12.5px;color:var(--muted);line-height:1.5">The average underperforming lease commitment when a business expands into the wrong suburb without data.</div>
-      </div>
-      <div style="background:var(--white);padding:24px 28px">
-        <div style="font-size:28px;font-weight:500;color:var(--navy);letter-spacing:-1px;margin-bottom:4px">20–30%</div>
-        <div style="font-size:12px;font-weight:500;color:var(--teal);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px;font-family:'DM Mono',monospace">Market left uncovered</div>
-        <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Revenue left on the table when sales territories are built around postcodes rather than real customer demand.</div>
-      </div>
-      <div style="background:var(--white);padding:24px 28px">
-        <div style="font-size:28px;font-weight:500;color:var(--navy);letter-spacing:-1px;margin-bottom:4px">2 days</div>
-        <div style="font-size:12px;font-weight:500;color:var(--purple);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px;font-family:'DM Mono',monospace">Wasted on manual reports</div>
-        <div style="font-size:12.5px;color:var(--muted);line-height:1.5">Time spent rebuilding the same location performance report in Excel every week — before any actual analysis begins.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="services">
   <div class="container fade-in">
     <div class="section-mono">What we do</div>
     <div class="section-title">Three practices, one team</div>
-    <p class="section-sub">Most clients start with one question — "where should we open next?" — and discover two more they didn't know they had. We solve all three.</p>
+    <p class="section-sub">Start where you need to. Most clients begin with a data problem, discover a location opportunity, and end up automating both.</p>
     <div class="services-grid">
 
-      <div class="flip-wrap" id="card01" onclick="flipCard('card01')">
-        <div class="flip-inner">
-          <div class="flip-front svc">
-            <div class="svc-num">01</div>
-            <div class="svc-icon" style="background:var(--blue-light)">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <circle cx="9" cy="8" r="3.5" stroke="#534AB7" stroke-width="1.3"/>
-                <path d="M9 2C5.69 2 3 4.69 3 8c0 4 6 10 6 10s6-6 6-10c0-3.31-2.69-6-6-6z" stroke="#534AB7" stroke-width="1.3" fill="none"/>
-              </svg>
-            </div>
-            <h3>Market Expansion Strategy</h3>
-            <p>We identify exactly which suburb to open your next location in &mdash; not a shortlist, a ranked recommendation backed by census demographics and live competitor data. The wrong suburb costs $150k+ in underperforming lease commitments. We eliminate that risk.</p>
-            <div class="svc-items">
-              <div class="svc-item">Site selection modelling across 40+ suburbs</div>
-              <div class="svc-item">Catchment area &amp; trade area analysis</div>
-              <div class="svc-item">Competitor mapping &amp; whitespace scoring</div>
-              <div class="svc-item">Free territorial audit to get started</div>
-            </div>
-            <div class="svc-price">From $5,000 &middot; Project or retainer</div>
-            <div class="flip-hint">&#8635; click to see live data</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-back-title">Suburb opportunity scores &mdash; Melbourne sample</div>
-            <div class="flip-back-sub">ABS Census &middot; Google Places &middot; live competitor data</div>
-            <div class="chart-area"><canvas id="chart01"></canvas></div>
-            <div class="flip-back-price">From $5,000 &middot; Project or retainer<span class="flip-back-close" onclick="event.stopPropagation();flipCard('card01')">&larr; back</span></div>
-          </div>
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-icon" style="background:var(--blue-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="8" r="3.5" stroke="#534AB7" stroke-width="1.3"/>
+            <path d="M9 2C5.69 2 3 4.69 3 8c0 4 6 10 6 10s6-6 6-10c0-3.31-2.69-6-6-6z" stroke="#534AB7" stroke-width="1.3" fill="none"/>
+          </svg>
         </div>
+        <h3>Geomarketing</h3>
+        <p>Location intelligence that tells you exactly where to expand, which territories to prioritise, and which customers are worth pursuing.</p>
+        <div class="svc-items">
+          <div class="svc-item">Site selection &amp; expansion analysis</div>
+          <div class="svc-item">Sales territory design &amp; optimisation</div>
+          <div class="svc-item">Catchment area &amp; competitor mapping</div>
+          <div class="svc-item">Free territorial audit to start</div>
+        </div>
+        <div class="svc-price">From $5,000 · Project or retainer</div>
       </div>
 
-      <div class="flip-wrap" id="card02" onclick="flipCard('card02')">
-        <div class="flip-inner">
-          <div class="flip-front svc">
-            <div class="svc-num">02</div>
-            <div class="svc-icon" style="background:var(--teal-light)">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <rect x="2" y="2" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
-                <rect x="10" y="2" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
-                <rect x="2" y="10" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
-                <rect x="10" y="10" width="6" height="6" stroke="#1D9E75" stroke-width="1.3" stroke-dasharray="2 2"/>
-              </svg>
-            </div>
-            <h3>Route-to-Market Optimisation</h3>
-            <p>Territories drawn around postcodes rather than real demand leave an average of 20&ndash;30% of your market uncovered. We redesign your sales coverage using geographic data so your reps spend less time driving and more time selling.</p>
-            <div class="svc-items">
-              <div class="svc-item">Current coverage &amp; channel diagnostics</div>
-              <div class="svc-item">Point-of-sale mapping &amp; segmentation</div>
-              <div class="svc-item">Distribution gap identification</div>
-              <div class="svc-item">Optimised sales routing &amp; territory design</div>
-            </div>
-            <div class="svc-price">From $3,000 &middot; Fixed scope or ongoing</div>
-            <div class="flip-hint">&#8635; click to see live data</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-back-title">Territory coverage before &amp; after Lokko</div>
-            <div class="flip-back-sub">Representative analysis &middot; 6 performance zones</div>
-            <div class="chart-area"><canvas id="chart02"></canvas></div>
-            <div class="flip-back-price">From $3,000 &middot; Fixed scope or ongoing<span class="flip-back-close" onclick="event.stopPropagation();flipCard('card02')">&larr; back</span></div>
-          </div>
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-icon" style="background:var(--teal-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2" y="2" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
+            <rect x="10" y="2" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
+            <rect x="2" y="10" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
+            <rect x="10" y="10" width="6" height="6" rx="1.5" stroke="#1D9E75" stroke-width="1.3"/>
+          </svg>
         </div>
+        <h3>Data engineering</h3>
+        <p>Clean, model and migrate the messy data that sits between you and useful analysis. Most clients need this before anything else can happen.</p>
+        <div class="svc-items">
+          <div class="svc-item">Data profiling &amp; quality assessment</div>
+          <div class="svc-item">Cleaning, standardisation &amp; geocoding</div>
+          <div class="svc-item">Data modelling &amp; schema design</div>
+          <div class="svc-item">CRM &amp; legacy system migration</div>
+        </div>
+        <div class="svc-price">From $3,000 · Fixed scope or ongoing</div>
       </div>
 
-      <div class="flip-wrap" id="card03" onclick="flipCard('card03')">
-        <div class="flip-inner">
-          <div class="flip-front svc">
-            <div class="svc-num">03</div>
-            <div class="svc-icon" style="background:var(--purple-light)">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M9 2L11 7H16L12 10.5L13.5 16L9 12.5L4.5 16L6 10.5L2 7H7L9 2Z" stroke="#534AB7" stroke-width="1.3" fill="none" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Location Intelligence Systems</h3>
-            <p>If your analyst spends every Monday rebuilding the same location report in Excel, that&rsquo;s a solved problem. We build the automated AI pipeline that answers &ldquo;where are we growing and where are we losing?&rdquo; every week &mdash; without anyone touching a spreadsheet.</p>
-            <div class="svc-items">
-              <div class="svc-item">Custom AI agent development (Claude &amp; Gemini)</div>
-              <div class="svc-item">Automated data extraction &amp; reporting</div>
-              <div class="svc-item">CRM &amp; Salesforce integration</div>
-              <div class="svc-item">Live dashboards with AI-generated insights</div>
-            </div>
-            <div class="svc-price">From $5,000 &middot; Build + optional retainer</div>
-            <div class="flip-hint">&#8635; click to see live data</div>
-          </div>
-          <div class="flip-back">
-            <div class="flip-back-title">Hours saved per week after automation</div>
-            <div class="flip-back-sub">Typical client outcome &middot; data prep vs actual analysis</div>
-            <div class="chart-area"><canvas id="chart03"></canvas></div>
-            <div class="flip-back-price">From $5,000 &middot; Build + optional retainer<span class="flip-back-close" onclick="event.stopPropagation();flipCard('card03')">&larr; back</span></div>
-          </div>
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-icon" style="background:var(--purple-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 2L11 7H16L12 10.5L13.5 16L9 12.5L4.5 16L6 10.5L2 7H7L9 2Z" stroke="#534AB7" stroke-width="1.3" fill="none" stroke-linejoin="round"/>
+          </svg>
         </div>
+        <h3>AI consultancy</h3>
+        <p>Practical AI systems that automate your reporting, invoicing, admin and insights — built specifically for your business, not generic software.</p>
+        <div class="svc-items">
+          <div class="svc-item">AI-powered CRM &amp; billing systems</div>
+          <div class="svc-item">Automated location reporting</div>
+          <div class="svc-item">Agentic workflows for admin tasks</div>
+          <div class="svc-item">Custom dashboards with AI insights</div>
+        </div>
+        <div class="svc-price">From $5,000 · Build + optional retainer</div>
       </div>
 
     </div>
@@ -380,12 +327,12 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <div class="process-step">
         <div class="process-n">Step 02</div>
         <h4>Data readiness check</h4>
-        <p>If you have existing customer or sales records, we review them first. CRM exports often carry address gaps, duplicates or inconsistencies — we scope and fix these before analysis starts. No client data? We build the entire picture from ABS Census, GNAF and live competitor sources instead.</p>
+        <p>We review your customer and sales data. Most businesses have address inconsistencies, duplicates or gaps — we scope what needs fixing before analysis starts.</p>
       </div>
       <div class="process-step">
         <div class="process-n">Step 03</div>
         <h4>Analysis &amp; delivery</h4>
-        <p>We run the geomarketing analysis using ABS Census, GNAF and competitor data — plus your cleaned records where relevant. Delivered as an interactive map or PDF report.</p>
+        <p>We run the geomarketing analysis using ABS Census, GNAF, competitor data and your cleaned records. Delivered as an interactive map or PDF report.</p>
       </div>
       <div class="process-step" style="border-right:none">
         <div class="process-n">Step 04</div>
@@ -400,25 +347,25 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="container fade-in">
     <div class="section-mono">Selected work</div>
     <div class="section-title">Problems we've solved</div>
-    <p class="section-sub">One case study per pillar. Real outputs, real outcomes.</p>
+    <p class="section-sub">Real examples of the kind of work we deliver across sectors.</p>
     <div class="cases-grid">
       <div class="case-card">
-        <div class="case-tag" style="background:var(--blue-light);color:#0C447C">Pillar 01 · Market Expansion</div>
-        <h3>Music school chain — western Melbourne expansion</h3>
-        <p>Scored 8 suburbs across Hobsons Bay and Wyndham to identify the optimal location for a second campus. Analysis combined ABS family demographics, school-age population, income data and competitor mapping. Delivered in 5 business days.</p>
-        <div class="case-result">Top suburb identified with zero direct competitors within 4km — decision made in days not months</div>
+        <div class="case-tag" style="background:var(--teal-light);color:#085041">Music education · Melbourne</div>
+        <h3>Crescendo Music School — western Melbourne expansion</h3>
+        <p>Scored 8 suburbs across Hobsons Bay and Wyndham to identify optimal locations for a second campus, using ABS Census, school data and competitor mapping.</p>
+        <div class="case-result">Altona identified as top target — zero direct music school competition</div>
       </div>
       <div class="case-card">
-        <div class="case-tag" style="background:var(--teal-light);color:#085041">Pillar 02 · Route-to-Market</div>
-        <h3>QSR franchise — territory rebalance across 42 Victorian sites</h3>
-        <p>Existing franchise territories were built around postcodes rather than population coverage. We redesigned boundaries to equalise catchment sizes, reduce overlap and align with new store openings in Melbourne's growth corridors.</p>
-        <div class="case-result">23% reduction in franchisee territory disputes — and three uncovered growth corridors identified</div>
+        <div class="case-tag" style="background:var(--blue-light);color:#0C447C">Franchise · Victoria</div>
+        <h3>QSR chain — territory rebalance across 42 VIC sites</h3>
+        <p>Redesigned franchise territories to equalise population coverage, reduce boundary conflicts and align with new store openings in growth corridors.</p>
+        <div class="case-result">23% reduction in franchisee territory disputes within one term</div>
       </div>
       <div class="case-card">
-        <div class="case-tag" style="background:var(--purple-light);color:#3C3489">Pillar 03 · Intelligence Systems</div>
-        <h3>Insurance broker — CRM geocoding and automated location reporting</h3>
-        <p>Cleaned, standardised and geocoded 85,000 customer records from a legacy system into Salesforce with GNAF address matching. Built an automated weekly report showing policy concentration by suburb and emerging coverage gaps.</p>
-        <div class="case-result">99.4% address match rate — analysis that had previously been impossible to run</div>
+        <div class="case-tag" style="background:var(--purple-light);color:#3C3489">Data engineering · Insurance</div>
+        <h3>Insurance broker — CRM data migration and geocoding</h3>
+        <p>Cleaned, standardised and geocoded 85,000 customer records from a legacy system into Salesforce, including address deduplication and GNAF matching.</p>
+        <div class="case-result">99.4% address match rate — analysis that was previously impossible</div>
       </div>
     </div>
   </div>
@@ -432,34 +379,34 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <div class="testimonials-grid">
 
       <div class="testimonial">
-        <p class="testimonial-quote">"The territorial audit gave us exactly what we needed before committing to our western Melbourne expansion. Lokko's data proved our assumptions wrong and showed us exactly where the real whitespace was."</p>
+        <p class="testimonial-quote">"The territorial audit gave us exactly what we needed before committing to a second location. We had assumptions about which suburb to target — Lokko's data proved us wrong and saved us from a costly mistake."</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--teal-light);color:#085041">DR</div>
+          <div class="testimonial-avatar" style="background:var(--teal-light);color:#085041">SC</div>
           <div>
-            <div class="testimonial-name">Danilo Rojas</div>
-            <div class="testimonial-role">Founder · Crescendo Music School</div>
+            <div class="testimonial-name">Sarah C.</div>
+            <div class="testimonial-role">Operations Manager · Franchise Group, VIC</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial">
-        <p class="testimonial-quote">"Instead of spending on broad advertising, Lokko mapped exactly where our highest-value wholesale customers were located. The territory analysis completely reshaped how we approach B2B outreach across Victoria."</p>
+        <p class="testimonial-quote">"Lokko cleaned 85,000 customer records in three weeks. Our analysts can finally do the analysis they were hired to do instead of spending half their time fixing addresses."</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--amber-light);color:#BA7517">JT</div>
-          <div>
-            <div class="testimonial-name">J. Taylor</div>
-            <div class="testimonial-role">Founder · Specialty Retail &amp; Wholesale</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="testimonial-quote">"Lokko transformed 85,000 messy, outdated CRM records into a precise, mapped intelligence system. Their automated pipelines mean we now see exactly where our policies are concentrated — without anyone having to manually fix addresses every week."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--purple-light);color:#3C3489">MR</div>
+          <div class="testimonial-avatar" style="background:var(--blue-light);color:#0C447C">MR</div>
           <div>
             <div class="testimonial-name">Marcus R.</div>
-            <div class="testimonial-role">Head of Data · Insurance Broking</div>
+            <div class="testimonial-role">Head of Data · Insurance Broking, Melbourne</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">"Delivered in days, not months. The expansion analysis identified opportunities our internal team had been missing for two years. Genuinely surprised at how actionable the output was."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--purple-light);color:#3C3489">JT</div>
+          <div>
+            <div class="testimonial-name">James T.</div>
+            <div class="testimonial-role">Director · National Retail Group, AU</div>
           </div>
         </div>
       </div>
@@ -484,7 +431,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
             <div class="team-role">Founder · Data &amp; Analytics</div>
           </div>
         </div>
-        <p class="team-bio">Sandra brings together data engineering, geospatial analysis and AI to build the kind of location intelligence that used to be available only to large enterprises. Originally from Colombia and now based in Melbourne, she built Lokko to make rigorous, data-driven site selection accessible to businesses of any size. She is a firm believer that the best insights come from listening carefully — whether to the data or to the clients.</p>
+        <p class="team-bio">Sandra brings together data engineering, geospatial analysis and AI to build the kind of location intelligence that used to be available only to large enterprises. Originally from Colombia and now based in Melbourne, she built Lokko to make rigorous, data-driven site selection accessible to businesses of any size. She is hard of hearing and a firm believer that the best insights come from listening carefully — whether to data or to clients.</p>
         <div>
           <span class="team-pill" style="background:var(--purple-light);color:#3C3489">Geomarketing</span>
           <span class="team-pill" style="background:var(--purple-light);color:#3C3489">Data engineering</span>
@@ -501,7 +448,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
             <div class="team-role">Business Development</div>
           </div>
         </div>
-        <p class="team-bio">Damon is Lokko's commercial lead and often the first conversation a prospective client has with us. With a natural instinct for what decision-makers actually need to hear, Damon brings warmth, patience, and genuine curiosity to every engagement. He understands that good advice starts with understanding a client's real situation, not just the one that looks neat on paper.</p>
+        <p class="team-bio">Damon is Lokko's commercial lead and the first conversation a prospective client has with us. A paraplegic Australian with a natural instinct for what decision-makers actually need to hear, Damon brings warmth, patience and genuine curiosity to every engagement. He understands from experience that the world doesn't always make things easy — and that good advice starts with understanding someone's real situation, not the one that looks neat on paper.</p>
         <div>
           <span class="team-pill" style="background:var(--blue-light);color:#0C447C">Client relationships</span>
           <span class="team-pill" style="background:var(--blue-light);color:#0C447C">Sales strategy</span>
@@ -541,9 +488,9 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <p>Lokko is founded and led by people who have had to prove themselves in rooms that weren't designed for them — a Colombian-Australian founder who is hard of hearing, and an Australian commercial lead who is paraplegic. We understand what it means when a client feels like the system wasn't built with them in mind. We are committed to accessible communication, flexible engagement, and analysis that gives every business the same quality of insight regardless of its size or background.</p>
       </div>
       <div class="ibadges">
-        <div class="ibadge"><div class="imark"></div>Disability-inclusive team</div>
         <div class="ibadge"><div class="imark"></div>Accessible communication</div>
         <div class="ibadge"><div class="imark"></div>Bilingual English · Spanish</div>
+        <div class="ibadge"><div class="imark"></div>Disability-inclusive team</div>
         <div class="ibadge"><div class="imark"></div>Small business friendly</div>
       </div>
     </div>
@@ -612,12 +559,20 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="footer-loc">Melbourne, Victoria · Australia</div>
   <div class="footer-right">
     <a href="mailto:hello@lokko.au">hello@lokko.au</a>
-    <a href="https://www.linkedin.com/company/lokko-au" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="#">LinkedIn</a>
     <a href="#">Privacy</a>
   </div>
 </footer>
 
 <script>
+// Generate map dots
+const dots = document.getElementById('mapDots');
+const pattern = [0,0,1,2,1,0,0,0, 0,1,2,2,2,1,0,0, 1,2,2,3,2,2,1,0, 0,1,2,2,2,1,1,0, 0,0,1,2,1,1,0,0, 0,0,0,1,1,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0];
+pattern.forEach(v => {
+  const d = document.createElement('div');
+  d.className = 'map-dot' + (v===3?' active':v===2?' hot':v===1?' warm':'');
+  dots.appendChild(d);
+});
 
 // Hamburger menu
 const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -633,165 +588,12 @@ document.querySelectorAll('.mobile-link').forEach(link => {
   });
 });
 
-// ── AUDIT FORM ──────────────────────────────────────────────────────────────
-async function submitAudit() {
-  const btn = document.getElementById('auditSubmitBtn');
-  const errorEl = document.getElementById('auditError');
-  const name = document.getElementById('audit_name').value.trim();
-  const company = document.getElementById('audit_company').value.trim();
-  const email = document.getElementById('audit_email').value.trim();
-  const business_type = document.getElementById('audit_business_type').value.trim();
-  const location = document.getElementById('audit_location').value.trim();
-
-  errorEl.style.display = 'none';
-
-  if (!name || !company || !email || !business_type || !location) {
-    errorEl.textContent = 'Please fill in all fields before submitting.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errorEl.textContent = 'Please enter a valid email address.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('https://formspree.io/f/mbdqlnqv', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, company, email, business_type, location,
-        _subject: 'New Lokko audit request',
-        _replyto: email
-      })
-    });
-
-    if (res.ok) {
-      document.getElementById('auditForm').style.display = 'none';
-      document.getElementById('auditNote').style.display = 'none';
-      document.getElementById('auditSuccess').style.display = 'block';
-    } else {
-      throw new Error('Server error');
-    }
-  } catch(e) {
-    btn.textContent = 'Request audit';
-    btn.disabled = false;
-    errorEl.textContent = 'Something went wrong. Please email us directly at hello@lokko.au';
-    errorEl.style.display = 'block';
-  }
-}
-
 // Fade in on scroll
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold:0.1});
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ── FLIP CARDS ──────────────────────────────────────────────────────────────
-const chartInstances = {};
-
-function flipCard(id) {
-  const wrap = document.getElementById(id);
-  const isFlipping = wrap.classList.toggle('flipped');
-  if (isFlipping) initChart(id);
-}
-
-function initChart(id) {
-  if (chartInstances[id]) return; // already drawn
-
-  const navy  = '#26215C', blue  = '#534AB7', teal  = '#1D9E75',
-        purple= '#7F77DD', amber = '#BA7517', muted = '#5F6B7A',
-        bluel = '#EEEDFE', teall = '#E1F5EE';
-
-  const baseOpts = {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    animation: { duration: 700, easing: 'easeOutQuart' }
-  };
-
-  // CHART 01 — horizontal bar: suburb opportunity scores
-  if (id === 'card01') {
-    const suburbs  = ['Narre Warren','Epping','Point Cook','Reservoir','Werribee','Heidelberg','Hoppers Crossing','Dandenong'];
-    const scores   = [100, 100, 100, 100, 88.5, 85, 84, 76];
-    const colors   = scores.map(s => s >= 95 ? teal : s >= 85 ? blue : muted);
-    chartInstances.card01 = new Chart(document.getElementById('chart01'), {
-      type: 'bar',
-      data: {
-        labels: suburbs,
-        datasets: [{ data: scores, backgroundColor: colors, borderRadius: 4, borderSkipped: false }]
-      },
-      options: { ...baseOpts,
-        indexAxis: 'y',
-        scales: {
-          x: { min: 60, max: 100, grid: { color: '#f0eef8' },
-               ticks: { color: muted, font: { size: 10 }, callback: v => v },
-               border: { display: false } },
-          y: { grid: { display: false }, ticks: { color: navy, font: { size: 10 } },
-               border: { display: false } }
-        },
-        plugins: { ...baseOpts.plugins,
-          tooltip: { callbacks: { label: ctx => ` Score: ${ctx.raw}` } }
-        }
-      }
-    });
-  }
-
-  // CHART 02 — radar: territory coverage before vs after
-  if (id === 'card02') {
-    chartInstances.card02 = new Chart(document.getElementById('chart02'), {
-      type: 'radar',
-      data: {
-        labels: ['North', 'Inner East', 'South East', 'West', 'Growth Corridors', 'CBD Fringe'],
-        datasets: [
-          { label: 'Before Lokko', data: [55, 80, 45, 30, 20, 70],
-            borderColor: muted, backgroundColor: 'rgba(95,107,122,0.12)',
-            borderWidth: 1.5, pointRadius: 3, pointBackgroundColor: muted },
-          { label: 'After Lokko',  data: [90, 88, 85, 78, 82, 88],
-            borderColor: teal,  backgroundColor: 'rgba(29,158,117,0.15)',
-            borderWidth: 1.5, pointRadius: 3, pointBackgroundColor: teal }
-        ]
-      },
-      options: { ...baseOpts,
-        scales: {
-          r: { min: 0, max: 100, ticks: { stepSize: 25, color: muted, font: { size: 9 }, backdropColor: 'transparent' },
-               pointLabels: { color: navy, font: { size: 9 } },
-               grid: { color: '#ece9f8' }, angleLines: { color: '#ece9f8' } }
-        },
-        plugins: { legend: { display: true, position: 'bottom',
-          labels: { color: muted, font: { size: 10 }, boxWidth: 10, padding: 12 } } }
-      }
-    });
-  }
-
-  // CHART 03 — grouped bar: hours on data prep vs analysis, before/after
-  if (id === 'card03') {
-    chartInstances.card03 = new Chart(document.getElementById('chart03'), {
-      type: 'bar',
-      data: {
-        labels: ['Data prep', 'Cleaning', 'Building reports', 'Actual analysis'],
-        datasets: [
-          { label: 'Before',  data: [8, 6, 5, 3], backgroundColor: 'rgba(95,107,122,0.55)', borderRadius: 3 },
-          { label: 'After',   data: [0.5, 0.5, 0.5, 15], backgroundColor: purple + 'cc', borderRadius: 3 }
-        ]
-      },
-      options: { ...baseOpts,
-        scales: {
-          x: { grid: { display: false }, ticks: { color: navy, font: { size: 9 } }, border: { display: false } },
-          y: { grid: { color: '#f0eef8' }, border: { display: false },
-               ticks: { color: muted, font: { size: 9 }, callback: v => v + 'h' } }
-        },
-        plugins: { legend: { display: true, position: 'bottom',
-          labels: { color: muted, font: { size: 10 }, boxWidth: 10, padding: 12 } },
-          tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}h/week` } }
-        }
-      }
-    });
-  }
-}
 </script>
-
 </body>
 </html>

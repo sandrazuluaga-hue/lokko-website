@@ -42,7 +42,7 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 
 /* ── HERO ── */
 .hero{padding:80px 40px 72px;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace}
 .hero-eyebrow span{width:24px;height:1px;background:var(--blue);display:inline-block}
 .hero h1{font-size:44px;font-weight:300;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px;color:var(--navy)}
@@ -58,12 +58,37 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .stat-n{font-size:24px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;line-height:1}
 .stat-l{font-size:12px;color:var(--muted);margin-top:3px}
 
+/* Hero map graphic */
+.hero-map{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:28px;position:relative;overflow:hidden}
+.map-dots{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.map-dot{width:100%;aspect-ratio:1;border-radius:50%;background:var(--border);transition:background .3s}
+.map-dot.hot{background:var(--blue)}
+.map-dot.warm{background:#85B7EB}
+.map-dot.active{background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.map-label{position:absolute;bottom:16px;left:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.map-legend{display:flex;gap:12px;margin-top:12px;font-size:11px;color:var(--muted);align-items:center}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+
 /* ── SECTIONS ── */
 section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .container{max-width:1080px;margin:0 auto}
 .section-mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
 .section-title{font-size:28px;font-weight:400;letter-spacing:-0.8px;color:var(--navy);margin-bottom:8px}
 .section-sub{font-size:14.5px;color:var(--muted);line-height:1.6;max-width:480px;margin-bottom:36px}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .15s,transform .15s}
+.svc:hover{border-color:#AFA9EC;transform:translateY(-2px)}
+.svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
+.svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.svc h3{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--navy)}
+.svc p{font-size:13px;color:var(--muted);line-height:1.6}
+.svc-items{margin-top:14px;display:flex;flex-direction:column;gap:5px}
+.svc-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.svc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.svc-price{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue)}
 
 /* ── FLIP CARDS ── */
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -80,8 +105,6 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .flip-back-price{margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);display:flex;justify-content:space-between;align-items:center}
 .flip-back-close{font-size:10px;color:var(--muted);cursor:pointer;padding:2px 6px;border:0.5px solid var(--border);border-radius:4px;font-family:'DM Mono',monospace}
 .flip-back-close:hover{color:var(--ink);border-color:var(--ink)}
-
-/* ── PROCESS & CASES ── */
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .process-step{padding:24px;border-right:0.5px solid var(--border)}
 .process-step:last-child{border-right:none}
@@ -89,6 +112,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .process-step h4{font-size:13.5px;font-weight:500;margin-bottom:6px;color:var(--navy)}
 .process-step p{font-size:12px;color:var(--muted);line-height:1.5}
 
+/* ── CASES ── */
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .case-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:22px;background:var(--white)}
 .case-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:14px}
@@ -96,16 +120,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .case-card p{font-size:12.5px;color:var(--muted);line-height:1.5}
 .case-result{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border);font-size:12px;font-weight:500;color:var(--teal)}
 
-/* ── OTHER STYLES ── */
-.svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
-.svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-.svc h3{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--navy)}
-.svc p{font-size:13px;color:var(--muted);line-height:1.6}
-.svc-items{margin-top:14px;display:flex;flex-direction:column;gap:5px}
-.svc-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.svc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
-.svc-price{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue)}
-
+/* ── TOOLS ── */
 .tools-flow{display:flex;flex-wrap:wrap;gap:8px}
 .tool-pill{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace}
 
@@ -126,7 +141,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 .audit-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.65)}
 .audit-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
 
-/* ── FOOTER & MOBILE NAV ── */
+/* ── FOOTER ── */
 footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border)}
 .footer-logo{display:block}
 .footer-logo img{height:28px;width:auto;display:block}
@@ -135,6 +150,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .footer-right a:hover{color:var(--ink)}
 .footer-loc{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
 
+/* ── HAMBURGER / MOBILE NAV ── */
 .hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;background:none;border:none;padding:4px}
 .hamburger span{width:20px;height:1.5px;background:var(--ink);display:block;transition:all .2s}
 .mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border);padding:12px 20px 16px;flex-direction:column}
@@ -144,7 +160,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .mobile-nav .nav-cta{background:var(--navy);color:var(--white);padding:10px 18px;border-radius:var(--radius);display:inline-block;font-size:13px;font-weight:500;text-align:center;border-bottom:none}
 .mobile-nav.open{display:flex}
 
-/* ── TESTIMONIALS & TEAM ── */
+/* ── TESTIMONIALS ── */
 .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .testimonial{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white)}
 .testimonial-quote{font-size:13.5px;color:var(--ink);line-height:1.7;margin-bottom:20px;font-style:italic}
@@ -152,7 +168,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .testimonial-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
 .testimonial-name{font-size:13px;font-weight:500;color:var(--navy)}
 .testimonial-role{font-size:11.5px;color:var(--muted);margin-top:1px}
-
 .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
 .team-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:26px;background:var(--white);transition:border-color .15s,transform .15s}
 .team-card:hover{border-color:#AFA9EC;transform:translateY(-2px)}
@@ -161,13 +176,11 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .team-role{font-size:11px;font-weight:500;color:var(--blue);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px}
 .team-bio{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 14px}
 .team-pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;margin:2px 2px 0 0}
-
 .values-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
 .val-card{background:var(--bg);border-radius:var(--radius);padding:20px;border:0.5px solid var(--border)}
 .val-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .val-title{font-size:13.5px;font-weight:500;color:var(--navy);margin-bottom:5px}
 .val-desc{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
-
 .inclusion-bar{background:var(--navy);border-radius:var(--radius-lg);padding:32px 36px;display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap}
 .inclusion-bar h3{font-size:19px;font-weight:500;color:var(--white);margin:0 0 10px;letter-spacing:-0.3px}
 .inclusion-bar p{font-size:13.5px;color:rgba(255,255,255,0.62);line-height:1.75;margin:0;max-width:520px}
@@ -183,6 +196,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid,.testimonials-grid{grid-template-columns:1fr}
   .team-grid,.values-row{grid-template-columns:1fr}
   .inclusion-bar{flex-direction:column;gap:20px}
+  .hero-map{display:none}
   nav{padding:0 20px}
   section,.hero{padding:48px 20px}
   footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
@@ -203,7 +217,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#work">Work</a>
     <a href="#process">How it works</a>
     <a href="#about">About us</a>
-    <a href="/es" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.4px">ES</a>
     <a href="#audit" class="nav-cta">Free audit</a>
   </div>
   <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
@@ -228,17 +241,21 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <a href="#audit" class="btn-primary">Get a free territorial audit</a>
         <a href="#work" class="btn-ghost">See our work</a>
       </div>
-        <div class="hero-stats">
-        <div><div class="stat-n">From $5k</div><div class="stat-l">Project pricing</div></div>
+      <div class="hero-stats">
+        <div><div class="stat-n">$5k–$30k</div><div class="stat-l">Typical project</div></div>
         <div><div class="stat-n">3 practices</div><div class="stat-l">Geo · RTM · AI</div></div>
         <div><div class="stat-n">ABS + AI</div><div class="stat-l">Census + automation</div></div>
       </div>
     </div>
-    
-    <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 40px rgba(38,33,92,0.12); border: 0.5px solid var(--border); transform: rotate(1deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='rotate(0deg)'" onmouseout="this.style.transform='rotate(1deg)'">
-      <img src="dashboard_preview.jpg" alt="Lokko Interactive Dashboard Preview" style="width: 100%; display: block; height: auto;">
+    <div class="hero-map">
+      <div class="map-dots" id="mapDots"></div>
+      <div class="map-legend">
+        <div class="legend-dot" style="background:#1D9E75"></div><span>High opportunity</span>
+        <div class="legend-dot" style="background:#534AB7;margin-left:8px"></div><span>Strong</span>
+        <div class="legend-dot" style="background:#E2E0F8;margin-left:8px"></div><span>Low</span>
+      </div>
+      <div class="map-label">Western Melbourne · Opportunity scan</div>
     </div>
-    
   </div>
 </div>
 
@@ -380,12 +397,12 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <div class="process-step">
         <div class="process-n">Step 02</div>
         <h4>Data readiness check</h4>
-        <p>If you have existing customer or sales records, we review them first. CRM exports often carry address gaps, duplicates or inconsistencies — we scope and fix these before analysis starts. No client data? We build the entire picture from ABS Census, GNAF and live competitor sources instead.</p>
+        <p>We review your customer and sales data. Most businesses have address inconsistencies, duplicates or gaps — we scope what needs fixing before analysis starts.</p>
       </div>
       <div class="process-step">
         <div class="process-n">Step 03</div>
         <h4>Analysis &amp; delivery</h4>
-        <p>We run the geomarketing analysis using ABS Census, GNAF and competitor data — plus your cleaned records where relevant. Delivered as an interactive map or PDF report.</p>
+        <p>We run the geomarketing analysis using ABS Census, GNAF, competitor data and your cleaned records. Delivered as an interactive map or PDF report.</p>
       </div>
       <div class="process-step" style="border-right:none">
         <div class="process-n">Step 04</div>
@@ -432,34 +449,34 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <div class="testimonials-grid">
 
       <div class="testimonial">
-        <p class="testimonial-quote">"The territorial audit gave us exactly what we needed before committing to our western Melbourne expansion. Lokko's data proved our assumptions wrong and showed us exactly where the real whitespace was."</p>
+        <p class="testimonial-quote">"The territorial audit gave us exactly what we needed before committing to a second location. We had assumptions about which suburb to target — Lokko's data proved us wrong and saved us from a costly mistake."</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--teal-light);color:#085041">DR</div>
+          <div class="testimonial-avatar" style="background:var(--teal-light);color:#085041">SC</div>
           <div>
-            <div class="testimonial-name">Danilo Rojas</div>
-            <div class="testimonial-role">Founder · Crescendo Music School</div>
+            <div class="testimonial-name">Sarah C.</div>
+            <div class="testimonial-role">Operations Manager · Franchise Group, VIC</div>
           </div>
         </div>
       </div>
 
       <div class="testimonial">
-        <p class="testimonial-quote">"Instead of spending on broad advertising, Lokko mapped exactly where our highest-value wholesale customers were located. The territory analysis completely reshaped how we approach B2B outreach across Victoria."</p>
+        <p class="testimonial-quote">"Lokko cleaned 85,000 customer records in three weeks. Our analysts can finally do the analysis they were hired to do instead of spending half their time fixing addresses."</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--amber-light);color:#BA7517">JT</div>
-          <div>
-            <div class="testimonial-name">J. Taylor</div>
-            <div class="testimonial-role">Founder · Specialty Retail &amp; Wholesale</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="testimonial-quote">"Lokko transformed 85,000 messy, outdated CRM records into a precise, mapped intelligence system. Their automated pipelines mean we now see exactly where our policies are concentrated — without anyone having to manually fix addresses every week."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar" style="background:var(--purple-light);color:#3C3489">MR</div>
+          <div class="testimonial-avatar" style="background:var(--blue-light);color:#0C447C">MR</div>
           <div>
             <div class="testimonial-name">Marcus R.</div>
-            <div class="testimonial-role">Head of Data · Insurance Broking</div>
+            <div class="testimonial-role">Head of Data · Insurance Broking, Melbourne</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">"Delivered in days, not months. The expansion analysis identified opportunities our internal team had been missing for two years. Genuinely surprised at how actionable the output was."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--purple-light);color:#3C3489">JT</div>
+          <div>
+            <div class="testimonial-name">James T.</div>
+            <div class="testimonial-role">Director · National Retail Group, AU</div>
           </div>
         </div>
       </div>
@@ -612,12 +629,20 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="footer-loc">Melbourne, Victoria · Australia</div>
   <div class="footer-right">
     <a href="mailto:hello@lokko.au">hello@lokko.au</a>
-    <a href="https://www.linkedin.com/company/lokko-au" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="#">LinkedIn</a>
     <a href="#">Privacy</a>
   </div>
 </footer>
 
 <script>
+// Generate map dots
+const dots = document.getElementById('mapDots');
+const pattern = [0,0,1,2,1,0,0,0, 0,1,2,2,2,1,0,0, 1,2,2,3,2,2,1,0, 0,1,2,2,2,1,1,0, 0,0,1,2,1,1,0,0, 0,0,0,1,1,0,0,0, 0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0];
+pattern.forEach(v => {
+  const d = document.createElement('div');
+  d.className = 'map-dot' + (v===3?' active':v===2?' hot':v===1?' warm':'');
+  dots.appendChild(d);
+});
 
 // Hamburger menu
 const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -632,57 +657,6 @@ document.querySelectorAll('.mobile-link').forEach(link => {
     hamburgerBtn.setAttribute('aria-expanded', 'false');
   });
 });
-
-// ── AUDIT FORM ──────────────────────────────────────────────────────────────
-async function submitAudit() {
-  const btn = document.getElementById('auditSubmitBtn');
-  const errorEl = document.getElementById('auditError');
-  const name = document.getElementById('audit_name').value.trim();
-  const company = document.getElementById('audit_company').value.trim();
-  const email = document.getElementById('audit_email').value.trim();
-  const business_type = document.getElementById('audit_business_type').value.trim();
-  const location = document.getElementById('audit_location').value.trim();
-
-  errorEl.style.display = 'none';
-
-  if (!name || !company || !email || !business_type || !location) {
-    errorEl.textContent = 'Please fill in all fields before submitting.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errorEl.textContent = 'Please enter a valid email address.';
-    errorEl.style.display = 'block';
-    return;
-  }
-
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('https://formspree.io/f/mbdqlnqv', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, company, email, business_type, location,
-        _subject: 'New Lokko audit request',
-        _replyto: email
-      })
-    });
-
-    if (res.ok) {
-      document.getElementById('auditForm').style.display = 'none';
-      document.getElementById('auditNote').style.display = 'none';
-      document.getElementById('auditSuccess').style.display = 'block';
-    } else {
-      throw new Error('Server error');
-    }
-  } catch(e) {
-    btn.textContent = 'Request audit';
-    btn.disabled = false;
-    errorEl.textContent = 'Something went wrong. Please email us directly at hello@lokko.au';
-    errorEl.style.display = 'block';
-  }
-}
 
 // Fade in on scroll
 const observer = new IntersectionObserver(entries => {
@@ -792,6 +766,5 @@ function initChart(id) {
   }
 }
 </script>
-
 </body>
 </html>
