@@ -41,8 +41,9 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-cta:hover{opacity:0.85}
 
 /* ── HERO ── */
-.hero{padding:80px 40px 72px;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1080px;margin:0 auto}
+.hero{padding:72px 40px 0;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
+.hero-grid{max-width:1080px;margin:0 auto;padding-bottom:52px}
+.hero-dash-wrap{max-width:1080px;margin:0 auto}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace}
 .hero-eyebrow span{width:24px;height:1px;background:var(--blue);display:inline-block}
 .hero h1{font-size:44px;font-weight:300;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px;color:var(--navy)}
@@ -179,6 +180,207 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .fade-in.visible{opacity:1;transform:none}
 
+/* ===== LOKKO DASHBOARD ===== */
+.lk-dash{background:#0B1A2E;border-radius:var(--radius-lg) var(--radius-lg) 0 0;overflow:hidden;font-family:'DM Mono',monospace;color:#fff;font-size:11px;box-shadow:0 -4px 40px rgba(38,33,92,.12);border:0.5px solid rgba(83,74,183,.25);border-bottom:none}
+.lk-topbar{background:#071525;padding:0 14px;display:flex;align-items:center;gap:10px;border-bottom:0.5px solid rgba(255,255,255,.06);height:40px}
+.lk-dots{display:flex;gap:5px}
+.lk-dot{width:9px;height:9px;border-radius:50%}
+.lk-tb-title{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.3px;flex:1;margin-left:4px}
+.lk-tabs{display:flex;background:#071525;border-bottom:0.5px solid rgba(255,255,255,.06);overflow-x:auto}
+.lk-tab{padding:9px 16px;font-size:9px;color:rgba(255,255,255,.35);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lk-tab:hover{color:rgba(255,255,255,.6)}
+.lk-tab.active{color:#AFA9EC;border-bottom-color:#534AB7}
+.lk-tab-badge{background:rgba(29,158,117,.2);border:0.5px solid rgba(29,158,117,.35);border-radius:10px;font-size:7px;color:#5DCAA5;padding:1px 6px}
+.lk-tab-badge.gold{background:rgba(201,151,58,.2);border-color:rgba(201,151,58,.4);color:#E8BF72}
+.lk-tab-content{display:none}.lk-tab-content.active{display:block}
+.lk-placeholder{padding:60px 20px;text-align:center;color:rgba(255,255,255,.3);font-size:11px}
+.lk-layout{display:grid;grid-template-columns:260px 1fr 260px;min-height:330px}
+.lk-sidebar{background:#071525;border-right:0.5px solid rgba(255,255,255,.06);padding:8px 0;display:flex;flex-direction:column}
+.lk-sb-head{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.7px;text-transform:uppercase;padding:0 14px;margin:10px 0 5px}
+.lk-sb-head:first-child{margin-top:0}
+.lk-sb-row{padding:8px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .15s}
+.lk-sb-row:hover,.lk-sb-row.active{background:rgba(83,74,183,.2)}
+.lk-sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-sb-name{font-size:12px;color:rgba(255,255,255,.85);flex:1}
+.lk-sb-score{font-size:11px;color:rgba(255,255,255,.5)}
+.lk-layer-row{padding:5px 14px;display:flex;align-items:center;gap:7px}
+.lk-layer-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-layer-name{font-size:11px;color:rgba(255,255,255,.65);flex:1}
+.lk-layer-ct{font-size:11px;color:rgba(255,255,255,.6)}
+.lk-main{display:flex;flex-direction:column;background:#0D1F35}
+.lk-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:8px}
+.lk-kpi{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.06);border-radius:6px;padding:7px 9px}
+.lk-kv{font-size:15px;font-weight:600;line-height:1;margin-bottom:1px}
+.lk-kl{font-size:8px;color:rgba(255,255,255,.5);line-height:1.3}
+.lk-map-wrap{padding:0 8px 2px;position:relative}
+.lk-map-svg{width:100%;display:block;border-radius:6px;background:#0A1928;border:0.5px solid rgba(255,255,255,.05)}
+.lk-map-cap{font-size:8px;color:rgba(255,255,255,.42);padding:3px 0 4px;letter-spacing:.2px}
+.lk-sliders{padding:10px 12px 12px;border-top:0.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:9px;margin-top:auto}
+.lk-sl-row{display:flex;align-items:center;gap:10px}
+.lk-sl-lbl{font-size:11px;color:rgba(255,255,255,.6);flex:1}
+.lk-dash input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;background:rgba(255,255,255,.16);outline:none;flex:1;cursor:pointer}
+.lk-dash input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#534AB7;cursor:pointer;border:2px solid rgba(255,255,255,.25)}
+.lk-dash input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:#534AB7;cursor:pointer;border:2px solid rgba(255,255,255,.25)}
+.lk-sl-val{font-size:12px;color:#AFA9EC;min-width:34px;text-align:right;font-weight:500}
+.lk-panel{background:#071525;border-left:0.5px solid rgba(255,255,255,.06);padding:14px;display:flex;flex-direction:column;gap:10px}
+.lk-p-head{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.7px;text-transform:uppercase;margin-bottom:4px}
+.lk-p-card{border-radius:6px;padding:10px 12px;border:0.5px solid rgba(255,255,255,.08)}
+.lk-p-big{font-size:26px;font-weight:600;line-height:1;margin-bottom:2px}
+.lk-p-sub-name{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:2px}
+.lk-p-detail{font-size:10px;color:rgba(255,255,255,.5);line-height:1.5}
+.lk-bar-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.lk-bar-lbl{font-size:10px;color:rgba(255,255,255,.62);width:72px;flex-shrink:0}
+.lk-bar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lk-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.lk-bar-val{font-size:10px;color:rgba(255,255,255,.5);width:22px;text-align:right}
+.lk-prox-pills{display:flex;flex-direction:column;gap:6px}
+.lk-pill{font-size:10px;padding:6px 10px;border-radius:12px;display:flex;align-items:center;gap:5px}
+.lk-listing-toggle{display:flex;gap:3px;background:rgba(255,255,255,.06);border-radius:6px;padding:3px;margin-bottom:10px}
+.lk-lt-btn{flex:1;padding:7px 0;border-radius:4px;border:none;background:transparent;color:rgba(255,255,255,.38);font-size:11px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-align:center}
+.lk-lt-btn.active{background:#534AB7;color:#fff}
+.lk-listing-link{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:7px;background:rgba(83,74,183,.15);border:0.5px solid rgba(83,74,183,.35);cursor:pointer;text-decoration:none;transition:background .15s;margin-bottom:4px}
+.lk-listing-link:hover{background:rgba(83,74,183,.28)}
+.lk-ll-label{font-size:11px;color:#AFA9EC;font-weight:500}
+.lk-ll-count{font-size:9px;color:rgba(255,255,255,.5)}
+.lk-popup{position:absolute;top:50px;left:14px;width:240px;background:rgba(7,21,37,.97);border:0.5px solid rgba(83,74,183,.4);border-radius:8px;padding:12px 14px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none}
+.lk-popup.show{display:block}
+.lk-popup-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;font-family:'DM Sans',sans-serif}
+.lk-popup-row{display:flex;justify-content:space-between;font-size:9.5px;padding:3px 0;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.lk-popup-k{color:rgba(255,255,255,.4)}
+.lk-popup-v{color:rgba(255,255,255,.8)}
+.lk-popup-v.gold{color:#E8BF72}
+.lk-popup-close{position:absolute;top:8px;right:10px;cursor:pointer;color:rgba(255,255,255,.4);font-size:12px}
+.lk-popup-close:hover{color:#fff}
+.lk-popup-peak{margin-top:8px}
+.lk-popup-peak-lbl{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.lk-peak-bars{display:flex;gap:2px;align-items:flex-end;height:30px}
+.lk-peak-bar{flex:1;border-radius:1px 1px 0 0;min-height:2px;background:#534AB7;opacity:.5}
+.lk-peak-time{font-size:9px;color:#E8BF72;margin-top:5px}
+@media(max-width:900px){.lk-layout{grid-template-columns:1fr}.lk-sidebar,.lk-panel{display:none}.lk-kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== TAB 2: FOOT TRAFFIC ===== */
+.lk-ft-ctrl{background:#071525;padding:10px 14px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.lk-ft-group{display:flex;flex-direction:column;gap:4px}
+.lk-ft-lbl{font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.6px;text-transform:uppercase}
+.lk-ft-time-row{display:flex;align-items:center;gap:8px}
+.lk-ft-time-val{font-size:10px;color:#7F77DD;min-width:56px}
+.lk-ft-viz{display:flex;gap:1.5px;align-items:flex-end;height:18px;margin-top:3px}
+.lk-ft-vbar{border-radius:1px 1px 0 0;min-height:2px;transition:height .3s,background .3s;flex:1}
+.lk-wx-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.lk-wx-btn{padding:4px 12px;border-radius:14px;border:0.5px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.5);font-size:8.5px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;white-space:nowrap}
+.lk-wx-btn.active{background:rgba(83,74,183,.3);border-color:#7F77DD;color:#AFA9EC}
+.lk-ft-ctx{font-size:8px;color:rgba(255,255,255,.42);font-style:italic;margin-left:auto;align-self:center;max-width:200px;text-align:right}
+.lk-ft-hint{font-size:9px;color:rgba(255,255,255,.45);padding:7px 14px 0;font-style:italic;min-height:22px}
+.lk-ft-cards{padding:10px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lk-ftc{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;user-select:none}
+.lk-ftc:hover{border-color:rgba(255,255,255,.2);transform:translateY(-1px)}
+.lk-ftc.sel-a{border:1.5px solid #1D9E75;background:rgba(29,158,117,.07)}
+.lk-ftc.sel-b{border:1.5px solid #534AB7;background:rgba(83,74,183,.07)}
+.lk-ftc-badge{position:absolute;top:7px;right:8px;font-size:8px;padding:2px 7px;border-radius:10px;font-weight:600}
+.lk-ftc-badge.a{background:rgba(29,158,117,.3);color:#5DCAA5;border:0.5px solid rgba(29,158,117,.5)}
+.lk-ftc-badge.b{background:rgba(83,74,183,.3);color:#AFA9EC;border:0.5px solid rgba(83,74,183,.5)}
+.lk-ftc-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.lk-ftc-rank{font-size:8.5px;color:rgba(255,255,255,.5)}
+.lk-ftc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-ftc-name{font-size:11px;color:rgba(255,255,255,.85);font-weight:500;flex:1}
+.lk-ftc-base{font-size:9px;color:rgba(255,255,255,.45)}
+.lk-ftc-score-row{display:flex;align-items:baseline;gap:6px;margin-bottom:5px}
+.lk-ftc-score{font-size:20px;font-weight:600;line-height:1}
+.lk-ftc-delta{font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px}
+.lk-up{background:rgba(29,158,117,.25);color:#5DCAA5}
+.lk-dn{background:rgba(232,75,74,.2);color:#f87171}
+.lk-fl{background:rgba(255,255,255,.1);color:rgba(255,255,255,.55)}
+.lk-ftc-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.08);margin-bottom:7px;overflow:hidden}
+.lk-ftc-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.lk-ftc-links{display:flex;gap:4px}
+.lk-ftc-lnk{flex:1;padding:4px 0;border-radius:4px;font-size:8px;cursor:pointer;font-family:'DM Mono',monospace;text-align:center;text-decoration:none;display:block;transition:all .15s;border:0.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5)}
+.lk-ftc-lnk:hover{background:rgba(83,74,183,.2);border-color:#7F77DD;color:#AFA9EC}
+.lk-ftc-lnk.c{border-color:rgba(201,151,58,.4);color:#E8BF72;background:rgba(201,151,58,.1)}
+.lk-ftc-lnk.b2{border-color:rgba(55,138,221,.4);color:#7DC3F5;background:rgba(55,138,221,.1)}
+.lk-drawer{overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.4,0,.2,1);border-top:0.5px solid rgba(255,255,255,.06)}
+.lk-drawer.open{max-height:440px}
+.lk-drawer-in{padding:14px 14px 18px;background:#071525}
+.lk-drawer-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.lk-drawer-ttl{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.6px;text-transform:uppercase}
+.lk-drawer-x{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer;border-radius:4px;padding:3px 9px;font-family:'DM Mono',monospace}
+.lk-drawer-x:hover{background:rgba(255,255,255,.18);color:#fff}
+.lk-cmp-grid{display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:start;margin-bottom:10px}
+.lk-cmp-card{border-radius:8px;padding:10px 12px}
+.lk-cmp-a{background:rgba(29,158,117,.08);border:0.5px solid rgba(29,158,117,.3)}
+.lk-cmp-b{background:rgba(83,74,183,.08);border:0.5px solid rgba(83,74,183,.3)}
+.lk-cmp-lbl{font-size:9px;font-weight:600;margin-bottom:4px}
+.lk-cmp-score{font-size:24px;font-weight:600;line-height:1;margin-bottom:3px}
+.lk-cmp-delta{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:5px}
+.lk-cmp-name{font-size:10px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.lk-cmp-desc{font-size:8.5px;color:rgba(255,255,255,.42);line-height:1.4;margin-bottom:7px}
+.lk-cmp-bars{display:flex;flex-direction:column;gap:4px}
+.lk-cmp-brow{display:flex;align-items:center;gap:5px}
+.lk-cmp-blbl{font-size:8.5px;color:rgba(255,255,255,.5);width:64px;flex-shrink:0}
+.lk-cmp-btrack{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lk-cmp-bfill{height:100%;border-radius:2px}
+.lk-cmp-bval{font-size:8px;color:rgba(255,255,255,.45);width:20px;text-align:right}
+.lk-vs{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(255,255,255,.5);flex-shrink:0;align-self:center;margin-top:26px}
+.lk-insight{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 14px}
+.lk-insight-icon{font-size:13px;margin-bottom:5px}
+.lk-insight-txt{font-size:9.5px;color:rgba(255,255,255,.72);line-height:1.7}
+.lk-insight-rec{font-size:9px;color:#5DCAA5;margin-top:6px;line-height:1.6;font-weight:500}
+@media(max-width:768px){.lk-ft-cards{grid-template-columns:1fr 1fr}.lk-cmp-grid{grid-template-columns:1fr}.lk-vs{margin:0 auto}}
+
+/* ===== TAB 3: COMPARISON & CHARTS ===== */
+.lk-ch-wrap{padding:14px;display:flex;flex-direction:column;gap:14px}
+.lk-ch-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lk-ch-card{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+.lk-ch-title{font-size:11px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:2px;font-family:'DM Sans',sans-serif}
+.lk-ch-sub{font-size:8.5px;color:rgba(255,255,255,.4);margin-bottom:12px}
+.lk-ch-canvas-wrap{position:relative;height:220px}
+.lk-ch-full{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+.lk-ch-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.lk-ch-pill{padding:5px 12px;border-radius:14px;border:0.5px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.5);font-size:9px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s}
+.lk-ch-pill.active{background:rgba(83,74,183,.3);border-color:#7F77DD;color:#AFA9EC}
+.lk-ch-peak-wrap{position:relative;height:130px}
+.lk-ch-peak-lbl{font-size:9.5px;color:#E8BF72;margin-top:10px;text-align:center}
+@media(max-width:768px){.lk-ch-row{grid-template-columns:1fr}.lk-ch-canvas-wrap{height:200px}}
+
+/* ===== TAB 4: LOKKO PRO ===== */
+.lk-pro-layout{display:grid;grid-template-columns:1fr 280px;min-height:340px}
+.lk-pro-left{padding:16px}
+.lk-pro-hd{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.lk-pro-title{font-size:15px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;letter-spacing:-.2px}
+.lk-pro-badge{background:rgba(201,151,58,.2);border:0.5px solid rgba(201,151,58,.45);border-radius:10px;font-size:8px;color:#E8BF72;padding:2px 8px;letter-spacing:.3px}
+.lk-pro-sub{font-size:9.5px;color:rgba(255,255,255,.45);margin-bottom:18px}
+.lk-pro-sec-hd{font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.5px;text-transform:uppercase;margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+.lk-pro-sec-hd:first-child{margin-top:0}
+.lk-auction{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.lk-auction-main{flex:1}
+.lk-auction-addr{font-size:11px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:4px;font-family:'DM Sans',sans-serif}
+.lk-auction-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lk-auction-type{font-size:7.5px;padding:2px 7px;border-radius:10px;background:rgba(55,138,221,.18);color:#7DC3F5;border:0.5px solid rgba(55,138,221,.3)}
+.lk-auction-date{font-size:9px;color:#E8BF72}
+.lk-auction-guide{font-size:9px;color:rgba(255,255,255,.55)}
+.lk-auction-agent{font-size:8.5px;color:rgba(255,255,255,.35)}
+.lk-auction-alert{font-size:8.5px;padding:6px 11px;border-radius:6px;border:0.5px solid rgba(127,119,221,.4);background:rgba(127,119,221,.12);color:#AFA9EC;text-decoration:none;white-space:nowrap;transition:all .15s}
+.lk-auction-alert:hover{background:rgba(127,119,221,.25)}
+.lk-pro-sat{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:13px;margin-top:6px}
+.lk-pro-sat-txt{font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:10px}
+.lk-pro-sat-btn{font-size:9px;padding:7px 14px;border-radius:6px;border:0.5px solid rgba(201,151,58,.4);background:rgba(201,151,58,.1);color:#E8BF72;cursor:not-allowed;opacity:.7;display:inline-block}
+.lk-pro-right{position:relative;background:#071525;border-left:0.5px solid rgba(255,255,255,.06);overflow:hidden}
+.lk-pro-blur{position:absolute;inset:0;padding:16px;filter:blur(4px);opacity:.5}
+.lk-pro-mock-sat{height:130px;border-radius:8px;background:linear-gradient(135deg,#0d2818 0%,#1a3a28 50%,#0d2818 100%);border:0.5px solid rgba(29,158,117,.2);margin-bottom:12px;position:relative;overflow:hidden}
+.lk-pro-mock-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:18px 18px}
+.lk-pro-mock-card{background:rgba(255,255,255,.05);border-radius:8px;padding:12px}
+.lk-pro-mock-line{height:7px;border-radius:3px;background:rgba(255,255,255,.12);margin-bottom:8px}
+.lk-pro-mock-graph{height:50px;display:flex;align-items:flex-end;gap:3px;margin-top:10px}
+.lk-pro-mock-bar{flex:1;border-radius:1px 1px 0 0;background:#534AB7}
+.lk-pro-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:rgba(7,21,37,.55)}
+.lk-pro-lock-icon{font-size:24px;margin-bottom:10px}
+.lk-pro-lock-ttl{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;font-family:'DM Sans',sans-serif}
+.lk-pro-lock-txt{font-size:8.5px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:12px;max-width:200px}
+.lk-pro-lock-price{font-size:13px;font-weight:600;color:#E8BF72;margin-bottom:14px;font-family:'DM Sans',sans-serif}
+.lk-pro-lock-btn{font-size:10px;font-weight:500;padding:9px 18px;border-radius:7px;background:#534AB7;color:#fff;text-decoration:none;transition:opacity .15s}
+.lk-pro-lock-btn:hover{opacity:.85}
+.lk-pro-fine{font-size:7.5px;color:rgba(255,255,255,.3);margin-top:12px;line-height:1.5;max-width:220px}
+@media(max-width:768px){.lk-pro-layout{grid-template-columns:1fr}.lk-pro-right{min-height:260px}}
+
 @media(max-width:768px){
   .hero-grid,.services-grid,.cases-grid,.process-grid,.audit-grid,.testimonials-grid{grid-template-columns:1fr}
   .team-grid,.values-row{grid-template-columns:1fr}
@@ -234,11 +436,303 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <div><div class="stat-n">ABS + AI</div><div class="stat-l">Census + automation</div></div>
       </div>
     </div>
-    
-    <div style="position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 40px rgba(38,33,92,0.12); border: 0.5px solid var(--border); transform: rotate(1deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='rotate(0deg)'" onmouseout="this.style.transform='rotate(1deg)'">
-      <img src="dashboard_preview.jpg" alt="Lokko Interactive Dashboard Preview" style="width: 100%; display: block; height: auto;">
+  </div>
+
+  <!-- ===== INTERACTIVE DASHBOARD ===== -->
+  <div class="hero-dash-wrap">
+    <div class="lk-dash">
+      <div class="lk-topbar">
+        <div class="lk-dots">
+          <div class="lk-dot" style="background:#FF5F57"></div>
+          <div class="lk-dot" style="background:#FEBC2E"></div>
+          <div class="lk-dot" style="background:#28C840"></div>
+        </div>
+        <div class="lk-tb-title">lokko · territorial intelligence · Victoria · fitness network</div>
+      </div>
+
+      <div class="lk-tabs">
+        <div class="lk-tab active" onclick="lkTab('territorial',this)"><span>📍</span>Territorial analysis<span class="lk-tab-badge">3 priority sites</span></div>
+        <div class="lk-tab" onclick="lkTab('mobility',this)"><span>📊</span>Foot traffic</div>
+        <div class="lk-tab" onclick="lkTab('charts',this)"><span>📈</span>Comparison &amp; charts</div>
+        <div class="lk-tab" onclick="lkTab('pro',this)"><span>✦</span>Lokko Pro<span class="lk-tab-badge gold">Preview</span></div>
+      </div>
+
+      <!-- TAB 1: TERRITORIAL -->
+      <div class="lk-tab-content active" id="lk-tab-territorial">
+        <div class="lk-layout">
+          <div class="lk-sidebar">
+            <div class="lk-sb-head">Suburb ranking</div>
+            <div id="lkSidebarRows"></div>
+            <div class="lk-sb-head">Layers</div>
+            <div class="lk-layer-row"><div class="lk-layer-dot" style="background:#C9973A"></div><div class="lk-layer-name">Similar businesses</div><div class="lk-layer-ct" id="lkLayerComp">3</div></div>
+            <div class="lk-layer-row"><div class="lk-layer-dot" style="background:#7F77DD"></div><div class="lk-layer-name">Same brand</div><div class="lk-layer-ct" id="lkLayerBrand">1</div></div>
+          </div>
+
+          <div class="lk-main">
+            <div class="lk-kpis">
+              <div class="lk-kpi"><div class="lk-kv" style="color:#1D9E75">3</div><div class="lk-kl">Priority suburbs</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#378ADD">142</div><div class="lk-kl">SA2s scored</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#C9973A">$2.8M</div><div class="lk-kl">Top site est. revenue</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#7F77DD" id="lkKpiRad">5 km</div><div class="lk-kl">Radius shown</div></div>
+            </div>
+            <div class="lk-map-wrap">
+              <svg class="lk-map-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="lkg0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1D9E75" stop-opacity=".28"/><stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#378ADD" stop-opacity=".22"/><stop offset="100%" stop-color="#378ADD" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#534AB7" stop-opacity=".2"/><stop offset="100%" stop-color="#534AB7" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9973A" stop-opacity=".18"/><stop offset="100%" stop-color="#C9973A" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5DCAA5" stop-opacity=".18"/><stop offset="100%" stop-color="#5DCAA5" stop-opacity="0"/></radialGradient>
+                </defs>
+                <line x1="0" y1="48" x2="420" y2="48" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="0" y1="96" x2="420" y2="96" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="0" y1="144" x2="420" y2="144" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="84" y1="0" x2="84" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="168" y1="0" x2="168" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="252" y1="0" x2="252" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <line x1="336" y1="0" x2="336" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <circle cx="88" cy="125" r="52" fill="url(#lkg0)"/>
+                <circle cx="150" cy="62" r="46" fill="url(#lkg1)"/>
+                <circle cx="268" cy="115" r="40" fill="url(#lkg2)"/>
+                <circle cx="312" cy="150" r="34" fill="url(#lkg3)"/>
+                <circle cx="236" cy="152" r="28" fill="url(#lkg4)"/>
+                <circle id="lkring0" cx="88" cy="125" r="36" fill="none" stroke="#1D9E75" stroke-width=".8" stroke-dasharray="4,3" opacity=".5"/>
+                <circle id="lkring1" cx="150" cy="62" r="32" fill="none" stroke="#378ADD" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring2" cx="268" cy="115" r="28" fill="none" stroke="#534AB7" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring3" cx="312" cy="150" r="24" fill="none" stroke="#C9973A" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring4" cx="236" cy="152" r="20" fill="none" stroke="#5DCAA5" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle cx="68" cy="112" r="3.5" fill="#C9973A" opacity=".8"/>
+                <circle cx="174" cy="82" r="3" fill="#C9973A" opacity=".7"/>
+                <circle cx="290" cy="128" r="3.5" fill="#C9973A" opacity=".72"/>
+                <circle cx="365" cy="140" r="3" fill="#C9973A" opacity=".6"/>
+                <circle cx="116" cy="108" r="3.5" fill="#7F77DD" opacity=".82"/>
+                <circle cx="336" cy="92" r="3.5" fill="#7F77DD" opacity=".72"/>
+                <circle class="lkDot" data-i="0" cx="88" cy="125" r="7" fill="#1D9E75" opacity=".9" style="cursor:pointer"/>
+                <circle cx="88" cy="125" r="3.5" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkDot" data-i="1" cx="150" cy="62" r="6.5" fill="#378ADD" opacity=".9" style="cursor:pointer"/>
+                <circle cx="150" cy="62" r="3" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkDot" data-i="2" cx="268" cy="115" r="6" fill="#534AB7" opacity=".9" style="cursor:pointer"/>
+                <circle cx="268" cy="115" r="3" fill="#fff" style="pointer-events:none"/>
+                <rect x="96" y="117" width="50" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="121" y="127" font-size="7.5" fill="#1D9E75" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#1 Werribee</text>
+                <rect x="158" y="53" width="56" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="186" y="63" font-size="7.5" fill="#378ADD" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#2 Point Cook</text>
+                <rect x="276" y="107" width="54" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="303" y="117" font-size="7.5" fill="#7F77DD" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#3 Yarraville</text>
+                <rect x="5" y="174" width="410" height="16" rx="3" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.05)" stroke-width=".5" style="pointer-events:none"/>
+                <circle cx="14" cy="182" r="3" fill="#1D9E75" style="pointer-events:none"/><text x="21" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Priority suburb</text>
+                <circle cx="104" cy="182" r="3" fill="#C9973A" style="pointer-events:none"/><text x="111" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Similar business</text>
+                <circle cx="200" cy="182" r="3" fill="#7F77DD" style="pointer-events:none"/><text x="207" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Same brand</text>
+                <line x1="278" y1="178" x2="290" y2="178" stroke="#5DCAA5" stroke-width="1" stroke-dasharray="3,2" style="pointer-events:none"/><text x="295" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Search radius</text>
+              </svg>
+              <!-- Popup -->
+              <div class="lk-popup" id="lkPopup">
+                <span class="lk-popup-close" onclick="lkClosePopup()">✕</span>
+                <div class="lk-popup-name" id="lkPopName">Werribee</div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Score</span><span class="lk-popup-v" id="lkPopScore"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Population</span><span class="lk-popup-v" id="lkPopPop"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">HH income</span><span class="lk-popup-v" id="lkPopInc"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Median age</span><span class="lk-popup-v" id="lkPopAge"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Km to competitor</span><span class="lk-popup-v" id="lkPopKm"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Spend profile</span><span class="lk-popup-v gold" id="lkPopSpend" style="text-align:right;max-width:130px"></span></div>
+                <div class="lk-popup-peak">
+                  <div class="lk-popup-peak-lbl">Friday peak trading</div>
+                  <div class="lk-peak-bars" id="lkPopPeakBars"></div>
+                  <div class="lk-peak-time" id="lkPopPeakTime"></div>
+                </div>
+              </div>
+              <div class="lk-map-cap">ABS 2021 Census SA2 · Google Places API · Lokko scoring engine · Click any priority dot for detail</div>
+            </div>
+            <div class="lk-sliders">
+              <div class="lk-sl-row"><div class="lk-sl-lbl">Similar businesses within</div><input type="range" min="1" max="15" value="5" step="1" oninput="lkRadius(this.value)"><div class="lk-sl-val" id="lkSlV1">5 km</div></div>
+              <div class="lk-sl-row"><div class="lk-sl-lbl">Same brand within</div><input type="range" min="1" max="20" value="5" step="1" oninput="lkBrand(this.value)"><div class="lk-sl-val" id="lkSlV2">5 km</div></div>
+            </div>
+          </div>
+
+          <div class="lk-panel">
+            <div>
+              <div class="lk-p-head">Selected suburb</div>
+              <div class="lk-p-card" id="lkSelCard" style="background:rgba(29,158,117,.06);border-color:rgba(29,158,117,.28)">
+                <div class="lk-p-big" id="lkSelScore" style="color:#1D9E75">91.4</div>
+                <div class="lk-p-sub-name" id="lkSelName">#1 · Werribee</div>
+                <div class="lk-p-detail" id="lkSelDetail">VIC 3030 · Pop. 50,000<br/>Median age 34 · High growth</div>
+              </div>
+            </div>
+            <div>
+              <div class="lk-p-head">Scoring factors</div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Population</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf0" style="width:85%;background:#1D9E75"></div></div><div class="lk-bar-val" id="lkbv0">85</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">HH income</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf1" style="width:78%;background:#378ADD"></div></div><div class="lk-bar-val" id="lkbv1">78</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Youth index</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf2" style="width:90%;background:#534AB7"></div></div><div class="lk-bar-val" id="lkbv2">90</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Location gap</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf3" style="width:96%;background:#C9973A"></div></div><div class="lk-bar-val" id="lkbv3">96</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Competition</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf4" style="width:82%;background:#7F77DD"></div></div><div class="lk-bar-val" id="lkbv4">82</div></div>
+            </div>
+            <div>
+              <div class="lk-p-head">Proximity</div>
+              <div class="lk-prox-pills">
+                <div class="lk-pill" style="background:rgba(201,151,58,.15);border:0.5px solid rgba(201,151,58,.3);color:#E8BF72"><span id="lkPc1">2</span>&nbsp;similar businesses in range</div>
+                <div class="lk-pill" style="background:rgba(127,119,221,.15);border:0.5px solid rgba(127,119,221,.3);color:#AFA9EC"><span id="lkPc2">1</span>&nbsp;same brand in range</div>
+                <div class="lk-pill" style="background:rgba(29,158,117,.15);border:0.5px solid rgba(29,158,117,.3);color:#5DCAA5" id="lkPc3">$ Est. revenue $2.8M / yr</div>
+              </div>
+            </div>
+            <div>
+              <div class="lk-p-head">Live listings</div>
+              <div class="lk-listing-toggle">
+                <button class="lk-lt-btn active" id="lkLtRent" onclick="lkSetList('rent',this)">Rent / Lease</button>
+                <button class="lk-lt-btn" id="lkLtBuy" onclick="lkSetList('buy',this)">Buy / Sale</button>
+              </div>
+              <a id="lkLnkRC" class="lk-listing-link" href="#" target="_blank" rel="noopener"><span class="lk-ll-label">For lease →</span><span class="lk-ll-count">realcommercial.com.au</span></a>
+              <a id="lkLnkCRE" class="lk-listing-link" href="#" target="_blank" rel="noopener"><span class="lk-ll-label">For lease →</span><span class="lk-ll-count">commercialrealestate.com.au</span></a>
+              <div style="font-size:7px;color:rgba(255,255,255,.18);margin-top:4px">Opens live commercial search for selected suburb</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: FOOT TRAFFIC (placeholder — Stage 2) -->
+      <div class="lk-tab-content" id="lk-tab-mobility">
+        <div class="lk-ft-ctrl">
+          <div class="lk-ft-group">
+            <div class="lk-ft-lbl">Time of day</div>
+            <div class="lk-ft-time-row">
+              <input type="range" id="lkFtSlider" min="0" max="23" value="12" step="1" oninput="lkFtUpdate()" style="width:200px">
+              <div class="lk-ft-time-val" id="lkFtTimeVal">12:00 pm</div>
+            </div>
+            <div class="lk-ft-viz" id="lkFtViz"></div>
+          </div>
+          <div class="lk-ft-group">
+            <div class="lk-ft-lbl">Weather condition</div>
+            <div class="lk-wx-row">
+              <button class="lk-wx-btn active" onclick="lkFtWx('sunny',this)">☀ Sunny</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('cloudy',this)">⛅ Cloudy</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('rainy',this)">🌧 Rain</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('hot',this)">🔥 35°C+</button>
+            </div>
+          </div>
+          <div class="lk-ft-ctx" id="lkFtCtx">Peak lunch · Clear skies · High street activity expected</div>
+        </div>
+        <div class="lk-ft-hint" id="lkFtHint">Select any two suburbs to compare foot traffic →</div>
+        <div class="lk-ft-cards" id="lkFtCards"></div>
+        <div class="lk-drawer" id="lkDrawer">
+          <div class="lk-drawer-in">
+            <div class="lk-drawer-hd">
+              <div class="lk-drawer-ttl">Foot traffic comparison</div>
+              <button class="lk-drawer-x" onclick="lkFtClear()">✕ clear</button>
+            </div>
+            <div class="lk-cmp-grid" id="lkCmpGrid"></div>
+            <div class="lk-insight" id="lkInsight"></div>
+          </div>
+        </div>
+      </div>
+      <!-- TAB 3: CHARTS (placeholder — Stage 3) -->
+      <div class="lk-tab-content" id="lk-tab-charts">
+        <div class="lk-ch-wrap">
+          <div class="lk-ch-row">
+            <div class="lk-ch-card">
+              <div class="lk-ch-title">Score breakdown — top suburbs</div>
+              <div class="lk-ch-sub">Five-factor comparison · select suburbs in Foot traffic to compare</div>
+              <div class="lk-ch-canvas-wrap"><canvas id="lkRadar"></canvas></div>
+            </div>
+            <div class="lk-ch-card">
+              <div class="lk-ch-title">Est. annual revenue — top 5 sites</div>
+              <div class="lk-ch-sub">Modelled from catchment population × spend profile</div>
+              <div class="lk-ch-canvas-wrap"><canvas id="lkRevenue"></canvas></div>
+            </div>
+          </div>
+          <div class="lk-ch-full">
+            <div class="lk-ch-title">Peak trading hours — Friday (Google Popular Times)</div>
+            <div class="lk-ch-sub">Select a suburb to see its busiest windows</div>
+            <div class="lk-ch-pills" id="lkPeakPills"></div>
+            <div class="lk-ch-peak-wrap"><canvas id="lkPeakChart"></canvas></div>
+            <div class="lk-ch-peak-lbl" id="lkPeakLbl"></div>
+          </div>
+        </div>
+      </div>
+      <!-- TAB 4: PRO (placeholder — Stage 4) -->
+      <div class="lk-tab-content" id="lk-tab-pro">
+        <div class="lk-pro-layout">
+          <div class="lk-pro-left">
+            <div class="lk-pro-hd">
+              <div class="lk-pro-title">Lokko Pro</div>
+              <span class="lk-pro-badge">✦ PREVIEW</span>
+            </div>
+            <div class="lk-pro-sub">Features available with a Lokko Pro subscription</div>
+
+            <div class="lk-pro-sec-hd">📡 Live auction alerts</div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">12 Watton St, Werribee</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Retail / Commercial</span>
+                  <span class="lk-auction-date">Sat 14 Jun 2026</span>
+                  <span class="lk-auction-guide">$480k–$520k</span>
+                  <span class="lk-auction-agent">Hockingstuart</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Auction%20alert:%2012%20Watton%20St%20Werribee">Set alert →</a>
+            </div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">88 Synnot St, Werribee</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Mixed Use</span>
+                  <span class="lk-auction-date">Sat 21 Jun 2026</span>
+                  <span class="lk-auction-guide">$610k–$650k</span>
+                  <span class="lk-auction-agent">Ray White</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Auction%20alert:%2088%20Synnot%20St%20Werribee">Set alert →</a>
+            </div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">3/45 Station Pl, Werribee</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Retail Strip</span>
+                  <span class="lk-auction-date">Wed 18 Jun 2026</span>
+                  <span class="lk-auction-guide">$290k–$310k</span>
+                  <span class="lk-auction-agent">Barry Plant</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Auction%20alert:%203-45%20Station%20Pl%20Werribee">Set alert →</a>
+            </div>
+
+            <div class="lk-pro-sec-hd">🛰 Satellite site view</div>
+            <div class="lk-pro-sat">
+              <div class="lk-pro-sat-txt">Street-level satellite overlay for any selected suburb. Corner-site detection, lot boundary dimensions, and frontage analysis — the detail that separates a good site from a great one.</div>
+              <span class="lk-pro-sat-btn">Coming with Lokko Pro</span>
+            </div>
+          </div>
+
+          <div class="lk-pro-right">
+            <div class="lk-pro-blur">
+              <div class="lk-pro-mock-sat"><div class="lk-pro-mock-grid"></div></div>
+              <div class="lk-pro-mock-card">
+                <div class="lk-pro-mock-line" style="width:60%"></div>
+                <div class="lk-pro-mock-line" style="width:85%"></div>
+                <div class="lk-pro-mock-line" style="width:45%"></div>
+                <div class="lk-pro-mock-graph">
+                  <div class="lk-pro-mock-bar" style="height:40%"></div>
+                  <div class="lk-pro-mock-bar" style="height:65%"></div>
+                  <div class="lk-pro-mock-bar" style="height:50%"></div>
+                  <div class="lk-pro-mock-bar" style="height:80%"></div>
+                  <div class="lk-pro-mock-bar" style="height:70%"></div>
+                  <div class="lk-pro-mock-bar" style="height:95%"></div>
+                  <div class="lk-pro-mock-bar" style="height:60%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="lk-pro-lock">
+              <div class="lk-pro-lock-icon">🔒</div>
+              <div class="lk-pro-lock-ttl">Unlock Lokko Pro</div>
+              <div class="lk-pro-lock-txt">Live auction calendar · Historical sale prices · Days on market · Automated weekly reports · BOM weather integration</div>
+              <div class="lk-pro-lock-price">From $350 / month</div>
+              <a class="lk-pro-lock-btn" href="mailto:hello@lokko.au?subject=Lokko%20Pro%20enquiry">Enquire about Lokko Pro</a>
+              <div class="lk-pro-fine">Auction data powered by Pricefinder · Satellite via Google Maps API</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    
   </div>
 </div>
 
@@ -791,6 +1285,299 @@ function initChart(id) {
     });
   }
 }
+
+/* ===== LOKKO DASHBOARD JS (Stage 1: Tabs + Tab 1) ===== */
+const lkSuburbs=[
+  {name:"Werribee",slug:"werribee-vic-3030",cre:"werribee-3030",rank:1,score:91.4,color:"#1D9E75",detail:"VIC 3030 · Pop. 50,000<br/>Median age 34 · High growth",compNear:2,brandNear:1,factors:[85,78,90,96,82],rev:"$2.8M",pop:"50,000",inc:"$1,842/wk",age:"34",km:"6.2km",spend:"Mainstream · Value spend",peak:[3,3,4,6,5,4,4,6,7,5,4,3],peakTime:"Peak 10am–12pm · Saturday high"},
+  {name:"Point Cook",slug:"point-cook-vic-3030",cre:"point-cook-3030",rank:2,score:87.2,color:"#378ADD",detail:"VIC 3030 · Pop. 38,000<br/>Median age 31 · Growth corridor",compNear:1,brandNear:0,factors:[82,84,88,90,78],rev:"$2.4M",pop:"38,000",inc:"$2,106/wk",age:"31",km:"4.8km",spend:"Family · Mid-range spend",peak:[2,4,6,7,5,4,3,4,5,4,3,2],peakTime:"Peak 9am–11am · Weekend high"},
+  {name:"Yarraville",slug:"yarraville-vic-3013",cre:"yarraville-3013",rank:3,score:79.8,color:"#7F77DD",detail:"VIC 3013 · Pop. 22,000<br/>Median age 35 · Inner west",compNear:3,brandNear:1,factors:[74,88,76,84,80],rev:"$1.9M",pop:"22,000",inc:"$2,483/wk",age:"35",km:"4.6km",spend:"High Discretionary · Premium spend",peak:[3,4,4,5,4,5,6,8,8,6,4,3],peakTime:"Peak 5pm–7pm · Fri/Sat high"},
+  {name:"Footscray",slug:"footscray-vic-3011",cre:"footscray-3011",rank:4,score:76.2,color:"#C9973A",detail:"VIC 3011 · Pop. 18,000<br/>Median age 32 · High foot traffic",compNear:2,brandNear:2,factors:[70,72,80,82,76],rev:"$1.7M",pop:"18,000",inc:"$1,654/wk",age:"32",km:"3.1km",spend:"Diverse · High foot traffic",peak:[4,5,6,7,7,7,6,6,6,5,4,4],peakTime:"Peak 12pm–2pm · Daily high"},
+  {name:"Seddon",slug:"seddon-vic-3011",cre:"seddon-3011",rank:5,score:74.5,color:"#5DCAA5",detail:"VIC 3011 · Pop. 9,000<br/>Median age 37 · Village pocket",compNear:1,brandNear:1,factors:[62,86,72,88,74],rev:"$1.4M",pop:"9,000",inc:"$2,318/wk",age:"37",km:"5.4km",spend:"High Discretionary · Premium spend",peak:[3,5,6,5,4,4,4,5,5,5,4,3],peakTime:"Peak 8am–10am · Weekend high"},
+  {name:"Spotswood",slug:"spotswood-vic-3015",cre:"spotswood-3015",rank:6,score:68.4,color:"#888",detail:"VIC 3015 · Pop. 6,500<br/>Median age 36 · Industrial edge",compNear:1,brandNear:0,factors:[55,78,60,80,70],rev:"$1.1M",pop:"6,500",inc:"$1,976/wk",age:"36",km:"7.0km",spend:"Emerging · Mixed spend",peak:[2,3,4,4,5,5,4,3,3,3,2,2],peakTime:"Peak 11am–1pm · Weekday moderate"},
+];
+const lkBaseR=[36,32,28,24,20,16];
+let lkTIdx=0, lkKm=5, lkBrandKm=5, lkListType='rent';
+
+function lkTab(name,btn){
+  document.querySelectorAll('.lk-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.lk-tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('lk-tab-'+name).classList.add('active');
+}
+
+function lkBuildSidebar(){
+  const rows=document.getElementById('lkSidebarRows');
+  rows.innerHTML='';
+  lkSuburbs.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='lk-sb-row'+(i===lkTIdx?' active':'');
+    d.innerHTML='<div class="lk-sb-dot" style="background:'+s.color+'"></div><div class="lk-sb-name">'+s.name+'</div><div class="lk-sb-score">'+s.score+'</div>';
+    d.onclick=function(){lkTIdx=i;lkBuildSidebar();lkUpdatePanel();};
+    rows.appendChild(d);
+  });
+}
+
+function lkRadius(v){
+  lkKm=parseInt(v);
+  document.getElementById('lkSlV1').textContent=v+' km';
+  document.getElementById('lkKpiRad').textContent=v+' km';
+  const scale=lkKm/5;
+  lkBaseR.forEach(function(_,i){var el=document.getElementById('lkring'+i);if(el)el.setAttribute('r',Math.round(lkBaseR[i]*scale));});
+  lkUpdateCounts();
+}
+function lkBrand(v){lkBrandKm=parseInt(v);document.getElementById('lkSlV2').textContent=v+' km';lkUpdateCounts();}
+function lkUpdateCounts(){
+  const s=lkSuburbs[lkTIdx];
+  const nc=Math.min(Math.round(s.compNear*(lkKm/5)),8);
+  const nb=Math.min(Math.round(s.brandNear*(lkBrandKm/5)),5);
+  document.getElementById('lkLayerComp').textContent=nc;
+  document.getElementById('lkLayerBrand').textContent=nb;
+  document.getElementById('lkPc1').textContent=nc;
+  document.getElementById('lkPc2').textContent=nb;
+}
+
+function lkSetList(type,btn){
+  lkListType=type;
+  document.getElementById('lkLtRent').classList.toggle('active',type==='rent');
+  document.getElementById('lkLtBuy').classList.toggle('active',type==='buy');
+  lkUpdateListings();
+}
+function lkUpdateListings(){
+  const s=lkSuburbs[lkTIdx];
+  const action=lkListType==='rent'?'for-lease':'for-sale';
+  document.getElementById('lkLnkRC').href='https://www.realcommercial.com.au/'+action+'/'+s.slug+'/';
+  document.getElementById('lkLnkCRE').href='https://www.commercialrealestate.com.au/'+action+'/vic/'+s.cre+'/';
+  const lbl=lkListType==='rent'?'For lease →':'For sale →';
+  document.getElementById('lkLnkRC').querySelector('.lk-ll-label').textContent=lbl;
+  document.getElementById('lkLnkCRE').querySelector('.lk-ll-label').textContent=lbl;
+}
+
+function lkUpdatePanel(){
+  const s=lkSuburbs[lkTIdx];
+  document.getElementById('lkSelScore').textContent=s.score;
+  document.getElementById('lkSelScore').style.color=s.color;
+  document.getElementById('lkSelName').textContent='#'+s.rank+' · '+s.name;
+  document.getElementById('lkSelDetail').innerHTML=s.detail;
+  document.getElementById('lkSelCard').style.borderColor=s.color+'55';
+  document.getElementById('lkSelCard').style.background=s.color+'12';
+  const cols=["#1D9E75","#378ADD","#534AB7","#C9973A","#7F77DD"];
+  s.factors.forEach(function(v,j){document.getElementById('lkbf'+j).style.width=v+'%';document.getElementById('lkbf'+j).style.background=cols[j];document.getElementById('lkbv'+j).textContent=v;});
+  document.getElementById('lkPc3').textContent='$ Est. revenue '+s.rev+' / yr';
+  lkUpdateCounts();
+  lkUpdateListings();
+}
+
+function lkShowPopup(i){
+  const s=lkSuburbs[i];
+  lkTIdx=i; lkBuildSidebar(); lkUpdatePanel();
+  document.getElementById('lkPopName').textContent=s.name;
+  document.getElementById('lkPopScore').textContent=s.score;
+  document.getElementById('lkPopPop').textContent=s.pop;
+  document.getElementById('lkPopInc').textContent=s.inc;
+  document.getElementById('lkPopAge').textContent=s.age;
+  document.getElementById('lkPopKm').textContent=s.km;
+  document.getElementById('lkPopSpend').textContent=s.spend;
+  const bars=document.getElementById('lkPopPeakBars');
+  bars.innerHTML='';
+  const mx=Math.max.apply(null,s.peak);
+  s.peak.forEach(function(v){var b=document.createElement('div');b.className='lk-peak-bar';b.style.height=Math.round(v/mx*28+2)+'px';b.style.opacity=(0.35+v/mx*0.55);bars.appendChild(b);});
+  document.getElementById('lkPopPeakTime').textContent=s.peakTime;
+  document.getElementById('lkPopup').classList.add('show');
+}
+function lkClosePopup(){document.getElementById('lkPopup').classList.remove('show');}
+
+document.querySelectorAll('.lkDot').forEach(function(dot){
+  dot.addEventListener('click',function(){lkShowPopup(parseInt(dot.getAttribute('data-i')));});
+});
+
+lkBuildSidebar();
+lkUpdatePanel();
+
+/* ===== TAB 2: FOOT TRAFFIC JS ===== */
+const lkProfiles={Werribee:"family",["Point Cook"]:"family",Yarraville:"cafe",Footscray:"highstreet",Seddon:"cafe",Spotswood:"family"};
+const lkDesc={Werribee:"Family suburban · outer west · weekend-heavy trade",["Point Cook"]:"Family suburban · master-planned · school-hour peaks",Yarraville:"Café-dense inner suburb · all-weather foot traffic",Footscray:"High street · diverse · strong commuter pass-through",Seddon:"Village pocket · café culture · loyal local spend",Spotswood:"Industrial edge · transitioning · lower baseline"};
+const lkProfileLbl={family:"Family suburban",cafe:"Café-dense inner",highstreet:"High street inner"};
+const lkTimeCurve=[.05,.04,.04,.05,.15,.35,.65,.88,.92,.80,.72,.85,1.0,.90,.78,.72,.80,.92,.95,.78,.55,.38,.20,.10];
+const lkWxMult={sunny:{family:1.08,cafe:1.12,highstreet:1.10},cloudy:{family:0.98,cafe:1.02,highstreet:1.00},rainy:{family:0.82,cafe:0.90,highstreet:0.78},hot:{family:0.72,cafe:0.85,highstreet:0.80}};
+const lkCtxNotes={sunny:{0:"Late night · Clear · Low activity",6:"Early morning · Commuters starting",8:"Morning peak · High commuter flow",12:"Peak lunch · Clear skies · High street activity",17:"After-work · Evening surge",20:"Evening · Dining traffic"},cloudy:{0:"Night · Overcast",8:"Morning · Normal commute",12:"Lunch · Moderate activity",17:"Afternoon · Below-average traffic"},rainy:{0:"Night · Rain · Minimal",8:"Morning · Rain · Disrupted commute",12:"Lunch · Rain · Indoor shift",17:"Afternoon · Wet · Low street traffic"},hot:{0:"Night · 35°C+",8:"Morning · Heat building",12:"Peak heat · Street traffic suppressed",17:"Late afternoon · Slow recovery"}};
+const lkFactorLbls=["Population","HH income","Youth","Location gap","Competition"];
+const lkFactorCols=["#1D9E75","#378ADD","#534AB7","#C9973A","#7F77DD"];
+let lkWx='sunny', lkSelA=null, lkSelB=null;
+
+function lkFmtH(h){if(h===0)return'12:00 am';if(h<12)return h+':00 am';if(h===12)return'12:00 pm';return(h-12)+':00 pm';}
+function lkGetCtx(h){const n=lkCtxNotes[lkWx];const keys=Object.keys(n).map(Number).sort(function(a,b){return a-b;});let b=keys[0];for(var i=0;i<keys.length;i++){if(h>=keys[i])b=keys[i];}return n[b]||'';}
+function lkGetMob(s,h){const prof=lkProfiles[s.name];const tm=lkTimeCurve[h];const wm=lkWxMult[lkWx][prof]||1.0;return{delta:Math.round((tm*wm-0.85)*100),tm:tm,wm:wm};}
+function lkAdjScore(s,h){return Math.min(99,Math.max(40,s.score+lkGetMob(s,h).delta*0.3)).toFixed(1);}
+function lkDeltaCls(d){return d>3?'lk-up':d<-3?'lk-dn':'lk-fl';}
+
+function lkFtWx(w,btn){lkWx=w;document.querySelectorAll('.lk-wx-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');lkFtUpdate();}
+
+function lkFtBuildViz(h){
+  const v=document.getElementById('lkFtViz');v.innerHTML='';
+  for(var i=0;i<24;i++){var m=lkTimeCurve[i];var b=document.createElement('div');b.className='lk-ft-vbar';b.style.height=Math.round(m*16+2)+'px';b.style.background=i===h?'#7F77DD':'rgba(255,255,255,'+(0.06+m*0.12)+')';v.appendChild(b);}
+}
+
+function lkFtToggle(i){
+  if(lkSelA===i){lkSelA=lkSelB;lkSelB=null;}
+  else if(lkSelB===i){lkSelB=null;}
+  else if(lkSelA===null){lkSelA=i;}
+  else if(lkSelB===null){lkSelB=i;}
+  else{lkSelA=lkSelB;lkSelB=i;}
+  lkFtUpdate();
+}
+function lkFtClear(){lkSelA=null;lkSelB=null;lkFtUpdate();}
+
+function lkFtUpdate(){
+  const h=parseInt(document.getElementById('lkFtSlider').value);
+  document.getElementById('lkFtTimeVal').textContent=lkFmtH(h);
+  document.getElementById('lkFtCtx').textContent=lkGetCtx(h);
+  lkFtBuildViz(h);
+  const grid=document.getElementById('lkFtCards');grid.innerHTML='';
+  lkSuburbs.forEach(function(s,i){
+    var m=lkGetMob(s,h);var adj=lkAdjScore(s,h);
+    var ds=m.delta>=0?'+':'';var dc=lkDeltaCls(m.delta);
+    var isA=lkSelA===i,isB=lkSelB===i;
+    var rc='https://www.realcommercial.com.au/for-lease/'+s.slug+'/';
+    var cre='https://www.commercialrealestate.com.au/for-lease/vic/'+s.cre+'/';
+    var d=document.createElement('div');
+    d.className='lk-ftc'+(isA?' sel-a':isB?' sel-b':'');
+    d.innerHTML=(isA?'<div class="lk-ftc-badge a">A</div>':'')+(isB?'<div class="lk-ftc-badge b">B</div>':'')+
+      '<div class="lk-ftc-top"><div class="lk-ftc-rank">#'+s.rank+'</div><div class="lk-ftc-dot" style="background:'+s.color+'"></div><div class="lk-ftc-name">'+s.name+'</div><div class="lk-ftc-base">'+s.score+'</div></div>'+
+      '<div class="lk-ftc-score-row"><div class="lk-ftc-score" style="color:'+s.color+'">'+adj+'</div><div class="lk-ftc-delta '+dc+'">'+ds+m.delta+'%</div></div>'+
+      '<div class="lk-ftc-bar"><div class="lk-ftc-bar-fill" style="width:'+Math.round(m.tm*100)+'%;background:'+s.color+'"></div></div>'+
+      '<div class="lk-ftc-links"><a class="lk-ftc-lnk c" href="'+rc+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">realcommercial ↗</a><a class="lk-ftc-lnk b2" href="'+cre+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">commercialRE ↗</a></div>';
+    d.onclick=function(){lkFtToggle(i);};
+    grid.appendChild(d);
+  });
+  lkFtDrawer(h);
+}
+
+function lkFtDrawer(h){
+  const drawer=document.getElementById('lkDrawer');
+  const hint=document.getElementById('lkFtHint');
+  if(lkSelA===null||lkSelB===null){
+    drawer.classList.remove('open');
+    hint.textContent=(lkSelA!==null)?'Good — now select one more suburb to compare ↓':'Select any two suburbs to compare foot traffic →';
+    return;
+  }
+  hint.textContent='';
+  drawer.classList.add('open');
+  var sA=lkSuburbs[lkSelA],sB=lkSuburbs[lkSelB];
+  var mA=lkGetMob(sA,h),mB=lkGetMob(sB,h);
+  var adjA=lkAdjScore(sA,h),adjB=lkAdjScore(sB,h);
+  var dsA=mA.delta>=0?'+':'',dsB=mB.delta>=0?'+':'';
+  var bgA=mA.delta>3?'rgba(29,158,117,.25)':mA.delta<-3?'rgba(232,75,74,.2)':'rgba(255,255,255,.1)';
+  var bgB=mB.delta>3?'rgba(29,158,117,.25)':mB.delta<-3?'rgba(232,75,74,.2)':'rgba(255,255,255,.1)';
+  var txA=mA.delta>3?'#5DCAA5':mA.delta<-3?'#f87171':'rgba(255,255,255,.55)';
+  var txB=mB.delta>3?'#5DCAA5':mB.delta<-3?'#f87171':'rgba(255,255,255,.55)';
+  function bars(s){return lkFactorLbls.map(function(l,j){return '<div class="lk-cmp-brow"><div class="lk-cmp-blbl">'+l+'</div><div class="lk-cmp-btrack"><div class="lk-cmp-bfill" style="width:'+s.factors[j]+'%;background:'+lkFactorCols[j]+'"></div></div><div class="lk-cmp-bval">'+s.factors[j]+'</div></div>';}).join('');}
+  document.getElementById('lkCmpGrid').innerHTML=
+    '<div class="lk-cmp-card lk-cmp-a"><div class="lk-cmp-lbl" style="color:#5DCAA5">A · '+sA.name+'</div><div class="lk-cmp-score" style="color:'+sA.color+'">'+adjA+'</div><div class="lk-cmp-delta" style="background:'+bgA+';color:'+txA+'">'+dsA+mA.delta+'% foot traffic</div><div class="lk-cmp-name">'+lkProfileLbl[lkProfiles[sA.name]]+'</div><div class="lk-cmp-desc">'+lkDesc[sA.name]+'</div><div class="lk-cmp-bars">'+bars(sA)+'</div></div>'+
+    '<div class="lk-vs">vs</div>'+
+    '<div class="lk-cmp-card lk-cmp-b"><div class="lk-cmp-lbl" style="color:#AFA9EC">B · '+sB.name+'</div><div class="lk-cmp-score" style="color:'+sB.color+'">'+adjB+'</div><div class="lk-cmp-delta" style="background:'+bgB+';color:'+txB+'">'+dsB+mB.delta+'% foot traffic</div><div class="lk-cmp-name">'+lkProfileLbl[lkProfiles[sB.name]]+'</div><div class="lk-cmp-desc">'+lkDesc[sB.name]+'</div><div class="lk-cmp-bars">'+bars(sB)+'</div></div>';
+  document.getElementById('lkInsight').innerHTML='<div class="lk-insight-icon">💡</div><div class="lk-insight-txt">'+lkGenInsight(sA,sB,mA,mB,h)+'</div><div class="lk-insight-rec">'+lkGenRec(sA,sB,mA,mB)+'</div>';
+}
+
+function lkGenInsight(sA,sB,mA,mB,h){
+  var diff=mA.delta-mB.delta;var abs=Math.abs(diff);
+  var strong=diff>=0?sA:sB,weak=diff>=0?sB:sA;
+  var sM=diff>=0?mA:mB,wM=diff>=0?mB:mA;
+  var sp=lkProfiles[strong.name];
+  var tctx=h>=11&&h<=14?'lunch peak':h>=17&&h<=19?'evening peak':h>=7&&h<=9?'morning commute':'off-peak hours';
+  function sgn(x){return x>=0?'+':'';}
+  if(lkWx==='rainy'){
+    if(sp==='cafe'&&lkProfiles[weak.name]==='family')return 'In rainy conditions, '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) holds foot traffic '+abs+' points stronger than '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%). Café-dense inner suburbs are more weather-resilient — customers still venture out, they just seek covered destinations.';
+    if(sp==='highstreet')return 'Rain doesn\'t stop commuters. '+strong.name+'\'s high street strip ('+sgn(sM.delta)+sM.delta+'%) benefits from pass-through traffic that '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%) can\'t capture — commuter corridors hold up better in wet weather.';
+    return 'Under rain, '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) outperforms '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%) by '+abs+' points. Both see reduced foot traffic, but '+strong.name+'\'s '+lkProfileLbl[sp].toLowerCase()+' profile is more resilient.';
+  }
+  if(lkWx==='hot')return 'At 35°C+, both suburbs see suppressed street traffic. '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) holds better than '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%) — heat shifts foot traffic toward air-conditioned venues.';
+  if(lkWx==='sunny'&&abs<=4)return 'On a clear day at '+tctx+', both suburbs perform near baseline. '+sA.name+' scores '+lkAdjScore(sA,h)+' vs '+sB.name+' at '+lkAdjScore(sB,h)+' — marginal difference. Switch to Rain or 35°C+ to reveal the resilience gap.';
+  if(abs>8)return strong.name+' ('+sgn(sM.delta)+sM.delta+'%) significantly outperforms '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%) at '+tctx+'. A '+abs+'-point gap suggests meaningfully different walk-in volumes at this time.';
+  return 'At '+tctx+' with '+lkWx+' conditions, '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) edges out '+weak.name+' ('+sgn(wM.delta)+wM.delta+'%) by '+abs+' points. Moderate gap — both viable, '+strong.name+' has a slight edge.';
+}
+function lkGenRec(sA,sB,mA,mB){
+  var diff=mA.delta-mB.delta;var strong=diff>=0?sA:sB;var sM=diff>=0?mA:mB;var sp=lkProfiles[strong.name];
+  if(lkWx==='rainy'&&sp==='cafe')return '→ Recommendation: '+strong.name+' offers stronger weather-resilient trade. Prioritise if your business depends on consistent daily foot traffic.';
+  if(lkWx==='rainy')return '→ Recommendation: Neither suburb is ideal for rain-dependent trade. Factor your indoor offer before committing.';
+  if(lkWx==='hot')return '→ Recommendation: Both impacted by extreme heat. Air-conditioning and indoor seating should factor into your site assessment.';
+  if(lkWx==='sunny'&&Math.abs(diff)<=4)return '→ Recommendation: Test adverse conditions (Rain / 35°C+) to find which suburb is more robust year-round.';
+  if(sM.delta>5)return '→ Recommendation: '+strong.name+' is the stronger performer now. Confirm this holds across weather scenarios before deciding.';
+  return '→ Recommendation: The gap isn\'t decisive on this condition alone. Run all four weather scenarios to find the consistently stronger suburb.';
+}
+
+lkFtUpdate();
+
+/* ===== TAB 3: COMPARISON & CHARTS JS ===== */
+var lkRadarChart=null, lkRevChart=null, lkPeakChart=null, lkPeakIdx=0, lkChartsBuilt=false;
+var lkPeakLabels=['6a','7a','8a','9a','10a','11a','12p','1p','2p','3p','4p','5p','6p','7p','8p','9p','10p','11p'];
+function lkPeakTo18(p){var out=[];for(var i=0;i<18;i++){var src=Math.floor(i/18*p.length);out.push(p[src]);}return out;}
+var lkPeakTimeLabels={
+  "Werribee":"Peak 10am–12pm · Saturday high · Mainstream value",
+  "Point Cook":"Peak 9am–11am · Weekend high · Family mid-range",
+  "Yarraville":"Peak 5pm–7pm · Fri/Sat high · Premium discretionary",
+  "Footscray":"Peak 12pm–2pm · Daily high · Diverse foot traffic",
+  "Seddon":"Peak 8am–10am · Weekend high · Premium local",
+  "Spotswood":"Peak 11am–1pm · Weekday moderate · Emerging"
+};
+
+function lkBuildCharts(){
+  if(lkChartsBuilt || typeof Chart==='undefined') return;
+  lkChartsBuilt=true;
+  var gridCol='rgba(255,255,255,0.08)';
+  var tickCol='rgba(255,255,255,0.5)';
+  var radarLabels=["Population","Income","Youth","Location gap","Competition"];
+  var radarSubs=lkSuburbs.slice(0,3);
+  lkRadarChart=new Chart(document.getElementById('lkRadar'),{
+    type:'radar',
+    data:{labels:radarLabels,datasets:radarSubs.map(function(s){return{label:s.name,data:s.factors,borderColor:s.color,backgroundColor:s.color+'22',borderWidth:1.5,pointRadius:2,pointBackgroundColor:s.color};})},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:100,ticks:{stepSize:25,color:tickCol,font:{size:8},backdropColor:'transparent'},pointLabels:{color:'rgba(255,255,255,0.7)',font:{size:9}},grid:{color:gridCol},angleLines:{color:gridCol}}},
+      plugins:{legend:{display:true,position:'bottom',labels:{color:tickCol,font:{size:9},boxWidth:9,padding:10}}}}
+  });
+  var revVals=lkSuburbs.map(function(s){return parseFloat(s.rev.replace(/[$M]/g,''))*1000;});
+  lkRevChart=new Chart(document.getElementById('lkRevenue'),{
+    type:'bar',
+    data:{labels:lkSuburbs.map(function(s){return s.name;}),datasets:[{label:'Est. annual revenue ($k)',data:revVals,backgroundColor:lkSuburbs.map(function(s){return s.color+'cc';}),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{grid:{display:false},ticks:{color:tickCol,font:{size:8},maxRotation:45,minRotation:45},border:{display:false}},y:{grid:{color:gridCol},border:{display:false},ticks:{color:tickCol,font:{size:8},callback:function(v){return '$'+v+'k';}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' $'+ctx.raw+'k / yr';}}}}}
+  });
+  lkBuildPeakPills();
+  lkRenderPeak();
+}
+
+function lkBuildPeakPills(){
+  var wrap=document.getElementById('lkPeakPills');wrap.innerHTML='';
+  lkSuburbs.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.className='lk-ch-pill'+(i===lkPeakIdx?' active':'');
+    b.textContent=s.name;
+    b.onclick=function(){lkPeakIdx=i;lkBuildPeakPills();lkRenderPeak();};
+    wrap.appendChild(b);
+  });
+}
+
+function lkRenderPeak(){
+  var s=lkSuburbs[lkPeakIdx];
+  var data=lkPeakTo18(s.peak);
+  var tickCol='rgba(255,255,255,0.5)';
+  if(lkPeakChart)lkPeakChart.destroy();
+  lkPeakChart=new Chart(document.getElementById('lkPeakChart'),{
+    type:'bar',
+    data:{labels:lkPeakLabels,datasets:[{label:s.name+' · Friday',data:data,backgroundColor:data.map(function(v){var mx=Math.max.apply(null,data);return v/mx>0.8?s.color:s.color+'88';}),borderRadius:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{grid:{display:false},ticks:{color:tickCol,font:{size:7}},border:{display:false}},y:{display:false,grid:{display:false}}},
+      plugins:{legend:{display:false},tooltip:{enabled:true}}}
+  });
+  document.getElementById('lkPeakLbl').textContent=lkPeakTimeLabels[s.name]||'';
+}
+
+var lkOrigTab=lkTab;
+lkTab=function(name,btn){
+  lkOrigTab(name,btn);
+  if(name==='charts'){setTimeout(lkBuildCharts,60);}
+};
+window.lkTab=lkTab;
 </script>
 
 </body>
