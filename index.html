@@ -218,6 +218,9 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 @keyframes lk-pulse { 0% { box-shadow: 0 0 0 0 rgba(83,74,183,0.8); } 70% { box-shadow: 0 0 0 6px rgba(83,74,183,0); } 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
 .lk-click-hint { position:absolute; top:12px; right:12px; background:rgba(83,74,183,0.85); color:#fff; font-size:9px; font-weight:600; padding:5px 12px; border-radius:14px; border:0.5px solid #AFA9EC; z-index:10; pointer-events:none; animation:lk-pulse 2s infinite; display:flex; align-items:center; gap:6px; letter-spacing:0.5px; text-transform:uppercase; }
 
+@keyframes lk-pulse { 0% { box-shadow: 0 0 0 0 rgba(83,74,183,0.8); } 70% { box-shadow: 0 0 0 6px rgba(83,74,183,0); } 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
+.lk-click-hint { position:absolute; top:12px; right:12px; background:rgba(83,74,183,0.85); color:#fff; font-size:9px; font-weight:600; padding:5px 12px; border-radius:14px; border:0.5px solid #AFA9EC; z-index:10; pointer-events:none; animation:lk-pulse 2s infinite; display:flex; align-items:center; gap:6px; letter-spacing:0.5px; text-transform:uppercase; }
+
 .lk-sliders{padding:10px 12px 12px;border-top:0.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:9px;margin-top:auto}
 .lk-sl-row{display:flex;align-items:center;gap:10px}
 .lk-sl-lbl{font-size:11px;color:rgba(255,255,255,.6);flex:1}
@@ -479,6 +482,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <div class="lk-kpi"><div class="lk-kv" style="color:#7F77DD" id="lkKpiRad">5 km</div><div class="lk-kl">Radius shown</div></div>
             </div>
             <div class="lk-map-wrap">
+              <div class="lk-click-hint"><span style="font-size:12px">👆</span> Click dots for details</div>
               <div class="lk-click-hint"><span style="font-size:12px">👆</span> Click dots for details</div>
               <svg class="lk-map-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
                 <defs>
