@@ -215,6 +215,9 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-map-wrap{padding:0 8px 2px;position:relative}
 .lk-map-svg{width:100%;display:block;border-radius:6px;background:#0A1928;border:0.5px solid rgba(255,255,255,.05)}
 .lk-map-cap{font-size:8px;color:rgba(255,255,255,.42);padding:3px 0 4px;letter-spacing:.2px}
+@keyframes lk-pulse { 0% { box-shadow: 0 0 0 0 rgba(83,74,183,0.8); } 70% { box-shadow: 0 0 0 6px rgba(83,74,183,0); } 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
+.lk-click-hint { position:absolute; top:12px; right:12px; background:rgba(83,74,183,0.85); color:#fff; font-size:9px; font-weight:600; padding:5px 12px; border-radius:14px; border:0.5px solid #AFA9EC; z-index:10; pointer-events:none; animation:lk-pulse 2s infinite; display:flex; align-items:center; gap:6px; letter-spacing:0.5px; text-transform:uppercase; }
+
 .lk-sliders{padding:10px 12px 12px;border-top:0.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:9px;margin-top:auto}
 .lk-sl-row{display:flex;align-items:center;gap:10px}
 .lk-sl-lbl{font-size:11px;color:rgba(255,255,255,.6);flex:1}
@@ -476,6 +479,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <div class="lk-kpi"><div class="lk-kv" style="color:#7F77DD" id="lkKpiRad">5 km</div><div class="lk-kl">Radius shown</div></div>
             </div>
             <div class="lk-map-wrap">
+              <div class="lk-click-hint"><span style="font-size:12px">👆</span> Click dots for details</div>
               <svg class="lk-map-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <radialGradient id="lkg0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1D9E75" stop-opacity=".28"/><stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/></radialGradient>
