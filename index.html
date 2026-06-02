@@ -188,6 +188,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-tb-title{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.3px;flex:1;margin-left:4px}
 .lk-tabs{display:flex;background:#071525;border-bottom:0.5px solid rgba(255,255,255,.06);overflow-x:auto}
 .lk-tab{padding:9px 16px;font-size:9px;color:rgba(255,255,255,.35);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lk-tab:hover{background:rgba(83,74,183,.12);color:rgba(255,255,255,.75)}
+.lk-helper{background:#0A1928;border-bottom:0.5px solid rgba(255,255,255,.06);padding:7px 16px;font-size:9.5px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px;letter-spacing:.2px}
+.lk-helper-dot{width:5px;height:5px;border-radius:50%;background:#7F77DD;flex-shrink:0;animation:lkHelperBlink 2.5s ease-in-out infinite}
+@keyframes lkHelperBlink{0%,100%{opacity:.4}50%{opacity:1}}
 .lk-tab:hover{color:rgba(255,255,255,.6)}
 .lk-tab.active{color:#AFA9EC;border-bottom-color:#534AB7}
 .lk-tab-badge{background:rgba(29,158,117,.2);border:0.5px solid rgba(29,158,117,.35);border-radius:10px;font-size:7px;color:#5DCAA5;padding:1px 6px}
@@ -215,11 +219,16 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-map-wrap{padding:0 8px 2px;position:relative}
 .lk-map-svg{width:100%;display:block;border-radius:6px;background:#0A1928;border:0.5px solid rgba(255,255,255,.05)}
 .lk-map-cap{font-size:8px;color:rgba(255,255,255,.42);padding:3px 0 4px;letter-spacing:.2px}
-@keyframes lk-pulse { 0% { box-shadow: 0 0 0 0 rgba(83,74,183,0.8); } 70% { box-shadow: 0 0 0 6px rgba(83,74,183,0); } 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
-.lk-click-hint { position:absolute; top:12px; right:12px; background:rgba(83,74,183,0.85); color:#fff; font-size:9px; font-weight:600; padding:5px 12px; border-radius:14px; border:0.5px solid #AFA9EC; z-index:10; pointer-events:none; animation:lk-pulse 2s infinite; display:flex; align-items:center; gap:6px; letter-spacing:0.5px; text-transform:uppercase; }
+@keyframes lkDotPulse{0%{r:7;opacity:.55}70%{r:15;opacity:0}100%{r:7;opacity:0}}
+.lkPulse{transform-origin:center;pointer-events:none}
+.lkPulse.p0{animation:lkDotPulse 2.4s ease-out infinite}
+.lkPulse.p1{animation:lkDotPulse 2.4s ease-out infinite .7s}
+.lkPulse.p2{animation:lkDotPulse 2.4s ease-out infinite 1.4s}
+ 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
 
-@keyframes lk-pulse { 0% { box-shadow: 0 0 0 0 rgba(83,74,183,0.8); } 70% { box-shadow: 0 0 0 6px rgba(83,74,183,0); } 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
-.lk-click-hint { position:absolute; top:12px; right:12px; background:rgba(83,74,183,0.85); color:#fff; font-size:9px; font-weight:600; padding:5px 12px; border-radius:14px; border:0.5px solid #AFA9EC; z-index:10; pointer-events:none; animation:lk-pulse 2s infinite; display:flex; align-items:center; gap:6px; letter-spacing:0.5px; text-transform:uppercase; }
+
+ 100% { box-shadow: 0 0 0 0 rgba(83,74,183,0); } }
+
 
 .lk-sliders{padding:10px 12px 12px;border-top:0.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:9px;margin-top:auto}
 .lk-sl-row{display:flex;align-items:center;gap:10px}
@@ -463,6 +472,8 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <div class="lk-tab" onclick="lkTab('pro',this)"><span>✦</span>Lokko Pro<span class="lk-tab-badge gold">Preview</span></div>
       </div>
 
+      <div class="lk-helper" id="lkHelper"><span class="lk-helper-dot"></span><span id="lkHelperText">Click any suburb or map dot to explore — drag the sliders to change the search radius</span></div>
+
       <!-- TAB 1: TERRITORIAL -->
       <div class="lk-tab-content active" id="lk-tab-territorial">
         <div class="lk-layout">
@@ -482,8 +493,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <div class="lk-kpi"><div class="lk-kv" style="color:#7F77DD" id="lkKpiRad">5 km</div><div class="lk-kl">Radius shown</div></div>
             </div>
             <div class="lk-map-wrap">
-              <div class="lk-click-hint"><span style="font-size:12px">👆</span> Click dots for details</div>
-              <div class="lk-click-hint"><span style="font-size:12px">👆</span> Click dots for details</div>
               <svg class="lk-map-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <radialGradient id="lkg0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1D9E75" stop-opacity=".28"/><stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/></radialGradient>
@@ -492,13 +501,28 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                   <radialGradient id="lkg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9973A" stop-opacity=".18"/><stop offset="100%" stop-color="#C9973A" stop-opacity="0"/></radialGradient>
                   <radialGradient id="lkg4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5DCAA5" stop-opacity=".18"/><stop offset="100%" stop-color="#5DCAA5" stop-opacity="0"/></radialGradient>
                 </defs>
-                <line x1="0" y1="48" x2="420" y2="48" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="0" y1="96" x2="420" y2="96" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="0" y1="144" x2="420" y2="144" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="84" y1="0" x2="84" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="168" y1="0" x2="168" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="252" y1="0" x2="252" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
-                <line x1="336" y1="0" x2="336" y2="195" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+                <g style="pointer-events:none">
+                  <!-- minor street grid (very faint) -->
+                  <line x1="0" y1="32" x2="420" y2="32" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="64" x2="420" y2="64" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="96" x2="420" y2="96" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="128" x2="420" y2="128" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="160" x2="420" y2="160" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="48" y1="0" x2="48" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="108" y1="0" x2="108" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="168" y1="0" x2="168" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="228" y1="0" x2="228" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="288" y1="0" x2="288" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="348" y1="0" x2="348" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <!-- diagonal arterials (slightly brighter) -->
+                  <line x1="0" y1="150" x2="200" y2="0" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                  <line x1="160" y1="195" x2="420" y2="40" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                  <line x1="60" y1="0" x2="320" y2="195" stroke="rgba(255,255,255,.035)" stroke-width="1"/>
+                  <!-- soft curved roads / river -->
+                  <path d="M0,70 C90,55 150,120 230,95 C310,70 360,130 420,110" fill="none" stroke="rgba(255,255,255,.045)" stroke-width="1.1"/>
+                  <path d="M40,195 C70,140 30,110 90,70 C130,42 120,20 170,0" fill="none" stroke="rgba(255,255,255,.03)" stroke-width=".9"/>
+                  <path d="M250,0 C270,50 340,60 330,110 C322,150 380,160 420,150" fill="none" stroke="rgba(255,255,255,.03)" stroke-width=".9"/>
+                </g>
                 <circle cx="88" cy="125" r="52" fill="url(#lkg0)"/>
                 <circle cx="150" cy="62" r="46" fill="url(#lkg1)"/>
                 <circle cx="268" cy="115" r="40" fill="url(#lkg2)"/>
@@ -515,10 +539,13 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                 <circle cx="365" cy="140" r="3" fill="#C9973A" opacity=".6"/>
                 <circle cx="116" cy="108" r="3.5" fill="#7F77DD" opacity=".82"/>
                 <circle cx="336" cy="92" r="3.5" fill="#7F77DD" opacity=".72"/>
+                <circle class="lkPulse p0" cx="88" cy="125" r="7" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
                 <circle class="lkDot" data-i="0" cx="88" cy="125" r="7" fill="#1D9E75" opacity=".9" style="cursor:pointer"/>
                 <circle cx="88" cy="125" r="3.5" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkPulse p1" cx="150" cy="62" r="7" fill="none" stroke="#378ADD" stroke-width="1.5"/>
                 <circle class="lkDot" data-i="1" cx="150" cy="62" r="6.5" fill="#378ADD" opacity=".9" style="cursor:pointer"/>
                 <circle cx="150" cy="62" r="3" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkPulse p2" cx="268" cy="115" r="7" fill="none" stroke="#534AB7" stroke-width="1.5"/>
                 <circle class="lkDot" data-i="2" cx="268" cy="115" r="6" fill="#534AB7" opacity=".9" style="cursor:pointer"/>
                 <circle cx="268" cy="115" r="3" fill="#fff" style="pointer-events:none"/>
                 <rect x="96" y="117" width="50" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
@@ -861,7 +888,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
             <div class="svc-items">
               <div class="svc-item">Custom AI agent development (Claude &amp; Gemini)</div>
               <div class="svc-item">Automated data extraction &amp; reporting</div>
-              <div class="svc-item">CRM &amp; Salesforce integration</div>
+              <div class="svc-item">CRM &amp; With Google Workspace integration</div>
               <div class="svc-item">Live dashboards with AI-generated insights</div>
             </div>
             <div class="svc-price">From $5,000 &middot; Build + optional retainer</div>
@@ -931,7 +958,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <div class="case-card">
         <div class="case-tag" style="background:var(--purple-light);color:#3C3489">Pillar 03 · Intelligence Systems</div>
         <h3>Insurance broker — CRM geocoding and automated location reporting</h3>
-        <p>Cleaned, standardised and geocoded 85,000 customer records from a legacy system into Salesforce with GNAF address matching. Built an automated weekly report showing policy concentration by suburb and emerging coverage gaps.</p>
+        <p>Cleaned, standardised and geocoded 85,000 customer records from a legacy system into CRM with GNAF address matching. Built an automated weekly report showing policy concentration by suburb and emerging coverage gaps.</p>
         <div class="case-result">99.4% address match rate — analysis that had previously been impossible to run</div>
       </div>
     </div>
@@ -1077,6 +1104,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <span class="tool-pill">GNAF geocoding</span>
       <span class="tool-pill">Claude AI API</span>
       <span class="tool-pill">Supabase</span>
+      <span class="tool-pill">Snowflake</span>
       <span class="tool-pill">Mapbox</span>
       <span class="tool-pill">Power BI</span>
       <span class="tool-pill">Tableau</span>
@@ -1323,6 +1351,14 @@ function lkTab(name,btn){
   document.querySelectorAll('.lk-tab-content').forEach(c=>c.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('lk-tab-'+name).classList.add('active');
+  var lkHelperMsgs={
+    territorial:'Click any suburb or map dot to explore - drag the sliders to change the search radius',
+    mobility:'Pick any two suburbs to compare foot traffic - change the weather and time to see how it shifts',
+    charts:'Compare suburbs side by side - switch the peak-trading suburb to see its busiest hours',
+    pro:'A preview of Lokko Pro - live auction alerts, satellite site view and automated reports'
+  };
+  var ht=document.getElementById('lkHelperText');
+  if(ht && lkHelperMsgs[name]) ht.textContent=lkHelperMsgs[name];
 }
 
 function lkBuildSidebar(){
