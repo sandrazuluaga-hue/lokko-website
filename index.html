@@ -33,7 +33,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);-
 /* ── NAV ── */
 nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border)}
 .logo{display:block;text-decoration:none}
-.logo img{height:36px;width:auto;display:block}
+.logo img{height:40px;width:auto;display:block}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{font-size:13.5px;color:var(--muted);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:var(--ink)}
@@ -130,7 +130,7 @@ section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
 /* ── FOOTER & MOBILE NAV ── */
 footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border)}
 .footer-logo{display:block}
-.footer-logo img{height:28px;width:auto;display:block}
+.footer-logo img{height:30px;width:auto;display:block}
 .footer-right{display:flex;gap:24px;align-items:center}
 .footer-right a{font-size:12.5px;color:var(--muted);text-decoration:none}
 .footer-right a:hover{color:var(--ink)}
@@ -196,7 +196,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-tab.active{color:#AFA9EC;border-bottom-color:#534AB7}
 .lk-tab-badge{background:rgba(29,158,117,.2);border:0.5px solid rgba(29,158,117,.35);border-radius:10px;font-size:7px;color:#5DCAA5;padding:1px 6px}
 .lk-tab-badge.gold{background:rgba(201,151,58,.2);border-color:rgba(201,151,58,.4);color:#E8BF72}
-.lk-tab-content{display:none}.lk-tab-content.active{display:block}
+.lk-tab-content{display:none}.lk-tab-content.active{display:block;animation:lkTabIn 280ms ease both}@keyframes lkTabIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.lk-tab-content.active{animation:none}}
 .lk-placeholder{padding:60px 20px;text-align:center;color:rgba(255,255,255,.3);font-size:11px}
 .lk-layout{display:grid;grid-template-columns:260px 1fr 260px;min-height:330px}
 .lk-sidebar{background:#071525;border-right:0.5px solid rgba(255,255,255,.06);padding:8px 0;display:flex;flex-direction:column}
@@ -413,7 +413,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 
 <nav>
   <a href="#" class="logo">
-    <img src="lokko_logo_nav.svg" alt="Lokko Logo"/>
+    <img src="lokko_logo_nav.png" alt="Lokko Logo"/>
   </a>
   <div class="nav-links">
     <a href="#services">Services</a>
@@ -1149,7 +1149,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 
 <footer>
   <div class="footer-logo">
-    <img src="lokko_logo_dark.svg" alt="Lokko Logo"/>
+    <img src="lokko_logo_nav.png" alt="Lokko Logo"/>
   </div>
   <div class="footer-loc">Melbourne, Victoria · Australia</div>
   <div class="footer-right">
@@ -1634,6 +1634,32 @@ lkTab=function(name,btn){
   if(name==='charts'){setTimeout(lkBuildCharts,60);}
 };
 window.lkTab=lkTab;
+
+// ─── Auto-glide demo ───────────────────────────────────────────────────────
+var AUTO_GLIDE_MS    = 4000;   // ms before tab-glide fires on first load
+var LK_TRANSITION_MS = 280;    // ms for tab-panel fade (matches CSS keyframe)
+var _lkGlideDone     = false;
+var _lkGlideTimer    = null;
+function _lkCancelGlide(){
+  if(_lkGlideTimer){clearTimeout(_lkGlideTimer);_lkGlideTimer=null;}
+  _lkGlideDone=true;
+}
+// Pre-fill comparison A and B with the top two ranked suburbs (idempotent)
+if(lkSelA===null&&lkSelB===null){lkSelA=0;lkSelB=1;lkFtUpdate();}
+// One-time auto-glide to Foot Traffic — skipped if user prefers reduced motion
+var _lkPrefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(!_lkPrefersReduced){
+  _lkGlideTimer=setTimeout(function(){
+    if(_lkGlideDone)return;
+    _lkGlideDone=true;
+    var btn=document.querySelector('.lk-tab[onclick*="mobility"]');
+    if(btn)lkTab('mobility',btn);
+  },AUTO_GLIDE_MS);
+}
+// Cancel glide permanently if user clicks any tab before the timer fires
+document.querySelectorAll('.lk-tab').forEach(function(t){
+  t.addEventListener('click',_lkCancelGlide,{capture:true});
+});
 </script>
 
 </body>

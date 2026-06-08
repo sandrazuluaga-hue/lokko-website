@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lokko — Inteligencia de Ubicación para Colombia</title>
+<meta name="description" content="Lokko ayuda a pequeños negocios colombianos a encontrar exactamente dónde crecer — con datos reales del DANE, Google Places y análisis geoespacial."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#26215C;
+  --blue:#534AB7;
+  --blue-light:#EEEDFE;
+  --teal:#1D9E75;
+  --teal-light:#E1F5EE;
+  --purple:#7F77DD;
+  --purple-light:#EEEDFE;
+  --amber:#BA7517;
+  --amber-light:#FAEEDA;
+  --gold:#C9973A;
+  --gold-light:#FDF3E3;
+  --ink:#1A1730;
+  --muted:#5F6B7A;
+  --border:#E2E0F8;
+  --bg:#F7F6FE;
+  --white:#FFFFFF;
+  --radius:10px;
+  --radius-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border)}
+.logo{display:block;text-decoration:none}
+.logo img{height:36px;width:auto;display:block}
+.logo-text{font-size:22px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;font-family:'DM Sans',sans-serif}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:13.5px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-size:13px;font-weight:500;padding:8px 18px;border-radius:var(--radius);background:var(--navy);color:var(--white);text-decoration:none;transition:opacity .15s}
+.nav-cta:hover{opacity:0.85}
+.lang-switch{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.4px;text-decoration:none;transition:color .15s}
+.lang-switch:hover{color:var(--ink)}
+
+/* ── HERO ── */
+.hero{padding:72px 40px 0;border-bottom:0.5px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,151,58,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-grid{max-width:1080px;margin:0 auto;padding-bottom:40px}
+.hero-dash-wrap{max-width:1080px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--gold);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:20px;font-family:'DM Mono',monospace}
+.hero-eyebrow span{width:24px;height:1px;background:var(--gold);display:inline-block}
+.hero h1{font-size:44px;font-weight:300;line-height:1.12;letter-spacing:-1.5px;margin-bottom:20px;color:var(--navy)}
+.hero h1 strong{font-weight:500}
+.hero h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:440px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+.btn-primary{font-size:13.5px;font-weight:500;padding:11px 22px;border-radius:var(--radius);background:var(--navy);color:var(--white);border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity .15s}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{font-size:13.5px;padding:11px 22px;border-radius:var(--radius);border:0.5px solid var(--border);color:var(--muted);background:transparent;cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .15s,color .15s}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.hero-stats{display:flex;gap:32px}
+.stat-n{font-size:24px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;line-height:1}
+.stat-l{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* ── MAP VISUAL ── */
+.map-visual{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:0.5px solid var(--border);background:var(--navy);min-height:320px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(38,33,92,0.12)}
+.map-svg-wrap{width:100%;height:100%;position:relative}
+.map-caption{position:absolute;bottom:14px;left:16px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.4px}
+.map-dot{animation:pulse 2.5s ease-in-out infinite}
+.map-dot:nth-child(2){animation-delay:.4s}
+.map-dot:nth-child(3){animation-delay:.8s}
+.map-dot:nth-child(4){animation-delay:1.2s}
+.map-dot:nth-child(5){animation-delay:1.6s}
+@keyframes pulse{0%,100%{opacity:0.5;r:5}50%{opacity:1;r:7}}
+
+/* ── SECTIONS ── */
+section{padding:64px 40px;border-bottom:0.5px solid var(--border)}
+.container{max-width:1080px;margin:0 auto}
+.section-mono{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:28px;font-weight:400;letter-spacing:-0.8px;color:var(--navy);margin-bottom:8px}
+.section-sub{font-size:14.5px;color:var(--muted);line-height:1.6;max-width:500px;margin-bottom:36px}
+
+/* ── STATS BAND ── */
+.stats-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.stat-card{background:var(--white);padding:24px 28px}
+.stat-card-n{font-size:28px;font-weight:500;color:var(--navy);letter-spacing:-1px;margin-bottom:4px}
+.stat-card-label{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.4px;font-family:'DM Mono',monospace;margin-bottom:6px}
+.stat-card-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+/* ── SERVICES ── */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--white);transition:border-color .2s,transform .2s}
+.svc:hover{border-color:#AFA9EC;transform:translateY(-2px)}
+.svc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px}
+.svc-icon{width:38px;height:38px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.svc h3{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--navy)}
+.svc p{font-size:13px;color:var(--muted);line-height:1.6}
+.svc-items{margin-top:14px;display:flex;flex-direction:column;gap:5px}
+.svc-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.svc-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.svc-price{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--blue)}
+
+/* ── CITIES ── */
+.cities-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.city-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:18px 16px;text-align:center;background:var(--white);transition:border-color .2s,transform .2s}
+.city-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.city-flag{font-size:22px;margin-bottom:8px}
+.city-name{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.city-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* ── PROCESS ── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.process-step{padding:24px;border-right:0.5px solid var(--border)}
+.process-step:last-child{border-right:none}
+.process-n{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:12px}
+.process-step h4{font-size:13.5px;font-weight:500;margin-bottom:6px;color:var(--navy)}
+.process-step p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ── ABOUT BAND ── */
+.about-band{background:var(--navy);border-radius:var(--radius-lg);padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-band h3{font-size:22px;font-weight:400;color:var(--white);letter-spacing:-0.5px;line-height:1.3;margin-bottom:12px}
+.about-band p{font-size:13.5px;color:rgba(255,255,255,0.62);line-height:1.75}
+.about-badges{display:flex;flex-direction:column;gap:10px}
+.about-badge{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.75)}
+.about-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* ── AUDIT CTA ── */
+.audit-section{background:var(--navy);border-bottom:none}
+.audit-section .section-mono{color:rgba(255,255,255,0.4)}
+.audit-section .section-title{color:var(--white)}
+.audit-section .section-sub{color:rgba(255,255,255,0.6)}
+.audit-form{display:flex;flex-direction:column;gap:10px;max-width:420px}
+.audit-form input{font-size:13.5px;padding:11px 14px;border-radius:var(--radius);border:0.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:var(--white);outline:none;font-family:'DM Sans',sans-serif;width:100%}
+.audit-form input::placeholder{color:rgba(255,255,255,0.35)}
+.audit-form input:focus{border-color:rgba(255,255,255,0.5)}
+.btn-white{font-size:13.5px;font-weight:500;padding:11px 22px;border-radius:var(--radius);background:var(--white);color:var(--navy);border:none;cursor:pointer;white-space:nowrap;transition:opacity .15s;width:100%}
+.btn-white:hover{opacity:0.9}
+.audit-note{font-size:12px;color:rgba(255,255,255,0.35);margin-top:10px}
+.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.audit-features{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.audit-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.65)}
+.audit-feat-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* ── TOOLS ── */
+.tools-flow{display:flex;flex-wrap:wrap;gap:8px}
+.tool-pill{font-size:12px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace}
+
+/* ── FOOTER ── */
+footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--border)}
+.footer-right{display:flex;gap:24px;align-items:center}
+.footer-right a{font-size:12.5px;color:var(--muted);text-decoration:none}
+.footer-right a:hover{color:var(--ink)}
+.footer-loc{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;gap:4.5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{width:20px;height:1.5px;background:var(--ink);display:block}
+.mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--border);padding:12px 20px 16px;flex-direction:column}
+.mobile-nav a{font-size:14px;color:var(--muted);text-decoration:none;padding:11px 0;border-bottom:0.5px solid var(--border);display:block}
+.mobile-nav a:last-child{border-bottom:none;margin-top:8px}
+.mobile-nav .nav-cta{background:var(--navy);color:var(--white);padding:10px 18px;border-radius:var(--radius);display:inline-block;font-size:13px;font-weight:500;text-align:center;border-bottom:none}
+.mobile-nav.open{display:flex}
+
+/* ── FADE IN ── */
+/* ===== LOKKO DASHBOARD ===== */
+.lk-dash{background:#0B1A2E;border-radius:var(--radius-lg) var(--radius-lg) 0 0;overflow:hidden;font-family:'DM Mono',monospace;color:#fff;font-size:11px;box-shadow:0 -4px 40px rgba(38,33,92,.12);border:0.5px solid rgba(83,74,183,.25);border-bottom:none}
+.lk-topbar{background:#071525;padding:0 14px;display:flex;align-items:center;gap:10px;border-bottom:0.5px solid rgba(255,255,255,.06);height:40px}
+.lk-dots{display:flex;gap:5px}
+.lk-dot{width:9px;height:9px;border-radius:50%}
+.lk-tb-title{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.3px;flex:1;margin-left:4px}
+.lk-tabs{display:flex;background:#071525;border-bottom:0.5px solid rgba(255,255,255,.06);overflow-x:auto}
+.lk-tab{padding:9px 16px;font-size:9px;color:rgba(255,255,255,.35);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lk-tab:hover{background:rgba(83,74,183,.12);color:rgba(255,255,255,.75)}
+.lk-tab.active{color:#AFA9EC;border-bottom-color:#534AB7}
+.lk-tab-badge{background:rgba(29,158,117,.2);border:0.5px solid rgba(29,158,117,.35);border-radius:10px;font-size:7px;color:#5DCAA5;padding:1px 6px}
+.lk-tab-badge.gold{background:rgba(201,151,58,.2);border-color:rgba(201,151,58,.4);color:#E8BF72}
+.lk-helper{background:#0A1928;border-bottom:0.5px solid rgba(255,255,255,.06);padding:7px 16px;font-size:9.5px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px;letter-spacing:.2px}
+.lk-helper-dot{width:5px;height:5px;border-radius:50%;background:#7F77DD;flex-shrink:0;animation:lkHelperBlink 2.5s ease-in-out infinite}
+@keyframes lkHelperBlink{0%,100%{opacity:.4}50%{opacity:1}}
+.lk-tab-content{display:none}.lk-tab-content.active{display:block;animation:lkTabIn 280ms ease both}@keyframes lkTabIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.lk-tab-content.active{animation:none}}
+.lk-placeholder{padding:60px 20px;text-align:center;color:rgba(255,255,255,.3);font-size:11px}
+.lk-layout{display:grid;grid-template-columns:260px 1fr 260px;min-height:330px}
+.lk-sidebar{background:#071525;border-right:0.5px solid rgba(255,255,255,.06);padding:8px 0;display:flex;flex-direction:column}
+.lk-sb-head{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.7px;text-transform:uppercase;padding:0 14px;margin:10px 0 5px}
+.lk-sb-head:first-child{margin-top:0}
+.lk-sb-row{padding:8px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .15s}
+.lk-sb-row:hover,.lk-sb-row.active{background:rgba(83,74,183,.2)}
+.lk-sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-sb-name{font-size:12px;color:rgba(255,255,255,.85);flex:1}
+.lk-sb-score{font-size:11px;color:rgba(255,255,255,.5)}
+.lk-layer-row{padding:5px 14px;display:flex;align-items:center;gap:7px}
+.lk-layer-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-layer-name{font-size:11px;color:rgba(255,255,255,.65);flex:1}
+.lk-layer-ct{font-size:11px;color:rgba(255,255,255,.6)}
+.lk-main{display:flex;flex-direction:column;background:#0D1F35}
+.lk-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:8px}
+.lk-kpi{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.06);border-radius:6px;padding:7px 9px}
+.lk-kv{font-size:15px;font-weight:600;line-height:1;margin-bottom:1px}
+.lk-kl{font-size:8px;color:rgba(255,255,255,.5);line-height:1.3}
+.lk-map-wrap{padding:0 8px 2px;position:relative;flex:1}
+.lk-map-svg{width:100%;display:block;border-radius:6px;background:#0A1928;border:0.5px solid rgba(255,255,255,.05)}
+.lk-map-cap{font-size:8px;color:rgba(255,255,255,.42);padding:3px 0 4px;letter-spacing:.2px}
+@keyframes lkDotPulse{0%{r:7;opacity:.55}70%{r:15;opacity:0}100%{r:7;opacity:0}}
+.lkPulse{transform-origin:center;pointer-events:none}
+.lkPulse.p0{animation:lkDotPulse 2.4s ease-out infinite}
+.lkPulse.p1{animation:lkDotPulse 2.4s ease-out infinite .7s}
+.lkPulse.p2{animation:lkDotPulse 2.4s ease-out infinite 1.4s}
+.lk-sliders{padding:10px 12px 12px;border-top:0.5px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:9px;margin-top:auto}
+.lk-sl-row{display:flex;align-items:center;gap:10px}
+.lk-sl-lbl{font-size:11px;color:rgba(255,255,255,.6);flex:1}
+.lk-dash input[type=range]{-webkit-appearance:none;height:5px;border-radius:3px;background:rgba(255,255,255,.16);outline:none;flex:1;cursor:pointer}
+.lk-dash input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:#534AB7;cursor:pointer;border:2px solid rgba(255,255,255,.25)}
+.lk-dash input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:#534AB7;cursor:pointer;border:2px solid rgba(255,255,255,.25)}
+.lk-sl-val{font-size:12px;color:#AFA9EC;min-width:34px;text-align:right;font-weight:500}
+.lk-panel{background:#071525;border-left:0.5px solid rgba(255,255,255,.06);padding:14px;display:flex;flex-direction:column;gap:10px}
+.lk-p-head{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.7px;text-transform:uppercase;margin-bottom:4px}
+.lk-p-card{border-radius:6px;padding:10px 12px;border:0.5px solid rgba(255,255,255,.08)}
+.lk-p-big{font-size:26px;font-weight:600;line-height:1;margin-bottom:2px}
+.lk-p-sub-name{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:2px}
+.lk-p-detail{font-size:10px;color:rgba(255,255,255,.5);line-height:1.5}
+.lk-bar-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.lk-bar-lbl{font-size:10px;color:rgba(255,255,255,.62);width:72px;flex-shrink:0}
+.lk-bar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lk-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.lk-bar-val{font-size:10px;color:rgba(255,255,255,.5);width:22px;text-align:right}
+.lk-prox-pills{display:flex;flex-direction:column;gap:6px}
+.lk-pill{font-size:10px;padding:6px 10px;border-radius:12px;display:flex;align-items:center;gap:5px}
+.lk-listing-toggle{display:flex;gap:3px;background:rgba(255,255,255,.06);border-radius:6px;padding:3px;margin-bottom:10px}
+.lk-lt-btn{flex:1;padding:7px 0;border-radius:4px;border:none;background:transparent;color:rgba(255,255,255,.38);font-size:11px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;text-align:center}
+.lk-lt-btn.active{background:#534AB7;color:#fff}
+.lk-listing-link{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:7px;background:rgba(83,74,183,.15);border:0.5px solid rgba(83,74,183,.35);cursor:pointer;text-decoration:none;transition:background .15s;margin-bottom:4px}
+.lk-listing-link:hover{background:rgba(83,74,183,.28)}
+.lk-ll-label{font-size:11px;color:#AFA9EC;font-weight:500}
+.lk-ll-count{font-size:9px;color:rgba(255,255,255,.5)}
+.lk-popup{position:absolute;top:50px;left:14px;width:240px;background:rgba(7,21,37,.97);border:0.5px solid rgba(83,74,183,.4);border-radius:8px;padding:12px 14px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none}
+.lk-popup.show{display:block}
+.lk-popup-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;font-family:'DM Sans',sans-serif}
+.lk-popup-row{display:flex;justify-content:space-between;font-size:9.5px;padding:3px 0;border-bottom:0.5px solid rgba(255,255,255,.05)}
+.lk-popup-k{color:rgba(255,255,255,.4)}
+.lk-popup-v{color:rgba(255,255,255,.8)}
+.lk-popup-v.gold{color:#E8BF72}
+.lk-popup-close{position:absolute;top:8px;right:10px;cursor:pointer;color:rgba(255,255,255,.4);font-size:12px}
+.lk-popup-close:hover{color:#fff}
+.lk-popup-peak{margin-top:8px}
+.lk-popup-peak-lbl{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.lk-peak-bars{display:flex;gap:2px;align-items:flex-end;height:30px}
+.lk-peak-bar{flex:1;border-radius:1px 1px 0 0;min-height:2px;background:#534AB7;opacity:.5}
+.lk-peak-time{font-size:9px;color:#E8BF72;margin-top:5px}
+@media(max-width:900px){.lk-layout{grid-template-columns:1fr}.lk-sidebar,.lk-panel{display:none}.lk-kpis{grid-template-columns:repeat(2,1fr)}}
+/* ===== TAB 2: FLUJO PEATONAL ===== */
+.lk-ft-ctrl{background:#071525;padding:10px 14px;border-bottom:0.5px solid rgba(255,255,255,.06);display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.lk-ft-group{display:flex;flex-direction:column;gap:4px}
+.lk-ft-lbl{font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.6px;text-transform:uppercase}
+.lk-ft-time-row{display:flex;align-items:center;gap:8px}
+.lk-ft-time-val{font-size:10px;color:#7F77DD;min-width:56px}
+.lk-ft-viz{display:flex;gap:1.5px;align-items:flex-end;height:18px;margin-top:3px}
+.lk-ft-vbar{border-radius:1px 1px 0 0;min-height:2px;transition:height .3s,background .3s;flex:1}
+.lk-wx-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.lk-wx-btn{padding:4px 12px;border-radius:14px;border:0.5px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.5);font-size:8.5px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;white-space:nowrap}
+.lk-wx-btn.active{background:rgba(83,74,183,.3);border-color:#7F77DD;color:#AFA9EC}
+.lk-ft-ctx{font-size:8px;color:rgba(255,255,255,.42);font-style:italic;margin-left:auto;align-self:center;max-width:220px;text-align:right}
+.lk-ft-hint{font-size:9px;color:rgba(255,255,255,.45);padding:7px 14px 0;font-style:italic;min-height:22px}
+.lk-ft-cards{padding:10px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lk-ftc{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.07);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;position:relative;user-select:none}
+.lk-ftc:hover{border-color:rgba(255,255,255,.2);transform:translateY(-1px)}
+.lk-ftc.sel-a{border:1.5px solid #1D9E75;background:rgba(29,158,117,.07)}
+.lk-ftc.sel-b{border:1.5px solid #534AB7;background:rgba(83,74,183,.07)}
+.lk-ftc-badge{position:absolute;top:7px;right:8px;font-size:8px;padding:2px 7px;border-radius:10px;font-weight:600}
+.lk-ftc-badge.a{background:rgba(29,158,117,.3);color:#5DCAA5;border:0.5px solid rgba(29,158,117,.5)}
+.lk-ftc-badge.b{background:rgba(83,74,183,.3);color:#AFA9EC;border:0.5px solid rgba(83,74,183,.5)}
+.lk-ftc-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.lk-ftc-rank{font-size:8.5px;color:rgba(255,255,255,.5)}
+.lk-ftc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.lk-ftc-name{font-size:11px;color:rgba(255,255,255,.85);font-weight:500;flex:1}
+.lk-ftc-base{font-size:9px;color:rgba(255,255,255,.45)}
+.lk-ftc-score-row{display:flex;align-items:baseline;gap:6px;margin-bottom:5px}
+.lk-ftc-score{font-size:20px;font-weight:600;line-height:1}
+.lk-ftc-delta{font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px}
+.lk-up{background:rgba(29,158,117,.25);color:#5DCAA5}
+.lk-dn{background:rgba(232,75,74,.2);color:#f87171}
+.lk-fl{background:rgba(255,255,255,.1);color:rgba(255,255,255,.55)}
+.lk-ftc-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.08);margin-bottom:7px;overflow:hidden}
+.lk-ftc-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.lk-ftc-links{display:flex;gap:4px}
+.lk-ftc-lnk{flex:1;padding:4px 0;border-radius:4px;font-size:8px;cursor:pointer;font-family:'DM Mono',monospace;text-align:center;text-decoration:none;display:block;transition:all .15s;border:0.5px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5)}
+.lk-ftc-lnk:hover{background:rgba(83,74,183,.2);border-color:#7F77DD;color:#AFA9EC}
+.lk-ftc-lnk.c{border-color:rgba(201,151,58,.4);color:#E8BF72;background:rgba(201,151,58,.1)}
+.lk-ftc-lnk.b2{border-color:rgba(55,138,221,.4);color:#7DC3F5;background:rgba(55,138,221,.1)}
+.lk-drawer{overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.4,0,.2,1);border-top:0.5px solid rgba(255,255,255,.06)}
+.lk-drawer.open{max-height:440px}
+.lk-drawer-in{padding:14px 14px 18px;background:#071525}
+.lk-drawer-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.lk-drawer-ttl{font-size:9px;color:rgba(255,255,255,.45);letter-spacing:.6px;text-transform:uppercase}
+.lk-drawer-x{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:11px;cursor:pointer;border-radius:4px;padding:3px 9px;font-family:'DM Mono',monospace}
+.lk-drawer-x:hover{background:rgba(255,255,255,.18);color:#fff}
+.lk-cmp-grid{display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:start;margin-bottom:10px}
+.lk-cmp-card{border-radius:8px;padding:10px 12px}
+.lk-cmp-a{background:rgba(29,158,117,.08);border:0.5px solid rgba(29,158,117,.3)}
+.lk-cmp-b{background:rgba(83,74,183,.08);border:0.5px solid rgba(83,74,183,.3)}
+.lk-cmp-lbl{font-size:9px;font-weight:600;margin-bottom:4px}
+.lk-cmp-score{font-size:24px;font-weight:600;line-height:1;margin-bottom:3px}
+.lk-cmp-delta{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:5px}
+.lk-cmp-name{font-size:10px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.lk-cmp-desc{font-size:8.5px;color:rgba(255,255,255,.42);line-height:1.4;margin-bottom:7px}
+.lk-cmp-bars{display:flex;flex-direction:column;gap:4px}
+.lk-cmp-brow{display:flex;align-items:center;gap:5px}
+.lk-cmp-blbl{font-size:8.5px;color:rgba(255,255,255,.5);width:64px;flex-shrink:0}
+.lk-cmp-btrack{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lk-cmp-bfill{height:100%;border-radius:2px}
+.lk-cmp-bval{font-size:8px;color:rgba(255,255,255,.45);width:20px;text-align:right}
+.lk-vs{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);border:0.5px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(255,255,255,.5);flex-shrink:0;align-self:center;margin-top:26px}
+.lk-insight{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 14px}
+.lk-insight-icon{font-size:13px;margin-bottom:5px}
+.lk-insight-txt{font-size:9.5px;color:rgba(255,255,255,.72);line-height:1.7}
+.lk-insight-rec{font-size:9px;color:#5DCAA5;margin-top:6px;line-height:1.6;font-weight:500}
+@media(max-width:768px){.lk-ft-cards{grid-template-columns:1fr 1fr}.lk-cmp-grid{grid-template-columns:1fr}.lk-vs{margin:0 auto}}
+/* ===== TAB 3: GRAFICOS ===== */
+.lk-ch-wrap{padding:14px;display:flex;flex-direction:column;gap:14px}
+.lk-ch-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lk-ch-card{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+.lk-ch-title{font-size:11px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:2px;font-family:'DM Sans',sans-serif}
+.lk-ch-sub{font-size:8.5px;color:rgba(255,255,255,.4);margin-bottom:12px}
+.lk-ch-canvas-wrap{position:relative;height:220px}
+.lk-ch-full{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+.lk-ch-pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.lk-ch-pill{padding:5px 12px;border-radius:14px;border:0.5px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.5);font-size:9px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s}
+.lk-ch-pill.active{background:rgba(83,74,183,.3);border-color:#7F77DD;color:#AFA9EC}
+.lk-ch-peak-wrap{position:relative;height:130px}
+.lk-ch-peak-lbl{font-size:9.5px;color:#E8BF72;margin-top:10px;text-align:center}
+@media(max-width:768px){.lk-ch-row{grid-template-columns:1fr}.lk-ch-canvas-wrap{height:200px}}
+/* ===== TAB 4: LOKKO PRO ===== */
+.lk-pro-layout{display:grid;grid-template-columns:1fr 280px;min-height:340px}
+.lk-pro-left{padding:16px}
+.lk-pro-hd{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.lk-pro-title{font-size:15px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;letter-spacing:-.2px}
+.lk-pro-badge{background:rgba(201,151,58,.2);border:0.5px solid rgba(201,151,58,.45);border-radius:10px;font-size:8px;color:#E8BF72;padding:2px 8px;letter-spacing:.3px}
+.lk-pro-sub{font-size:9.5px;color:rgba(255,255,255,.45);margin-bottom:18px}
+.lk-pro-sec-hd{font-size:10px;color:rgba(255,255,255,.6);letter-spacing:.5px;text-transform:uppercase;margin:16px 0 10px;display:flex;align-items:center;gap:6px}
+.lk-auction{background:rgba(255,255,255,.04);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.lk-auction-main{flex:1}
+.lk-auction-addr{font-size:11px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:4px;font-family:'DM Sans',sans-serif}
+.lk-auction-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lk-auction-type{font-size:7.5px;padding:2px 7px;border-radius:10px;background:rgba(55,138,221,.18);color:#7DC3F5;border:0.5px solid rgba(55,138,221,.3)}
+.lk-auction-date{font-size:9px;color:#E8BF72}
+.lk-auction-guide{font-size:9px;color:rgba(255,255,255,.55)}
+.lk-auction-agent{font-size:8.5px;color:rgba(255,255,255,.35)}
+.lk-auction-alert{font-size:8.5px;padding:6px 11px;border-radius:6px;border:0.5px solid rgba(127,119,221,.4);background:rgba(127,119,221,.12);color:#AFA9EC;text-decoration:none;white-space:nowrap;transition:all .15s}
+.lk-auction-alert:hover{background:rgba(127,119,221,.25)}
+.lk-pro-sat{background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.08);border-radius:8px;padding:13px;margin-top:6px}
+.lk-pro-sat-txt{font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:10px}
+.lk-pro-sat-btn{font-size:9px;padding:7px 14px;border-radius:6px;border:0.5px solid rgba(201,151,58,.4);background:rgba(201,151,58,.1);color:#E8BF72;cursor:not-allowed;opacity:.7;display:inline-block}
+.lk-pro-right{position:relative;background:#071525;border-left:0.5px solid rgba(255,255,255,.06);overflow:hidden}
+.lk-pro-blur{position:absolute;inset:0;padding:16px;filter:blur(4px);opacity:.5}
+.lk-pro-mock-sat{height:130px;border-radius:8px;background:linear-gradient(135deg,#0d2818 0%,#1a3a28 50%,#0d2818 100%);border:0.5px solid rgba(29,158,117,.2);margin-bottom:12px;position:relative;overflow:hidden}
+.lk-pro-mock-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:18px 18px}
+.lk-pro-mock-card{background:rgba(255,255,255,.05);border-radius:8px;padding:12px}
+.lk-pro-mock-line{height:7px;border-radius:3px;background:rgba(255,255,255,.12);margin-bottom:8px}
+.lk-pro-mock-graph{height:50px;display:flex;align-items:flex-end;gap:3px;margin-top:10px}
+.lk-pro-mock-bar{flex:1;border-radius:1px 1px 0 0;background:#534AB7}
+.lk-pro-lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;background:rgba(7,21,37,.55)}
+.lk-pro-lock-icon{font-size:24px;margin-bottom:10px}
+.lk-pro-lock-ttl{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;font-family:'DM Sans',sans-serif}
+.lk-pro-lock-txt{font-size:8.5px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:12px;max-width:200px}
+.lk-pro-lock-price{font-size:13px;font-weight:600;color:#E8BF72;margin-bottom:14px;font-family:'DM Sans',sans-serif}
+.lk-pro-lock-btn{font-size:10px;font-weight:500;padding:9px 18px;border-radius:7px;background:#534AB7;color:#fff;text-decoration:none;transition:opacity .15s}
+.lk-pro-lock-btn:hover{opacity:.85}
+.lk-pro-fine{font-size:7.5px;color:rgba(255,255,255,.3);margin-top:12px;line-height:1.5;max-width:220px}
+@media(max-width:768px){.lk-pro-layout{grid-template-columns:1fr}.lk-pro-right{min-height:260px}}
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  .hero-grid,.services-grid,.process-grid,.audit-grid,.about-band,.stats-band{grid-template-columns:1fr}
+  .cities-grid{grid-template-columns:repeat(2,1fr)}
+  nav{padding:0 20px}
+  section,.hero{padding:48px 20px}
+  footer{padding:20px;flex-direction:column;gap:12px;text-align:center}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="/es" class="logo">
+    <span class="logo-text">lokko</span>
+  </a>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#ciudades">Ciudades</a>
+    <a href="#proceso">Cómo funciona</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="/" class="lang-switch">EN</a>
+    <a href="#auditoria" class="nav-cta">Auditoría gratis</a>
+  </div>
+  <button class="hamburger" aria-label="Abrir menú" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#servicios" class="mobile-link">Servicios</a>
+    <a href="#ciudades" class="mobile-link">Ciudades</a>
+    <a href="#proceso" class="mobile-link">Cómo funciona</a>
+    <a href="#nosotros" class="mobile-link">Nosotros</a>
+    <a href="/" class="mobile-link">Ver en inglés (EN)</a>
+    <a href="#auditoria" class="nav-cta mobile-link">Auditoría gratis</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-grid container">
+    <div>
+      <div class="hero-eyebrow"><span></span>Colombia · Inteligencia de ubicación empresarial</div>
+      <h1>Decisiones de expansión<br/><strong>respaldadas por datos.</strong><br/><em>No por intuición.</em></h1>
+      <p class="hero-sub">Lokko es una consultora boutique de inteligencia de ubicación. Ayudamos a grupos de franquicias, cadenas de retail, aseguradoras y desarrolladores inmobiliarios en Colombia a tomar decisiones de expansión con datos reales del DANE, análisis competitivo en vivo y metodología de clase mundial.</p>
+      <div class="hero-btns">
+        <a href="#auditoria" class="btn-primary">Solicitar auditoría gratis</a>
+        <a href="#servicios" class="btn-ghost">Ver servicios</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-n">Desde $5k USD</div><div class="stat-l">Por proyecto</div></div>
+        <div><div class="stat-n">5 ciudades</div><div class="stat-l">Cobertura nacional</div></div>
+        <div><div class="stat-n">DANE + IA</div><div class="stat-l">Datos reales</div></div>
+      </div>
+    </div>
+
+  <!-- ===== DASHBOARD INTERACTIVO ===== -->
+  <div class="hero-dash-wrap">
+    <div class="lk-dash">
+      <div class="lk-topbar">
+        <div class="lk-dots">
+          <div class="lk-dot" style="background:#FF5F57"></div>
+          <div class="lk-dot" style="background:#FEBC2E"></div>
+          <div class="lk-dot" style="background:#28C840"></div>
+        </div>
+        <div class="lk-tb-title">lokko · inteligencia territorial · Bogotá D.C. · cadena retail</div>
+      </div>
+
+      <div class="lk-tabs">
+        <div class="lk-tab active" onclick="lkTab('territorial',this)"><span>📍</span>Análisis territorial<span class="lk-tab-badge">3 zonas prioritarias</span></div>
+        <div class="lk-tab" onclick="lkTab('mobility',this)"><span>📊</span>Flujo peatonal</div>
+        <div class="lk-tab" onclick="lkTab('charts',this)"><span>📈</span>Comparación y gráficos</div>
+        <div class="lk-tab" onclick="lkTab('pro',this)"><span>✦</span>Lokko Pro<span class="lk-tab-badge gold">Vista previa</span></div>
+      </div>
+
+      <div class="lk-helper" id="lkHelper"><span class="lk-helper-dot"></span><span id="lkHelperText">Haz clic en cualquier zona o punto del mapa para explorar — arrastra los controles para cambiar el radio de búsqueda</span></div>
+
+      <!-- TAB 1: TERRITORIAL -->
+      <div class="lk-tab-content active" id="lk-tab-territorial">
+        <div class="lk-layout">
+          <div class="lk-sidebar">
+            <div class="lk-sb-head">Ranking de zonas</div>
+            <div id="lkSidebarRows"></div>
+            <div class="lk-sb-head">Capas</div>
+            <div class="lk-layer-row"><div class="lk-layer-dot" style="background:#C9973A"></div><div class="lk-layer-name">Negocios similares</div><div class="lk-layer-ct" id="lkLayerComp">3</div></div>
+            <div class="lk-layer-row"><div class="lk-layer-dot" style="background:#7F77DD"></div><div class="lk-layer-name">Misma marca</div><div class="lk-layer-ct" id="lkLayerBrand">1</div></div>
+          </div>
+
+          <div class="lk-main">
+            <div class="lk-kpis">
+              <div class="lk-kpi"><div class="lk-kv" style="color:#1D9E75">3</div><div class="lk-kl">Zonas prioritarias</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#378ADD">47</div><div class="lk-kl">Localidades analizadas</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#C9973A">$2.1M</div><div class="lk-kl">Rev. est. top zona</div></div>
+              <div class="lk-kpi"><div class="lk-kv" style="color:#7F77DD" id="lkKpiRad">5 km</div><div class="lk-kl">Radio mostrado</div></div>
+            </div>
+            <div class="lk-map-wrap">
+              <svg class="lk-map-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="lkg0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1D9E75" stop-opacity=".28"/><stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#378ADD" stop-opacity=".22"/><stop offset="100%" stop-color="#378ADD" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#534AB7" stop-opacity=".2"/><stop offset="100%" stop-color="#534AB7" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9973A" stop-opacity=".18"/><stop offset="100%" stop-color="#C9973A" stop-opacity="0"/></radialGradient>
+                  <radialGradient id="lkg4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5DCAA5" stop-opacity=".18"/><stop offset="100%" stop-color="#5DCAA5" stop-opacity="0"/></radialGradient>
+                </defs>
+                <g style="pointer-events:none">
+                  <line x1="0" y1="32" x2="420" y2="32" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="64" x2="420" y2="64" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="96" x2="420" y2="96" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="128" x2="420" y2="128" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="160" x2="420" y2="160" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="48" y1="0" x2="48" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="108" y1="0" x2="108" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="168" y1="0" x2="168" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="228" y1="0" x2="228" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="288" y1="0" x2="288" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="348" y1="0" x2="348" y2="195" stroke="rgba(255,255,255,.022)" stroke-width=".7"/>
+                  <line x1="0" y1="150" x2="200" y2="0" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                  <line x1="160" y1="195" x2="420" y2="40" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+                  <line x1="60" y1="0" x2="320" y2="195" stroke="rgba(255,255,255,.035)" stroke-width="1"/>
+                  <path d="M0,70 C90,55 150,120 230,95 C310,70 360,130 420,110" fill="none" stroke="rgba(255,255,255,.045)" stroke-width="1.1"/>
+                  <path d="M40,195 C70,140 30,110 90,70 C130,42 120,20 170,0" fill="none" stroke="rgba(255,255,255,.03)" stroke-width=".9"/>
+                  <path d="M250,0 C270,50 340,60 330,110 C322,150 380,160 420,150" fill="none" stroke="rgba(255,255,255,.03)" stroke-width=".9"/>
+                </g>
+                <circle cx="88" cy="125" r="52" fill="url(#lkg0)"/>
+                <circle cx="150" cy="62" r="46" fill="url(#lkg1)"/>
+                <circle cx="268" cy="115" r="40" fill="url(#lkg2)"/>
+                <circle cx="312" cy="150" r="34" fill="url(#lkg3)"/>
+                <circle cx="236" cy="152" r="28" fill="url(#lkg4)"/>
+                <circle id="lkring0" cx="88" cy="125" r="36" fill="none" stroke="#1D9E75" stroke-width=".8" stroke-dasharray="4,3" opacity=".5"/>
+                <circle id="lkring1" cx="150" cy="62" r="32" fill="none" stroke="#378ADD" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring2" cx="268" cy="115" r="28" fill="none" stroke="#534AB7" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring3" cx="312" cy="150" r="24" fill="none" stroke="#C9973A" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle id="lkring4" cx="236" cy="152" r="20" fill="none" stroke="#5DCAA5" stroke-width=".8" stroke-dasharray="4,3" opacity=".4"/>
+                <circle cx="68" cy="112" r="3.5" fill="#C9973A" opacity=".8"/>
+                <circle cx="174" cy="82" r="3" fill="#C9973A" opacity=".7"/>
+                <circle cx="290" cy="128" r="3.5" fill="#C9973A" opacity=".72"/>
+                <circle cx="365" cy="140" r="3" fill="#C9973A" opacity=".6"/>
+                <circle cx="116" cy="108" r="3.5" fill="#7F77DD" opacity=".82"/>
+                <circle cx="336" cy="92" r="3.5" fill="#7F77DD" opacity=".72"/>
+                <circle class="lkPulse p0" cx="88" cy="125" r="7" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+                <circle class="lkDot" data-i="0" cx="88" cy="125" r="7" fill="#1D9E75" opacity=".9" style="cursor:pointer"/>
+                <circle cx="88" cy="125" r="3.5" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkPulse p1" cx="150" cy="62" r="7" fill="none" stroke="#378ADD" stroke-width="1.5"/>
+                <circle class="lkDot" data-i="1" cx="150" cy="62" r="6.5" fill="#378ADD" opacity=".9" style="cursor:pointer"/>
+                <circle cx="150" cy="62" r="3" fill="#fff" style="pointer-events:none"/>
+                <circle class="lkPulse p2" cx="268" cy="115" r="7" fill="none" stroke="#534AB7" stroke-width="1.5"/>
+                <circle class="lkDot" data-i="2" cx="268" cy="115" r="6" fill="#534AB7" opacity=".9" style="cursor:pointer"/>
+                <circle cx="268" cy="115" r="3" fill="#fff" style="pointer-events:none"/>
+                <rect x="96" y="117" width="50" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="121" y="127" font-size="7.5" fill="#1D9E75" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#1 Chapinero</text>
+                <rect x="158" y="53" width="52" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="184" y="63" font-size="7.5" fill="#378ADD" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#2 Usaquén</text>
+                <rect x="276" y="107" width="42" height="13" rx="3" fill="rgba(0,0,0,.7)" style="pointer-events:none"/>
+                <text x="297" y="117" font-size="7.5" fill="#7F77DD" font-family="DM Mono,monospace" text-anchor="middle" style="pointer-events:none">#3 Suba</text>
+                <rect x="5" y="174" width="410" height="16" rx="3" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.05)" stroke-width=".5" style="pointer-events:none"/>
+                <circle cx="14" cy="182" r="3" fill="#1D9E75" style="pointer-events:none"/><text x="21" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Zona prioritaria</text>
+                <circle cx="110" cy="182" r="3" fill="#C9973A" style="pointer-events:none"/><text x="117" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Negocio similar</text>
+                <circle cx="210" cy="182" r="3" fill="#7F77DD" style="pointer-events:none"/><text x="217" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Misma marca</text>
+                <line x1="292" y1="178" x2="304" y2="178" stroke="#5DCAA5" stroke-width="1" stroke-dasharray="3,2" style="pointer-events:none"/><text x="309" y="186" font-size="7" fill="rgba(255,255,255,.6)" font-family="DM Mono,monospace" style="pointer-events:none">Radio de búsqueda</text>
+              </svg>
+              <div class="lk-popup" id="lkPopup">
+                <span class="lk-popup-close" onclick="lkClosePopup()">✕</span>
+                <div class="lk-popup-name" id="lkPopName">Chapinero</div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Puntaje</span><span class="lk-popup-v" id="lkPopScore"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Población</span><span class="lk-popup-v" id="lkPopPop"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Ingreso hogar</span><span class="lk-popup-v" id="lkPopInc"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Edad mediana</span><span class="lk-popup-v" id="lkPopAge"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Km a competidor</span><span class="lk-popup-v" id="lkPopKm"></span></div>
+                <div class="lk-popup-row"><span class="lk-popup-k">Perfil de gasto</span><span class="lk-popup-v gold" id="lkPopSpend" style="text-align:right;max-width:130px"></span></div>
+                <div class="lk-popup-peak">
+                  <div class="lk-popup-peak-lbl">Horario pico viernes</div>
+                  <div class="lk-peak-bars" id="lkPopPeakBars"></div>
+                  <div class="lk-peak-time" id="lkPopPeakTime"></div>
+                </div>
+              </div>
+              <div class="lk-map-cap">DANE Censo 2018 · Google Places API · Motor de scoring Lokko · Haz clic en cualquier punto prioritario</div>
+            </div>
+            <div class="lk-sliders">
+              <div class="lk-sl-row"><div class="lk-sl-lbl">Negocios similares en radio de</div><input type="range" min="1" max="15" value="5" step="1" oninput="lkRadius(this.value)"><div class="lk-sl-val" id="lkSlV1">5 km</div></div>
+              <div class="lk-sl-row"><div class="lk-sl-lbl">Misma marca en radio de</div><input type="range" min="1" max="20" value="5" step="1" oninput="lkBrand(this.value)"><div class="lk-sl-val" id="lkSlV2">5 km</div></div>
+            </div>
+          </div>
+
+          <div class="lk-panel">
+            <div>
+              <div class="lk-p-head">Zona seleccionada</div>
+              <div class="lk-p-card" id="lkSelCard" style="background:rgba(29,158,117,.06);border-color:rgba(29,158,117,.28)">
+                <div class="lk-p-big" id="lkSelScore" style="color:#1D9E75">94.2</div>
+                <div class="lk-p-sub-name" id="lkSelName">#1 · Chapinero</div>
+                <div class="lk-p-detail" id="lkSelDetail">Bogotá · Estrato 4–6<br/>Alta densidad comercial</div>
+              </div>
+            </div>
+            <div>
+              <div class="lk-p-head">Factores de scoring</div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Población</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf0" style="width:88%;background:#1D9E75"></div></div><div class="lk-bar-val" id="lkbv0">88</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Ingreso</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf1" style="width:95%;background:#378ADD"></div></div><div class="lk-bar-val" id="lkbv1">95</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Jóvenes</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf2" style="width:92%;background:#534AB7"></div></div><div class="lk-bar-val" id="lkbv2">92</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Brecha geo</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf3" style="width:97%;background:#C9973A"></div></div><div class="lk-bar-val" id="lkbv3">97</div></div>
+              <div class="lk-bar-row"><div class="lk-bar-lbl">Competencia</div><div class="lk-bar-track"><div class="lk-bar-fill" id="lkbf4" style="width:80%;background:#7F77DD"></div></div><div class="lk-bar-val" id="lkbv4">80</div></div>
+            </div>
+            <div>
+              <div class="lk-p-head">Proximidad</div>
+              <div class="lk-prox-pills">
+                <div class="lk-pill" style="background:rgba(201,151,58,.15);border:0.5px solid rgba(201,151,58,.3);color:#E8BF72"><span id="lkPc1">2</span>&nbsp;negocios similares en rango</div>
+                <div class="lk-pill" style="background:rgba(127,119,221,.15);border:0.5px solid rgba(127,119,221,.3);color:#AFA9EC"><span id="lkPc2">1</span>&nbsp;misma marca en rango</div>
+                <div class="lk-pill" style="background:rgba(29,158,117,.15);border:0.5px solid rgba(29,158,117,.3);color:#5DCAA5" id="lkPc3">$ Rev. est. USD 2.1M / año</div>
+              </div>
+            </div>
+            <div>
+              <div class="lk-p-head">Inmuebles disponibles</div>
+              <div class="lk-listing-toggle">
+                <button class="lk-lt-btn active" id="lkLtRent" onclick="lkSetList('rent',this)">Arriendo</button>
+                <button class="lk-lt-btn" id="lkLtBuy" onclick="lkSetList('buy',this)">Venta</button>
+              </div>
+              <a id="lkLnkRC" class="lk-listing-link" href="#" target="_blank" rel="noopener"><span class="lk-ll-label">En arriendo →</span><span class="lk-ll-count">metrocuadrado.com</span></a>
+              <a id="lkLnkCRE" class="lk-listing-link" href="#" target="_blank" rel="noopener"><span class="lk-ll-label">En arriendo →</span><span class="lk-ll-count">fincaraiz.com.co</span></a>
+              <div style="font-size:7px;color:rgba(255,255,255,.18);margin-top:4px">Abre búsqueda de locales comerciales para la zona seleccionada</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: FLUJO PEATONAL (placeholder) -->
+      <div class="lk-tab-content" id="lk-tab-mobility">
+        <div class="lk-ft-ctrl">
+          <div class="lk-ft-group">
+            <div class="lk-ft-lbl">Hora del día</div>
+            <div class="lk-ft-time-row">
+              <input type="range" id="lkFtSlider" min="0" max="23" value="12" step="1" oninput="lkFtUpdate()" style="width:200px">
+              <div class="lk-ft-time-val" id="lkFtTimeVal">12:00 pm</div>
+            </div>
+            <div class="lk-ft-viz" id="lkFtViz"></div>
+          </div>
+          <div class="lk-ft-group">
+            <div class="lk-ft-lbl">Condición climática</div>
+            <div class="lk-wx-row">
+              <button class="lk-wx-btn active" onclick="lkFtWx('sunny',this)">☀ Soleado</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('cloudy',this)">⛅ Nublado</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('rainy',this)">🌧 Lluvia</button>
+              <button class="lk-wx-btn" onclick="lkFtWx('hot',this)">🧥 Frío intenso</button>
+            </div>
+          </div>
+          <div class="lk-ft-ctx" id="lkFtCtx">Pico almuerzo · Cielo despejado · Alta actividad esperada</div>
+        </div>
+        <div class="lk-ft-hint" id="lkFtHint">Selecciona dos zonas para comparar el flujo peatonal →</div>
+        <div class="lk-ft-cards" id="lkFtCards"></div>
+        <div class="lk-drawer" id="lkDrawer">
+          <div class="lk-drawer-in">
+            <div class="lk-drawer-hd">
+              <div class="lk-drawer-ttl">Comparación de flujo peatonal</div>
+              <button class="lk-drawer-x" onclick="lkFtClear()">✕ limpiar</button>
+            </div>
+            <div class="lk-cmp-grid" id="lkCmpGrid"></div>
+            <div class="lk-insight" id="lkInsight"></div>
+          </div>
+        </div>
+      </div>
+      <!-- TAB 3: GRÁFICOS (placeholder) -->
+      <div class="lk-tab-content" id="lk-tab-charts">
+        <div class="lk-ch-wrap">
+          <div class="lk-ch-row">
+            <div class="lk-ch-card">
+              <div class="lk-ch-title">Desglose de puntaje — top zonas</div>
+              <div class="lk-ch-sub">Comparación por cinco factores · selecciona zonas en Flujo peatonal</div>
+              <div class="lk-ch-canvas-wrap"><canvas id="lkRadar"></canvas></div>
+            </div>
+            <div class="lk-ch-card">
+              <div class="lk-ch-title">Rev. estimada anual — top 5 zonas</div>
+              <div class="lk-ch-sub">Modelado desde población de catchment × perfil de gasto</div>
+              <div class="lk-ch-canvas-wrap"><canvas id="lkRevenue"></canvas></div>
+            </div>
+          </div>
+          <div class="lk-ch-full">
+            <div class="lk-ch-title">Horario pico de tráfico — viernes (Google Popular Times)</div>
+            <div class="lk-ch-sub">Selecciona una zona para ver sus ventanas más activas</div>
+            <div class="lk-ch-pills" id="lkPeakPills"></div>
+            <div class="lk-ch-peak-wrap"><canvas id="lkPeakChart"></canvas></div>
+            <div class="lk-ch-peak-lbl" id="lkPeakLbl"></div>
+          </div>
+        </div>
+      </div>
+      <!-- TAB 4: PRO (placeholder) -->
+      <div class="lk-tab-content" id="lk-tab-pro">
+        <div class="lk-pro-layout">
+          <div class="lk-pro-left">
+            <div class="lk-pro-hd">
+              <div class="lk-pro-title">Lokko Pro</div>
+              <span class="lk-pro-badge">✦ VISTA PREVIA</span>
+            </div>
+            <div class="lk-pro-sub">Funciones disponibles con suscripción Lokko Pro</div>
+            <div class="lk-pro-sec-hd">📡 Alertas de inmuebles en venta</div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">Cr 13 #93-40, Chapinero, Bogotá</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Local comercial</span>
+                  <span class="lk-auction-date">Lun 16 Jun 2026</span>
+                  <span class="lk-auction-guide">COP $1.8B–$2.1B</span>
+                  <span class="lk-auction-agent">Coldwell Banker</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Alerta%20inmueble:%20Cr%2013%2093-40%20Chapinero">Activar alerta →</a>
+            </div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">Cl 119 #6-42, Usaquén, Bogotá</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Uso mixto</span>
+                  <span class="lk-auction-date">Vie 20 Jun 2026</span>
+                  <span class="lk-auction-guide">COP $2.4B–$2.8B</span>
+                  <span class="lk-auction-agent">Century 21</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Alerta%20inmueble:%20Cl%20119%206-42%20Usaquen">Activar alerta →</a>
+            </div>
+            <div class="lk-auction">
+              <div class="lk-auction-main">
+                <div class="lk-auction-addr">Av Suba #115-60 L.204, Suba</div>
+                <div class="lk-auction-meta">
+                  <span class="lk-auction-type">Centro comercial</span>
+                  <span class="lk-auction-date">Mar 24 Jun 2026</span>
+                  <span class="lk-auction-guide">COP $890M–$1.1B</span>
+                  <span class="lk-auction-agent">RE/MAX Colombia</span>
+                </div>
+              </div>
+              <a class="lk-auction-alert" href="mailto:hello@lokko.au?subject=Alerta%20inmueble:%20Av%20Suba%20115-60%20Suba">Activar alerta →</a>
+            </div>
+            <div class="lk-pro-sec-hd">🛰 Vista satelital del sitio</div>
+            <div class="lk-pro-sat">
+              <div class="lk-pro-sat-txt">Vista satelital a nivel de calle para cualquier zona seleccionada. Detección de esquinas, dimensiones de lote y análisis de frente comercial — el detalle que diferencia un buen local de uno excelente.</div>
+              <span class="lk-pro-sat-btn">Disponible con Lokko Pro</span>
+            </div>
+          </div>
+          <div class="lk-pro-right">
+            <div class="lk-pro-blur">
+              <div class="lk-pro-mock-sat"><div class="lk-pro-mock-grid"></div></div>
+              <div class="lk-pro-mock-card">
+                <div class="lk-pro-mock-line" style="width:60%"></div>
+                <div class="lk-pro-mock-line" style="width:85%"></div>
+                <div class="lk-pro-mock-line" style="width:45%"></div>
+                <div class="lk-pro-mock-graph">
+                  <div class="lk-pro-mock-bar" style="height:40%"></div>
+                  <div class="lk-pro-mock-bar" style="height:65%"></div>
+                  <div class="lk-pro-mock-bar" style="height:50%"></div>
+                  <div class="lk-pro-mock-bar" style="height:80%"></div>
+                  <div class="lk-pro-mock-bar" style="height:70%"></div>
+                  <div class="lk-pro-mock-bar" style="height:95%"></div>
+                  <div class="lk-pro-mock-bar" style="height:60%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="lk-pro-lock">
+              <div class="lk-pro-lock-icon">🔒</div>
+              <div class="lk-pro-lock-ttl">Desbloquear Lokko Pro</div>
+              <div class="lk-pro-lock-txt">Calendario de inmuebles en venta · Precios históricos · Días en mercado · Reportes semanales automáticos · Integración climática en tiempo real</div>
+              <div class="lk-pro-lock-price">Desde USD $350 / mes</div>
+              <a class="lk-pro-lock-btn" href="mailto:hello@lokko.au?subject=Consulta%20Lokko%20Pro">Consultar Lokko Pro</a>
+              <div class="lk-pro-fine">Datos de inmuebles vía Finca Raíz · Vista satelital vía Google Maps API · Valoraciones vía Metrocuadrado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ── STATS BAND ── -->
+<section style="background:var(--bg);padding:32px 40px">
+  <div class="container">
+    <div class="stats-band">
+      <div class="stat-card">
+        <div class="stat-card-n">+50M</div>
+        <div class="stat-card-label" style="color:var(--blue)">Colombianos mapeados</div>
+        <div class="stat-card-desc">Usamos los datos del Censo DANE para identificar con precisión dónde se concentra tu mercado objetivo — por estrato, localidad y área de influencia comercial.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">20–30%</div>
+        <div class="stat-card-label" style="color:var(--teal)">Mercado sin cubrir</div>
+        <div class="stat-card-desc">Las cadenas y franquicias que expanden sin análisis de ubicación dejan ingresos sobre la mesa — o peor, comprometen capital en el mercado equivocado.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">5 días</div>
+        <div class="stat-card-label" style="color:var(--purple)">Auditoría entregada</div>
+        <div class="stat-card-desc">Te entregamos tus 3 mejores oportunidades de expansión en 5 días hábiles. Sin reuniones de ventas, sin compromiso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="servicios">
+  <div class="container fade-in">
+    <div class="section-mono">Qué hacemos</div>
+    <div class="section-title">Tres servicios, un equipo</div>
+    <p class="section-sub">La mayoría de clientes llegan con una pregunta — "¿dónde abrimos el próximo punto?" — y descubren dos más que no sabían que tenían. Trabajamos con franquicias, retail, aseguradoras y desarrolladores que necesitan certeza antes de comprometer capital.</p>
+    <div class="services-grid">
+
+      <div class="svc">
+        <div class="svc-num">01</div>
+        <div class="svc-icon" style="background:var(--blue-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="8" r="3.5" stroke="#534AB7" stroke-width="1.3"/>
+            <path d="M9 2C5.69 2 3 4.69 3 8c0 4 6 10 6 10s6-6 6-10c0-3.31-2.69-6-6-6z" stroke="#534AB7" stroke-width="1.3" fill="none"/>
+          </svg>
+        </div>
+        <h3>Estrategia de expansión</h3>
+        <p>Te decimos exactamente en qué barrio o ciudad abrir tu próximo local — con datos del DANE, competencia en tiempo real y análisis de demanda por estrato.</p>
+        <div class="svc-items">
+          <div class="svc-item">Scoring de oportunidad por municipio</div>
+          <div class="svc-item">Análisis de área de influencia</div>
+          <div class="svc-item">Mapeo de competidores y zonas sin cubrir</div>
+          <div class="svc-item">Auditoría territorial gratuita para empezar</div>
+        </div>
+        <div class="svc-price">Desde $5.000 USD · Proyecto o retención</div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">02</div>
+        <div class="svc-icon" style="background:var(--teal-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2" y="2" width="14" height="14" rx="2" stroke="#1D9E75" stroke-width="1.3"/>
+            <path d="M5 9h8M5 6h5M5 12h6" stroke="#1D9E75" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Diseño de territorios de venta</h3>
+        <p>Si tienes vendedores en campo, diseñamos sus zonas usando datos reales — no por municipios arbitrarios. Menos traslapes, más cobertura efectiva.</p>
+        <div class="svc-items">
+          <div class="svc-item">Zonificación basada en demanda real</div>
+          <div class="svc-item">Rutas optimizadas para tu fuerza de ventas</div>
+          <div class="svc-item">Identificación de zonas de alto potencial</div>
+          <div class="svc-item">Dashboard de cobertura por territorio</div>
+        </div>
+        <div class="svc-price">Desde $6.000 USD · Proyecto</div>
+      </div>
+
+      <div class="svc">
+        <div class="svc-num">03</div>
+        <div class="svc-icon" style="background:var(--purple-light)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M3 14l4-4 3 3 5-6" stroke="#534AB7" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="4" r="2.5" stroke="#534AB7" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <h3>Ingeniería de datos y automatización</h3>
+        <p>¿Tienes una base de datos de clientes desordenada? La limpiamos, geocodificamos y convertimos en inteligencia útil — automatizando los reportes que hoy te toman horas.</p>
+        <div class="svc-items">
+          <div class="svc-item">Limpieza y estandarización de direcciones</div>
+          <div class="svc-item">Geocodificación masiva de registros</div>
+          <div class="svc-item">Pipelines automatizados de datos</div>
+          <div class="svc-item">Reportes semanales sin intervención manual</div>
+        </div>
+        <div class="svc-price">Desde $7.000 USD · Proyecto o retención</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CITIES ── -->
+<section id="ciudades" style="background:var(--bg)">
+  <div class="container fade-in">
+    <div class="section-mono">Cobertura</div>
+    <div class="section-title">Cobertura en los principales mercados</div>
+    <p class="section-sub">Cubrimos los cinco grandes mercados urbanos de Colombia — donde se concentran las decisiones de expansión corporativa, el mayor poder adquisitivo y la competencia más intensa.</p>
+    <div class="cities-grid">
+      <div class="city-card">
+        <div class="city-flag">🏙️</div>
+        <div class="city-name">Bogotá</div>
+        <div class="city-desc">Capital · Alta competencia · Análisis por localidad y UPZ</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🌺</div>
+        <div class="city-name">Medellín</div>
+        <div class="city-desc">Innovación · Comunas y corregimientos · Mercado en expansión</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🎶</div>
+        <div class="city-name">Cali</div>
+        <div class="city-desc">Pacífico · Comunas sur y norte · Zonas de alto crecimiento</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">🌊</div>
+        <div class="city-name">Barranquilla</div>
+        <div class="city-desc">Costa Atlántica · Puerto industrial · Expansión comercial</div>
+      </div>
+      <div class="city-card">
+        <div class="city-flag">⛰️</div>
+        <div class="city-name">Bucaramanga</div>
+        <div class="city-desc">Santander · Municipios metropolitanos · Mercado emergente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="proceso">
+  <div class="container fade-in">
+    <div class="section-mono">Cómo funciona</div>
+    <div class="section-title">Simple desde el primer día</div>
+    <p class="section-sub">Todo empieza gratis. Nos ganamos tu confianza antes de pedirte cualquier inversión.</p>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-n">Paso 01</div>
+        <h4>Auditoría territorial gratis</h4>
+        <p>Analizamos tu negocio actual e identificamos tus 3 mejores oportunidades usando datos DANE y competencia real. Entregado en 5 días, sin compromiso.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-n">Paso 02</div>
+        <h4>Revisión de datos</h4>
+        <p>Si tienes registros de clientes o ventas, los revisamos primero. ¿No tienes datos propios? Construimos el análisis completo desde fuentes públicas — DANE, DIVIPOLA y Google Places.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-n">Paso 03</div>
+        <h4>Análisis y entrega</h4>
+        <p>Corremos el análisis geoespacial usando DANE, Google Places y tus datos limpios donde aplique. Entregado como mapa interactivo o reporte PDF.</p>
+      </div>
+      <div class="process-step" style="border-right:none">
+        <div class="process-n">Paso 04</div>
+        <h4>Inteligencia continua</h4>
+        <p>Retención opcional: un dashboard de ubicación en vivo que se actualiza con tu mercado. Agrega automatización IA para que los reportes se generen solos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA SOURCES ── -->
+<section style="background:var(--bg)">
+  <div class="container fade-in">
+    <div class="section-mono">Fuentes de datos</div>
+    <div class="section-title">Datos colombianos, análisis de clase mundial</div>
+    <p class="section-sub" style="margin-bottom:20px">Usamos las mismas fuentes que usan las grandes empresas — ahora accesibles para tu negocio.</p>
+    <div class="tools-flow">
+      <span class="tool-pill">DANE · Censo 2018</span>
+      <span class="tool-pill">DIVIPOLA</span>
+      <span class="tool-pill">Google Places API</span>
+      <span class="tool-pill">OpenStreetMap Colombia</span>
+      <span class="tool-pill">Python · GeoPandas</span>
+      <span class="tool-pill">QGIS</span>
+      <span class="tool-pill">Mapbox</span>
+      <span class="tool-pill">Claude AI API</span>
+      <span class="tool-pill">Supabase</span>
+      <span class="tool-pill">Snowflake</span>
+      <span class="tool-pill">ReportLab PDF</span>
+      <span class="tool-pill">Estratificación socioeconómica</span>
+      <span class="tool-pill">Catastro IGAC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="nosotros">
+  <div class="container fade-in">
+    <div class="section-mono">Quiénes somos</div>
+    <div class="section-title">Metodología australiana, contexto colombiano</div>
+    <p class="section-sub">Lokko combina rigor técnico internacional con conocimiento profundo del mercado colombiano — una combinación que ninguna consultora local ofrece.</p>
+    <div class="about-band">
+      <div>
+        <h3>El rigor de los mercados desarrollados, aplicado a Colombia</h3>
+        <p>Soy Sandra Zuluaga, fundadora de Lokko. Construí mi carrera en ingeniería de datos y análisis geoespacial trabajando con empresas Fortune 500 en Australia — donde la inteligencia de ubicación es una disciplina establecida con metodologías probadas.<br/><br/>En Colombia, ese nivel de análisis estaba reservado para las multinacionales. Lokko lo hace accesible para grupos empresariales, cadenas de franquicias y desarrolladores colombianos que compiten en mercados cada vez más exigentes. Entiendo los estratos, las dinámicas de comunas y los patrones de consumo locales — y sé cómo convertirlos en ventaja competitiva real.</p>
+      </div>
+      <div class="about-badges">
+        <div class="about-badge"><div class="about-badge-dot"></div>Bilingüe — español e inglés</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Raíces colombianas, perspectiva global</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Datos DANE + metodología australiana</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Accesible para negocios de cualquier tamaño</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Comunicación directa, sin tecnicismos</div>
+        <div class="about-badge"><div class="about-badge-dot"></div>Equipo inclusivo y diverso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUDIT CTA ── -->
+<section id="auditoria" class="audit-section">
+  <div class="container">
+    <div class="audit-grid">
+      <div>
+        <div class="section-mono">Oferta gratuita</div>
+        <div class="section-title">Obtén tu auditoría territorial gratis</div>
+        <p class="section-sub">Cuéntanos tu modelo de negocio y mercado objetivo. Identificamos tus 3 mejores oportunidades de expansión con datos reales del DANE, análisis competitivo y metodología de clase mundial.</p>
+        <div class="audit-form" id="auditFormES">
+          <input type="text" id="es_name" placeholder="Tu nombre"/>
+          <input type="text" id="es_company" placeholder="Nombre del negocio"/>
+          <input type="email" id="es_email" placeholder="Tu correo electrónico"/>
+          <input type="text" id="es_business_type" placeholder="Tipo de negocio (ej. franquicia, retail, inmobiliaria, aseguradora)"/>
+          <input type="text" id="es_location" placeholder="Ciudad o barrio actual"/>
+          <button class="btn-white" id="esSubmitBtn" onclick="submitAuditES()">Solicitar auditoría</button>
+          <p id="esError" style="display:none;color:#f87171;font-size:12px;margin-top:4px"></p>
+        </div>
+        <div id="esSuccess" style="display:none;padding:24px;border-radius:var(--radius-lg);background:rgba(29,158,117,0.15);border:0.5px solid rgba(29,158,117,0.4)">
+          <div style="font-size:15px;font-weight:500;color:#fff;margin-bottom:6px">✓ Solicitud recibida</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6">Gracias — te escribimos en los próximos 5 días hábiles. Revisa tu bandeja de entrada para una confirmación de <strong style="color:rgba(255,255,255,0.9)">hello@lokko.au</strong></div>
+        </div>
+        <p class="audit-note" id="esNote">Entregado en 5 días hábiles · Sin reunión de ventas</p>
+      </div>
+      <div>
+        <div class="audit-features">
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Scoring de oportunidad por municipio con Censo DANE 2018</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Competencia mapeada dentro de tu zona de influencia</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Top 3 ubicaciones de expansión con justificación clara</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Reporte PDF de una página — compartible con tu equipo</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>Completamente gratis — sin pitch, sin factura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:18px;font-weight:500;color:var(--navy);letter-spacing:-0.3px">lokko</div>
+  <div class="footer-loc">Melbourne, Australia · Colombia</div>
+  <div class="footer-right">
+    <a href="mailto:hello@lokko.au">hello@lokko.au</a>
+    <a href="https://www.linkedin.com/company/lokko-au" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="/">Ver en inglés</a>
+  </div>
+</footer>
+
+<script>
+// Hamburger
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+hamburgerBtn.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburgerBtn.setAttribute('aria-expanded', isOpen);
+});
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Audit form submit
+async function submitAuditES() {
+  const btn = document.getElementById('esSubmitBtn');
+  const errorEl = document.getElementById('esError');
+  const name = document.getElementById('es_name').value.trim();
+  const company = document.getElementById('es_company').value.trim();
+  const email = document.getElementById('es_email').value.trim();
+  const business_type = document.getElementById('es_business_type').value.trim();
+  const location = document.getElementById('es_location').value.trim();
+
+  errorEl.style.display = 'none';
+
+  if (!name || !company || !email || !business_type || !location) {
+    errorEl.textContent = 'Por favor completa todos los campos antes de enviar.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.textContent = 'Por favor ingresa un correo electrónico válido.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  btn.textContent = 'Enviando…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mbdqlnqv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name, company, email, business_type, location,
+        _subject: 'Nueva solicitud de auditoría Lokko — Colombia',
+        _replyto: email,
+        source: 'lokko.au/es'
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('auditFormES').style.display = 'none';
+      document.getElementById('esNote').style.display = 'none';
+      document.getElementById('esSuccess').style.display = 'block';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch(e) {
+    btn.textContent = 'Solicitar auditoría';
+    btn.disabled = false;
+    errorEl.textContent = 'Algo salió mal. Escríbenos directamente a hello@lokko.au';
+    errorEl.style.display = 'block';
+  }
+}
+
+/* ===== LOKKO DASHBOARD JS (ES Stage 1: Tabs + Tab 1) ===== */
+const lkSuburbs=[
+  {name:"Chapinero",slug:"chapinero-bogota",cre:"chapinero-bogota",rank:1,score:94.2,color:"#1D9E75",detail:"Bogotá · Estrato 4–6<br/>Alta densidad comercial",compNear:2,brandNear:1,factors:[88,95,92,97,80],rev:"USD 2.1M",pop:"166.000",inc:"$5,8M/mes",age:"34",km:"3.2km",spend:"Alta discrecionalidad · Gasto premium",peak:[3,4,4,5,4,5,6,8,8,6,4,3],peakTime:"Pico 5pm–7pm · Vie/Sáb alto"},
+  {name:"Usaquén",slug:"usaquen-bogota",cre:"usaquen-bogota",rank:2,score:88.7,color:"#378ADD",detail:"Bogotá · Estrato 5–6<br/>Alto poder adquisitivo",compNear:1,brandNear:0,factors:[82,98,85,90,78],rev:"USD 1.9M",pop:"476.000",inc:"$6,4M/mes",age:"36",km:"4.1km",spend:"Lujo · Gasto muy alto",peak:[3,5,6,5,4,4,4,5,6,6,5,3],peakTime:"Pico 12pm–2pm · Diario alto"},
+  {name:"Suba",slug:"suba-bogota",cre:"suba-bogota",rank:3,score:81.3,color:"#7F77DD",detail:"Bogotá · Estratos 3–4<br/>Mayor densidad poblacional",compNear:3,brandNear:2,factors:[95,72,88,84,76],rev:"USD 1.7M",pop:"1.300.000",inc:"$3,1M/mes",age:"31",km:"5.6km",spend:"Masivo · Gasto moderado",peak:[2,4,6,7,5,4,3,4,5,4,3,2],peakTime:"Pico 7am–9am · Días hábiles"},
+  {name:"Engativá",slug:"engativa-bogota",cre:"engativa-bogota",rank:4,score:74.1,color:"#C9973A",detail:"Bogotá · Estratos 3–4<br/>Clase media consolidada",compNear:2,brandNear:1,factors:[88,68,82,78,70],rev:"USD 1.4M",pop:"887.000",inc:"$2,8M/mes",age:"33",km:"4.8km",spend:"Clase media · Gasto estable",peak:[4,5,6,6,6,7,6,5,5,4,4,3],peakTime:"Pico 12pm–2pm · Diario"},
+  {name:"Kennedy",slug:"kennedy-bogota",cre:"kennedy-bogota",rank:5,score:70.8,color:"#5DCAA5",detail:"Bogotá · Estratos 2–3<br/>Alta densidad",compNear:4,brandNear:2,factors:[92,58,80,74,68],rev:"USD 1.2M",pop:"1.200.000",inc:"$2,2M/mes",age:"30",km:"3.4km",spend:"Popular · Volumen alto",peak:[3,5,6,6,7,7,6,5,4,4,3,3],peakTime:"Pico 11am–1pm · Diario alto"},
+  {name:"Fontibón",slug:"fontibon-bogota",cre:"fontibon-bogota",rank:6,score:66.2,color:"#888",detail:"Bogotá · Estratos 3–4<br/>Zona de transición",compNear:1,brandNear:0,factors:[70,72,68,70,65],rev:"USD 1.0M",pop:"424.000",inc:"$2,9M/mes",age:"32",km:"6.1km",spend:"Mixto · En transición",peak:[2,3,4,5,5,5,4,3,3,3,2,2],peakTime:"Pico 9am–11am · Variable"},
+];
+const lkBaseR=[36,32,28,24,20,16];
+let lkTIdx=0, lkKm=5, lkBrandKm=5, lkListType='rent';
+
+function lkTab(name,btn){
+  document.querySelectorAll('.lk-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.lk-tab-content').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('lk-tab-'+name).classList.add('active');
+  var lkHelperMsgs={
+    territorial:'Haz clic en cualquier zona o punto del mapa para explorar - arrastra los controles para cambiar el radio de búsqueda',
+    mobility:'Selecciona dos zonas para comparar el flujo peatonal - cambia el clima y la hora para ver cómo varía',
+    charts:'Compara zonas lado a lado - cambia la zona de horario pico para ver sus horas más concurridas',
+    pro:'Una vista previa de Lokko Pro - alertas de subastas, vista satelital y reportes automatizados'
+  };
+  var ht=document.getElementById('lkHelperText');
+  if(ht && lkHelperMsgs[name]) ht.textContent=lkHelperMsgs[name];
+}
+
+function lkBuildSidebar(){
+  const rows=document.getElementById('lkSidebarRows');
+  rows.innerHTML='';
+  lkSuburbs.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='lk-sb-row'+(i===lkTIdx?' active':'');
+    d.innerHTML='<div class="lk-sb-dot" style="background:'+s.color+'"></div><div class="lk-sb-name">'+s.name+'</div><div class="lk-sb-score">'+s.score+'</div>';
+    d.onclick=function(){lkTIdx=i;lkBuildSidebar();lkUpdatePanel();};
+    rows.appendChild(d);
+  });
+}
+
+function lkRadius(v){
+  lkKm=parseInt(v);
+  document.getElementById('lkSlV1').textContent=v+' km';
+  document.getElementById('lkKpiRad').textContent=v+' km';
+  const scale=lkKm/5;
+  lkBaseR.forEach(function(_,i){var el=document.getElementById('lkring'+i);if(el)el.setAttribute('r',Math.round(lkBaseR[i]*scale));});
+  lkUpdateCounts();
+}
+function lkBrand(v){lkBrandKm=parseInt(v);document.getElementById('lkSlV2').textContent=v+' km';lkUpdateCounts();}
+function lkUpdateCounts(){
+  const s=lkSuburbs[lkTIdx];
+  const nc=Math.min(Math.round(s.compNear*(lkKm/5)),8);
+  const nb=Math.min(Math.round(s.brandNear*(lkBrandKm/5)),5);
+  document.getElementById('lkLayerComp').textContent=nc;
+  document.getElementById('lkLayerBrand').textContent=nb;
+  document.getElementById('lkPc1').textContent=nc;
+  document.getElementById('lkPc2').textContent=nb;
+}
+
+function lkSetList(type,btn){
+  lkListType=type;
+  document.getElementById('lkLtRent').classList.toggle('active',type==='rent');
+  document.getElementById('lkLtBuy').classList.toggle('active',type==='buy');
+  lkUpdateListings();
+}
+function lkUpdateListings(){
+  const s=lkSuburbs[lkTIdx];
+  const a=lkListType==='rent'?'arriendo':'venta';
+  document.getElementById('lkLnkRC').href='https://www.metrocuadrado.com/'+a+'/local/'+s.slug+'/';
+  document.getElementById('lkLnkCRE').href='https://www.fincaraiz.com.co/'+a+'/local/'+s.slug+'/';
+  const lbl=lkListType==='rent'?'En arriendo →':'En venta →';
+  document.getElementById('lkLnkRC').querySelector('.lk-ll-label').textContent=lbl;
+  document.getElementById('lkLnkCRE').querySelector('.lk-ll-label').textContent=lbl;
+}
+
+function lkUpdatePanel(){
+  const s=lkSuburbs[lkTIdx];
+  document.getElementById('lkSelScore').textContent=s.score;
+  document.getElementById('lkSelScore').style.color=s.color;
+  document.getElementById('lkSelName').textContent='#'+s.rank+' · '+s.name;
+  document.getElementById('lkSelDetail').innerHTML=s.detail;
+  document.getElementById('lkSelCard').style.borderColor=s.color+'55';
+  document.getElementById('lkSelCard').style.background=s.color+'12';
+  const cols=["#1D9E75","#378ADD","#534AB7","#C9973A","#7F77DD"];
+  s.factors.forEach(function(v,j){document.getElementById('lkbf'+j).style.width=v+'%';document.getElementById('lkbf'+j).style.background=cols[j];document.getElementById('lkbv'+j).textContent=v;});
+  document.getElementById('lkPc3').textContent='$ Rev. est. '+s.rev+' / año';
+  lkUpdateCounts();
+  lkUpdateListings();
+}
+
+function lkShowPopup(i){
+  const s=lkSuburbs[i];
+  lkTIdx=i; lkBuildSidebar(); lkUpdatePanel();
+  document.getElementById('lkPopName').textContent=s.name;
+  document.getElementById('lkPopScore').textContent=s.score;
+  document.getElementById('lkPopPop').textContent=s.pop;
+  document.getElementById('lkPopInc').textContent=s.inc;
+  document.getElementById('lkPopAge').textContent=s.age;
+  document.getElementById('lkPopKm').textContent=s.km;
+  document.getElementById('lkPopSpend').textContent=s.spend;
+  const bars=document.getElementById('lkPopPeakBars');
+  bars.innerHTML='';
+  const mx=Math.max.apply(null,s.peak);
+  s.peak.forEach(function(v){var b=document.createElement('div');b.className='lk-peak-bar';b.style.height=Math.round(v/mx*28+2)+'px';b.style.opacity=(0.35+v/mx*0.55);bars.appendChild(b);});
+  document.getElementById('lkPopPeakTime').textContent=s.peakTime;
+  document.getElementById('lkPopup').classList.add('show');
+}
+function lkClosePopup(){document.getElementById('lkPopup').classList.remove('show');}
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.lkDot').forEach(function(dot){
+    dot.addEventListener('click',function(){lkShowPopup(parseInt(dot.getAttribute('data-i')));});
+  });
+  lkBuildSidebar();
+  lkUpdatePanel();
+  lkFtUpdate();
+});
+/* ===== TAB 2: FLUJO PEATONAL JS ===== */
+function lkGetProfile(s){var map={Chapinero:'highstreet',Usaquen:'cafe',Suba:'family',Engativa:'family',Kennedy:'family',Fontibon:'family'};var k=s.name.normalize('NFD').replace(/[^a-zA-Z]/g,'');return map[k]||'family';}
+var lkTimeCurveES=[.05,.04,.04,.05,.15,.35,.65,.88,.92,.80,.72,.85,1.0,.90,.78,.72,.80,.92,.95,.78,.55,.38,.20,.10];
+var lkWxMultES={sunny:{family:1.08,cafe:1.12,highstreet:1.10},cloudy:{family:0.98,cafe:1.02,highstreet:1.00},rainy:{family:0.82,cafe:0.90,highstreet:0.78},hot:{family:0.78,cafe:0.95,highstreet:0.80}};
+var lkCtxNotesES={sunny:{0:'Madrugada - Despejado - Baja actividad',6:'Manana temprana - Cielo claro',8:'Pico manana - Soleado - Flujo alto',12:'Pico almuerzo - Cielo despejado - Alta actividad',17:'Tarde - Hora dorada - Auge vespertino',20:'Noche - Despejado - Trafico gastronomico'},cloudy:{0:'Madrugada - Nublado',8:'Manana - Nublado - Commute normal',12:'Almuerzo - Nublado - Actividad moderada',17:'Tarde - Gris - Trafico bajo'},rainy:{0:'Madrugada - Lluvia - Muy baja actividad',8:'Manana - Lluvia - Commute alterado',12:'Mediodia - Lluvia - Shift a espacios cubiertos',17:'Tarde - Mojado - Bajo trafico'},hot:{0:'Madrugada - Calor',8:'Manana - Calor en aumento',12:'Pico de calor - Trafico suprimido',17:'Tarde - Aun caliente'}};
+var lkFLblsES=['Poblacion','Ingreso','Jovenes','Brecha geo','Competencia'];
+var lkFColsES=['#1D9E75','#378ADD','#534AB7','#C9973A','#7F77DD'];
+var lkWxES='sunny',lkSelA=null,lkSelB=null;
+
+function lkFmtHES(h){if(h===0)return'12:00 am';if(h<12)return h+':00 am';if(h===12)return'12:00 pm';return(h-12)+':00 pm';}
+function lkGetCtxES(h){var n=lkCtxNotesES[lkWxES];var keys=Object.keys(n).map(Number).sort(function(a,b){return a-b;});var b=keys[0];for(var i=0;i<keys.length;i++){if(h>=keys[i])b=keys[i];}return n[b]||'';}
+function lkGetMobES(s,h){var prof=lkGetProfile(s);var tm=lkTimeCurveES[h];var wm=lkWxMultES[lkWxES][prof]||1.0;return{delta:Math.round((tm*wm-0.85)*100),tm:tm,wm:wm,prof:prof};}
+function lkAdjScoreES(s,h){return Math.min(99,Math.max(40,s.score+lkGetMobES(s,h).delta*0.3)).toFixed(1);}
+function lkDeltaClsES(d){return d>3?'lk-up':d<-3?'lk-dn':'lk-fl';}
+function lkFtWx(w,btn){lkWxES=w;document.querySelectorAll('.lk-wx-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');lkFtUpdate();}
+function lkFtBuildViz(h){var v=document.getElementById('lkFtViz');if(!v)return;v.innerHTML='';for(var i=0;i<24;i++){var m=lkTimeCurveES[i];var b=document.createElement('div');b.className='lk-ft-vbar';b.style.height=Math.round(m*16+2)+'px';b.style.background=i===h?'#7F77DD':'rgba(255,255,255,'+(0.06+m*0.12)+')';v.appendChild(b);}}
+function lkFtToggle(i){if(lkSelA===i){lkSelA=lkSelB;lkSelB=null;}else if(lkSelB===i){lkSelB=null;}else if(lkSelA===null){lkSelA=i;}else if(lkSelB===null){lkSelB=i;}else{lkSelA=lkSelB;lkSelB=i;}lkFtUpdate();}
+function lkFtClear(){lkSelA=null;lkSelB=null;lkFtUpdate();}
+
+function lkFtUpdate(){
+  var slider=document.getElementById('lkFtSlider');if(!slider)return;
+  var h=parseInt(slider.value);
+  document.getElementById('lkFtTimeVal').textContent=lkFmtHES(h);
+  document.getElementById('lkFtCtx').textContent=lkGetCtxES(h);
+  lkFtBuildViz(h);
+  var grid=document.getElementById('lkFtCards');if(!grid)return;grid.innerHTML='';
+  lkSuburbs.forEach(function(s,i){
+    var m=lkGetMobES(s,h);var adj=lkAdjScoreES(s,h);
+    var ds=m.delta>=0?'+':'';var dc=lkDeltaClsES(m.delta);
+    var isA=lkSelA===i,isB=lkSelB===i;
+    var lnk1='https://www.metrocuadrado.com/arriendo/local/'+s.slug+'/';
+    var lnk2='https://www.fincaraiz.com.co/arriendo/local/'+s.slug+'/';
+    var d=document.createElement('div');
+    d.className='lk-ftc'+(isA?' sel-a':isB?' sel-b':'');
+    d.innerHTML=(isA?'<div class="lk-ftc-badge a">A</div>':'')+(isB?'<div class="lk-ftc-badge b">B</div>':'')+
+      '<div class="lk-ftc-top"><div class="lk-ftc-rank">#'+s.rank+'</div><div class="lk-ftc-dot" style="background:'+s.color+'"></div><div class="lk-ftc-name">'+s.name+'</div><div class="lk-ftc-base">'+s.score+'</div></div>'+
+      '<div class="lk-ftc-score-row"><div class="lk-ftc-score" style="color:'+s.color+'">'+adj+'</div><div class="lk-ftc-delta '+dc+'">'+ds+m.delta+'%</div></div>'+
+      '<div class="lk-ftc-bar"><div class="lk-ftc-bar-fill" style="width:'+Math.round(m.tm*100)+'%;background:'+s.color+'"></div></div>'+
+      '<div class="lk-ftc-links"><a class="lk-ftc-lnk c" href="'+lnk1+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">metrocuadrado</a><a class="lk-ftc-lnk b2" href="'+lnk2+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">fincaraiz</a></div>';
+    d.onclick=function(){lkFtToggle(i);};
+    grid.appendChild(d);
+  });
+  lkFtDrawerES(h);
+}
+
+function lkFtDrawerES(h){
+  var drawer=document.getElementById('lkDrawer');var hint=document.getElementById('lkFtHint');
+  if(!drawer||!hint)return;
+  if(lkSelA===null||lkSelB===null){
+    drawer.classList.remove('open');
+    hint.textContent=(lkSelA!==null)?'Bien, selecciona una zona mas para comparar':'Selecciona dos zonas para comparar el flujo peatonal';
+    return;
+  }
+  hint.textContent='';drawer.classList.add('open');
+  var sA=lkSuburbs[lkSelA],sB=lkSuburbs[lkSelB];
+  var mA=lkGetMobES(sA,h),mB=lkGetMobES(sB,h);
+  var adjA=lkAdjScoreES(sA,h),adjB=lkAdjScoreES(sB,h);
+  var dsA=mA.delta>=0?'+':'',dsB=mB.delta>=0?'+':'';
+  function bgC(d){return d>3?'rgba(29,158,117,.25)':d<-3?'rgba(232,75,74,.2)':'rgba(255,255,255,.1)';}
+  function txC(d){return d>3?'#5DCAA5':d<-3?'#f87171':'rgba(255,255,255,.55)';}
+  function bars(s){return lkFLblsES.map(function(l,j){return'<div class="lk-cmp-brow"><div class="lk-cmp-blbl">'+l+'</div><div class="lk-cmp-btrack"><div class="lk-cmp-bfill" style="width:'+s.factors[j]+'%;background:'+lkFColsES[j]+'"></div></div><div class="lk-cmp-bval">'+s.factors[j]+'</div></div>';}).join('');}
+  document.getElementById('lkCmpGrid').innerHTML=
+    '<div class="lk-cmp-card lk-cmp-a"><div class="lk-cmp-lbl" style="color:#5DCAA5">A - '+sA.name+'</div><div class="lk-cmp-score" style="color:'+sA.color+'">'+adjA+'</div><div class="lk-cmp-delta" style="background:'+bgC(mA.delta)+';color:'+txC(mA.delta)+'">'+dsA+mA.delta+'% flujo</div><div class="lk-cmp-bars">'+bars(sA)+'</div></div>'+
+    '<div class="lk-vs">vs</div>'+
+    '<div class="lk-cmp-card lk-cmp-b"><div class="lk-cmp-lbl" style="color:#AFA9EC">B - '+sB.name+'</div><div class="lk-cmp-score" style="color:'+sB.color+'">'+adjB+'</div><div class="lk-cmp-delta" style="background:'+bgC(mB.delta)+';color:'+txC(mB.delta)+'">'+dsB+mB.delta+'% flujo</div><div class="lk-cmp-bars">'+bars(sB)+'</div></div>';
+  var diff=mA.delta-mB.delta;var abs=Math.abs(diff);
+  var strong=diff>=0?sA:sB;var sM=diff>=0?mA:mB;var wM=diff>=0?mB:mA;
+  function sgn(x){return x>=0?'+':'';}
+  var ins,rec;
+  if(lkWxES==='rainy'){ins='Con lluvia, '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) mantiene el flujo '+abs+' puntos por encima. Condiciones adversas revelan la resiliencia real.';rec='Prioriza '+strong.name+' si tu negocio depende de flujo diario constante.';}
+  else if(lkWxES==='hot'){ins='Con frio intenso, '+strong.name+' ('+sgn(sM.delta)+sM.delta+'%) aguanta mejor que '+( diff>=0?sB:sA).name+' ('+sgn(wM.delta)+wM.delta+'%).';rec='Con frio intenso, prioriza zonas de cafe y gastronomia. Los corredores abiertos pierden trafico.';}
+  else if(abs<=4){ins='Con este clima, ambas zonas rinden cerca de su linea base. Diferencia marginal de '+abs+' puntos.';rec='Prueba condiciones adversas para ver la brecha real de resiliencia.';}
+  else if(abs>8){ins=strong.name+' ('+sgn(sM.delta)+sM.delta+'%) supera significativamente a '+(diff>=0?sB:sA).name+' ('+sgn(wM.delta)+wM.delta+'%). Brecha de '+abs+' puntos.';rec='Confirma esta ventaja en otros escenarios climaticos antes de decidir.';}
+  else{ins=strong.name+' ('+sgn(sM.delta)+sM.delta+'%) supera a '+(diff>=0?sB:sA).name+' ('+sgn(wM.delta)+wM.delta+'%) por '+abs+' puntos. Brecha moderada.';rec='Evalua los cuatro escenarios climaticos para mayor certeza.';}
+  document.getElementById('lkInsight').innerHTML='<div class="lk-insight-icon">💡</div><div class="lk-insight-txt">'+ins+'</div><div class="lk-insight-rec">→ '+rec+'</div>';
+}
+
+
+
+/* ===== TAB 3: GRAFICOS JS ===== */
+var lkRadarChartES=null,lkRevChartES=null,lkPeakChartES=null,lkPeakIdxES=0,lkChartsBuiltES=false;
+var lkPeakLabelsES=['6a','7a','8a','9a','10a','11a','12p','1p','2p','3p','4p','5p','6p','7p','8p','9p','10p','11p'];
+var lkPeakTimeLblsES={
+  Chapinero:'Pico 5pm-7pm · Vie/Sab alto · Alta discrecionalidad premium',
+  Usaquen:'Pico 12pm-2pm · Diario alto · Lujo y gastronomia',
+  Suba:'Pico 7am-9am · Dias habiles · Mercado masivo',
+  Engativa:'Pico 12pm-2pm · Diario · Clase media estable',
+  Kennedy:'Pico 11am-1pm · Diario alto · Popular alto volumen',
+  Fontibon:'Pico 9am-11am · Variable · Zona en transicion'
+};
+function lkPeakToES(p){var out=[];for(var i=0;i<18;i++){var src=Math.floor(i/18*p.length);out.push(p[src]);}return out;}
+
+function lkBuildChartsES(){
+  if(lkChartsBuiltES||typeof Chart==='undefined')return;
+  lkChartsBuiltES=true;
+  var gc='rgba(255,255,255,0.08)',tc='rgba(255,255,255,0.5)';
+  var rLbls=['Poblacion','Ingreso','Jovenes','Brecha geo','Competencia'];
+  var rSubs=lkSuburbs.slice(0,3);
+  lkRadarChartES=new Chart(document.getElementById('lkRadar'),{
+    type:'radar',
+    data:{labels:rLbls,datasets:rSubs.map(function(s){return{label:s.name,data:s.factors,borderColor:s.color,backgroundColor:s.color+'22',borderWidth:1.5,pointRadius:2,pointBackgroundColor:s.color};})},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:100,ticks:{stepSize:25,color:tc,font:{size:8},backdropColor:'transparent'},pointLabels:{color:'rgba(255,255,255,0.7)',font:{size:9}},grid:{color:gc},angleLines:{color:gc}}},
+      plugins:{legend:{display:true,position:'bottom',labels:{color:tc,font:{size:9},boxWidth:9,padding:10}}}}
+  });
+  var revVals=lkSuburbs.map(function(s){return parseFloat(s.rev.replace(/[^0-9.]/g,''));});
+  lkRevChartES=new Chart(document.getElementById('lkRevenue'),{
+    type:'bar',
+    data:{labels:lkSuburbs.map(function(s){return s.name;}),datasets:[{label:'Rev. est. anual (USD M)',data:revVals,backgroundColor:lkSuburbs.map(function(s){return s.color+'cc';}),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{grid:{display:false},ticks:{color:tc,font:{size:8},maxRotation:45,minRotation:45},border:{display:false}},
+        y:{grid:{color:gc},border:{display:false},ticks:{color:tc,font:{size:8},callback:function(v){return 'USD '+v+'M';}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' USD '+ctx.raw+'M / ano';}}}}}
+  });
+  lkBuildPeakPillsES();
+  lkRenderPeakES();
+}
+
+function lkBuildPeakPillsES(){
+  var wrap=document.getElementById('lkPeakPills');if(!wrap)return;wrap.innerHTML='';
+  lkSuburbs.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.className='lk-ch-pill'+(i===lkPeakIdxES?' active':'');
+    b.textContent=s.name;
+    b.onclick=function(){lkPeakIdxES=i;lkBuildPeakPillsES();lkRenderPeakES();};
+    wrap.appendChild(b);
+  });
+}
+
+function lkRenderPeakES(){
+  var s=lkSuburbs[lkPeakIdxES];
+  var data=lkPeakToES(s.peak);
+  var tc='rgba(255,255,255,0.5)';
+  if(lkPeakChartES)lkPeakChartES.destroy();
+  lkPeakChartES=new Chart(document.getElementById('lkPeakChart'),{
+    type:'bar',
+    data:{labels:lkPeakLabelsES,datasets:[{label:s.name+' · Viernes',data:data,backgroundColor:data.map(function(v){var mx=Math.max.apply(null,data);return v/mx>0.8?s.color:s.color+'88';}),borderRadius:2}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{x:{grid:{display:false},ticks:{color:tc,font:{size:7}},border:{display:false}},y:{display:false}},
+      plugins:{legend:{display:false}}}
+  });
+  var key=s.name.normalize('NFD').replace(/[^a-zA-Z]/g,'');
+  document.getElementById('lkPeakLbl').textContent=lkPeakTimeLblsES[key]||lkPeakTimeLblsES[s.name]||'';
+}
+
+var lkOrigTabES=lkTab;
+lkTab=function(name,btn){
+  lkOrigTabES(name,btn);
+  if(name==='charts'){setTimeout(lkBuildChartsES,60);}
+};
+window.lkTab=lkTab;
+
+// ─── Auto-glide demo ───────────────────────────────────────────────────────
+var AUTO_GLIDE_MS    = 4000;   // ms before tab-glide fires on first load
+var LK_TRANSITION_MS = 280;    // ms for tab-panel fade (matches CSS keyframe)
+var _lkGlideDone     = false;
+var _lkGlideTimer    = null;
+function _lkCancelGlide(){
+  if(_lkGlideTimer){clearTimeout(_lkGlideTimer);_lkGlideTimer=null;}
+  _lkGlideDone=true;
+}
+// Pre-fill comparison A and B with the top two ranked suburbs (idempotent)
+if(lkSelA===null&&lkSelB===null){lkSelA=0;lkSelB=1;lkFtUpdate();}
+// One-time auto-glide to Foot Traffic — skipped if user prefers reduced motion
+var _lkPrefersReduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(!_lkPrefersReduced){
+  _lkGlideTimer=setTimeout(function(){
+    if(_lkGlideDone)return;
+    _lkGlideDone=true;
+    var btn=document.querySelector('.lk-tab[onclick*="mobility"]');
+    if(btn)lkTab('mobility',btn);
+  },AUTO_GLIDE_MS);
+}
+// Cancel glide permanently if user clicks any tab before the timer fires
+document.querySelectorAll('.lk-tab').forEach(function(t){
+  t.addEventListener('click',_lkCancelGlide,{capture:true});
+});
+</script>
+
+</body>
+</html>
