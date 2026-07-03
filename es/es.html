@@ -247,6 +247,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-popup-close:hover{color:#fff}
 .lk-popup-peak{margin-top:8px}
 .lk-popup-peak-lbl{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.lk-popup-btns{display:flex;gap:6px;margin-top:10px}
+.lk-popup-btn{flex:1;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:6px;font-size:8.5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;text-decoration:none;padding:0 6px;line-height:1.3;transition:opacity .15s;background:rgba(26,33,92,.6);color:#AFA9EC;border:0.5px solid rgba(83,74,183,.4)}
+.lk-popup-btn:hover{opacity:.8}
+.lk-popup-btn-sat{background:rgba(201,151,58,.15);color:#E8BF72;border-color:rgba(201,151,58,.4)}
 .lk-peak-bars{display:flex;gap:2px;align-items:flex-end;height:30px}
 .lk-peak-bar{flex:1;border-radius:1px 1px 0 0;min-height:2px;background:#534AB7;opacity:.5}
 .lk-peak-time{font-size:9px;color:#E8BF72;margin-top:5px}
@@ -547,6 +551,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                   <div class="lk-popup-peak-lbl">Horario pico viernes</div>
                   <div class="lk-peak-bars" id="lkPopPeakBars"></div>
                   <div class="lk-peak-time" id="lkPopPeakTime"></div>
+                </div>
+                <div class="lk-popup-btns">
+                  <a id="lkPopVerify" class="lk-popup-btn" target="_blank" rel="noopener">Verificar en Google Maps</a>
+                  <a id="lkPopSat" class="lk-popup-btn lk-popup-btn-sat" target="_blank" rel="noopener">🛰 Satélite</a>
                 </div>
               </div>
               <div class="lk-map-cap">DANE Censo 2018 · Google Places API · Motor de scoring Lokko · Haz clic en cualquier punto prioritario</div>
@@ -1076,6 +1084,7 @@ const lkSuburbs=[
   {name:"Engativá",slug:"engativa-bogota",cre:"engativa-bogota",rank:4,score:74.1,color:"#C9973A",detail:"Bogotá · Estratos 3–4<br/>Clase media consolidada",compNear:2,brandNear:1,factors:[88,68,82,78,70],rev:"USD 1.4M",pop:"887.000",inc:"$2,8M/mes",age:"33",km:"4.8km",spend:"Clase media · Gasto estable",peak:[4,5,6,6,6,7,6,5,5,4,4,3],peakTime:"Pico 12pm–2pm · Diario"},
   {name:"Kennedy",slug:"kennedy-bogota",cre:"kennedy-bogota",rank:5,score:70.8,color:"#5DCAA5",detail:"Bogotá · Estratos 2–3<br/>Alta densidad",compNear:4,brandNear:2,factors:[92,58,80,74,68],rev:"USD 1.2M",pop:"1.200.000",inc:"$2,2M/mes",age:"30",km:"3.4km",spend:"Popular · Volumen alto",peak:[3,5,6,6,7,7,6,5,4,4,3,3],peakTime:"Pico 11am–1pm · Diario alto"},
   {name:"Fontibón",slug:"fontibon-bogota",cre:"fontibon-bogota",rank:6,score:66.2,color:"#888",detail:"Bogotá · Estratos 3–4<br/>Zona de transición",compNear:1,brandNear:0,factors:[70,72,68,70,65],rev:"USD 1.0M",pop:"424.000",inc:"$2,9M/mes",age:"32",km:"6.1km",spend:"Mixto · En transición",peak:[2,3,4,5,5,5,4,3,3,3,2,2],peakTime:"Pico 9am–11am · Variable"},
+var LK_COORDS={"Chapinero":{lat:4.6456,lng:-74.0575},"Usaquén":{lat:4.6970,lng:-74.0307},"Suba":{lat:4.7416,lng:-74.0841},"Engativá":{lat:4.7050,lng:-74.1133},"Kennedy":{lat:4.6270,lng:-74.1378},"Fontibón":{lat:4.6693,lng:-74.1468}};
 ];
 const lkBaseR=[36,32,28,24,20,16];
 let lkTIdx=0, lkKm=5, lkBrandKm=5, lkListType='rent';
@@ -1172,6 +1181,14 @@ function lkShowPopup(i){
   const mx=Math.max.apply(null,s.peak);
   s.peak.forEach(function(v){var b=document.createElement('div');b.className='lk-peak-bar';b.style.height=Math.round(v/mx*28+2)+'px';b.style.opacity=(0.35+v/mx*0.55);bars.appendChild(b);});
   document.getElementById('lkPopPeakTime').textContent=s.peakTime;
+  var _c=LK_COORDS[s.name];
+  var _q=encodeURIComponent(s.name+(_c?'':', Bogotá, Colombia'));
+  document.getElementById('lkPopVerify').href=_c
+    ?'https://www.google.com/maps/search/?api=1&query='+_c.lat+','+_c.lng
+    :'https://www.google.com/maps/search/?api=1&query='+_q;
+  document.getElementById('lkPopSat').href=_c
+    ?'https://www.google.com/maps/@'+_c.lat+','+_c.lng+',18z/data=!3m1!1e3'
+    :'https://www.google.com/maps/search/?api=1&query='+_q;
   document.getElementById('lkPopup').classList.add('show');
 }
 function lkClosePopup(){document.getElementById('lkPopup').classList.remove('show');}

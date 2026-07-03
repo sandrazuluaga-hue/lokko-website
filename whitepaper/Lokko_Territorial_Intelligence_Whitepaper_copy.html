@@ -270,15 +270,6 @@
   .f-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--violet-dim), var(--violet))}
   .f-row.risk .f-bar-fill{background:linear-gradient(90deg, var(--amber-dim), var(--amber))}
 
-
-  .lease-head{grid-template-columns:130px 1fr 190px;padding:14px 0}
-  .lease-row{grid-template-columns:130px 1fr 190px}
-  @media (max-width:640px){
-    .lease-head{display:none}
-    .lease-row{grid-template-columns:1fr}
-    .lease-row .f-desc[style*="text-align:right"]{text-align:left !important}
-  }
-
   /* ============ SCREENSHOT PROOF ============ */
   .proof{padding:10px 0 70px;background:var(--navy-deep)}
   .proof .wrap{max-width:1040px}
@@ -461,27 +452,6 @@
 
       <p style="margin-top:30px">That final figure — $194/sqm — is the number that matters most in the negotiation. It's not a benchmark pulled from a market report. It's the maximum rent Apex Gym's own catchment can support, before profitability is compromised. If a landlord is asking for $230/sqm, Lokko has already told Apex exactly how much negotiating room exists — and how much doesn't.</p>
       <p class="lede">This is the reverse-engineering principle in practice: financial ceiling first, site selection second.</p>
-
-      <div class="factors" style="margin-top:28px">
-        <div class="f-row lease-head">
-          <div class="f-name" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink-lo);font-weight:500">LEASE TERM</div>
-          <div class="f-name" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink-lo);font-weight:500">CUMULATIVE REVENUE THE SITE MUST PRODUCE (MODELLED)</div>
-          <div class="f-name" style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--ink-lo);font-weight:500;text-align:right">EXPOSURE IF WRONG</div>
-        </div>
-        <div class="f-row lease-row">
-          <div class="f-name">5 years</div>
-          <div class="f-desc"><b style="font-family:'DM Mono',monospace">~$7.6M</b> — at Apex Gym's modelled $1.51M/yr</div>
-          <div class="f-desc" style="text-align:right;color:var(--ink-mid)">Moderate</div>
-        </div>
-        <div class="f-row risk lease-row">
-          <div class="f-name">10 years<span class="flag">THE BET IN THE TITLE</span></div>
-          <div class="f-desc"><b style="font-family:'DM Mono',monospace;color:var(--amber)">~$15.1M</b> — a decade of the catchment performing to model</div>
-          <div class="f-desc" style="text-align:right;color:var(--amber)">High</div>
-        </div>
-      </div>
-
-      <p style="margin-top:26px">This is what the question on the cover actually costs. A ten-year lease is a commitment to roughly $15M of cumulative revenue <em>(modelled)</em> — and it gives the operator a success metric before signing: if the chosen suburb can't project the annual revenue the model requires, the ten-year term isn't ambitious. It's financially imprudent.</p>
-
       <p>Every number in this walk-through is modelled from underlying demographic and revenue assumptions calibrated to the client's business — not asserted. Revenue and rent figures are always labelled <em>(modelled)</em> in client deliverables, because the value we sell is the analysis, not a claim to measured fact.</p>
     </div>
   </section>
