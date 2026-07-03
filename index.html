@@ -1357,7 +1357,9 @@ var LK_COORDS={"Werribee":{lat:-37.9067,lng:144.6650},"Point Cook":{lat:-37.9026
 const lkBaseR=[36,32,28,24,20,16];
 let lkTIdx=0, lkKm=5, lkBrandKm=5, lkListType='rent';
 
+var _lkReturnTimer=null;
 function lkTab(name,btn){
+  if(_lkReturnTimer){clearTimeout(_lkReturnTimer);_lkReturnTimer=null;}
   document.querySelectorAll('.lk-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.lk-tab-content').forEach(c=>c.classList.remove('active'));
   btn.classList.add('active');
@@ -1370,6 +1372,12 @@ function lkTab(name,btn){
   };
   var ht=document.getElementById('lkHelperText');
   if(ht && lkHelperMsgs[name]) ht.textContent=lkHelperMsgs[name];
+  if(name==='mobility'){
+    _lkReturnTimer=setTimeout(function(){
+      var firstTab=document.querySelector('.lk-tab');
+      if(firstTab) firstTab.click();
+    },5000);
+  }
 }
 
 function lkBuildSidebar(){
