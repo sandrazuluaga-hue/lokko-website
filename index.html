@@ -188,6 +188,8 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-tb-title{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.3px;flex:1;margin-left:4px}
 .lk-tabs{display:flex;background:#071525;border-bottom:0.5px solid rgba(255,255,255,.06);overflow-x:auto}
 .lk-tab{padding:9px 16px;font-size:9px;color:rgba(255,255,255,.35);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.3px;text-transform:uppercase;display:flex;align-items:center;gap:6px;white-space:nowrap}
+@keyframes lkTabPulse{0%,100%{box-shadow:0 0 0 0 rgba(83,74,183,0)}50%{box-shadow:0 0 0 4px rgba(83,74,183,.35)}}
+.lk-tabs .lk-tab:not(.active){animation:lkTabPulse 1.4s ease-in-out 3}
 .lk-tab:hover{background:rgba(83,74,183,.12);color:rgba(255,255,255,.75)}
 .lk-helper{background:#0A1928;border-bottom:0.5px solid rgba(255,255,255,.06);padding:7px 16px;font-size:9.5px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:7px;letter-spacing:.2px}
 .lk-helper-dot{width:5px;height:5px;border-radius:50%;background:#7F77DD;flex-shrink:0;animation:lkHelperBlink 2.5s ease-in-out infinite}
@@ -268,6 +270,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .lk-popup-close:hover{color:#fff}
 .lk-popup-peak{margin-top:8px}
 .lk-popup-peak-lbl{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.lk-popup-btns{display:flex;gap:6px;margin-top:10px}
+.lk-popup-btn{flex:1;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:6px;font-size:8.5px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;text-decoration:none;padding:0 6px;line-height:1.3;transition:opacity .15s;background:rgba(26,33,92,.6);color:#AFA9EC;border:0.5px solid rgba(83,74,183,.4)}
+.lk-popup-btn:hover{opacity:.8}
+.lk-popup-btn-sat{background:rgba(201,151,58,.15);color:#E8BF72;border-color:rgba(201,151,58,.4)}
 .lk-peak-bars{display:flex;gap:2px;align-items:flex-end;height:30px}
 .lk-peak-bar{flex:1;border-radius:1px 1px 0 0;min-height:2px;background:#534AB7;opacity:.5}
 .lk-peak-time{font-size:9px;color:#E8BF72;margin-top:5px}
@@ -421,7 +427,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#process">How it works</a>
     <a href="#about">About us</a>
     <a href="/es" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.4px">ES</a>
-    <a href="#audit" class="nav-cta">Free audit</a>
+    <a href="#audit" class="nav-cta">Territory Audit · $299</a>
   </div>
   <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
     <span></span><span></span><span></span>
@@ -431,7 +437,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
     <a href="#work" class="mobile-link">Work</a>
     <a href="#process" class="mobile-link">How it works</a>
     <a href="#about" class="mobile-link">About us</a>
-    <a href="#audit" class="nav-cta mobile-link">Free audit</a>
+    <a href="#audit" class="nav-cta mobile-link">Territory Audit · $299</a>
   </div>
 </nav>
 
@@ -442,7 +448,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <h1>Stop guessing<br/><strong>where to grow.</strong><br/><em>We show you exactly.</em></h1>
       <p class="hero-sub">Lokko is a boutique location intelligence consultancy. We help Australian businesses identify their best expansion locations, design efficient sales territories, and automate the reporting that used to take days — all backed by ABS Census data and live competitor intelligence.</p>
       <div class="hero-btns">
-        <a href="#audit" class="btn-primary">Get a free territorial audit</a>
+        <a href="#audit" class="btn-primary">Get your Territory Audit — $299, credited</a>
         <a href="#work" class="btn-ghost">See our work</a>
       </div>
         <div class="hero-stats">
@@ -574,6 +580,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                   <div class="lk-popup-peak-lbl">Friday peak trading</div>
                   <div class="lk-peak-bars" id="lkPopPeakBars"></div>
                   <div class="lk-peak-time" id="lkPopPeakTime"></div>
+                </div>
+                <div class="lk-popup-btns">
+                  <a id="lkPopVerify" class="lk-popup-btn" target="_blank" rel="noopener">Verify on Google Maps</a>
+                  <a id="lkPopSat" class="lk-popup-btn lk-popup-btn-sat" target="_blank" rel="noopener">🛰 Satellite</a>
                 </div>
               </div>
               <div class="lk-map-cap">ABS 2021 Census SA2 · Google Places API · Lokko scoring engine · Click any priority dot for detail</div>
@@ -828,7 +838,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <div class="svc-item">Site selection modelling across 40+ suburbs</div>
               <div class="svc-item">Catchment area &amp; trade area analysis</div>
               <div class="svc-item">Competitor mapping &amp; whitespace scoring</div>
-              <div class="svc-item">Free territorial audit to get started</div>
+              <div class="svc-item">$299 Territory Audit to get started — fully credited</div>
             </div>
             <div class="svc-price">From $5,000 &middot; Project or retainer</div>
             <div class="flip-hint">&#8635; click to see live data</div>
@@ -911,11 +921,11 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="container fade-in">
     <div class="section-mono">How it works</div>
     <div class="section-title">From audit to insight in four steps</div>
-    <p class="section-sub">Every engagement starts free. We earn your trust before we earn your business.</p>
+    <p class="section-sub">Every engagement starts small. The $299 Territory Audit is fully credited against your project — we earn your trust before we earn your business.</p>
     <div class="process-grid">
       <div class="process-step">
         <div class="process-n">Step 01</div>
-        <h4>Free territorial audit</h4>
+        <h4>Territory Audit ($299, credited)</h4>
         <p>We analyse your current footprint and identify your top 3 untapped opportunities using real ABS and competitor data. Delivered in 5 days, no commitment.</p>
       </div>
       <div class="process-step">
@@ -1072,7 +1082,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9a6 6 0 1 0 12 0A6 6 0 0 0 3 9z" stroke="#185FA5" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="val-title">Honest timelines</div>
-        <p class="val-desc">We say what we can deliver and when. A free audit in 5 business days means 5 business days. A full analysis is scoped clearly before we start, not after.</p>
+        <p class="val-desc">We say what we can deliver and when. An audit in 5 business days means 5 business days. A full analysis is scoped clearly before we start, not after.</p>
       </div>
     </div>
 
@@ -1120,8 +1130,8 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="container">
     <div class="audit-grid">
       <div>
-        <div class="section-mono">Free offer</div>
-        <div class="section-title">Get your free territorial audit</div>
+        <div class="section-mono">The starting point</div>
+        <div class="section-title">Territory Audit — $299, fully credited</div>
         <p class="section-sub">Tell us your business type and current location. We'll identify your top 3 expansion opportunities using real ABS Census and competitor data.</p>
         <form class="audit-form" action="https://formspree.io/f/mbdqlnqv" method="POST">
           <input type="hidden" name="_subject" value="New Lokko audit request"/>
@@ -1130,9 +1140,9 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
           <input type="email" name="email" placeholder="Your business email" required/>
           <input type="text" name="business_type" placeholder="Business type (e.g. franchise, retail, services)" required/>
           <input type="text" name="location" placeholder="Current suburb or area" required/>
-          <button type="submit" class="btn-white">Request audit</button>
+          <button type="submit" class="btn-white">Order your audit — $299</button>
         </form>
-        <p class="audit-note">Delivered within 5 business days · No sales call required</p>
+        <p class="audit-note">Delivered within 5 business days · Payment link sent on confirmation · Credited against any project</p>
       </div>
       <div>
         <div class="audit-features">
@@ -1140,7 +1150,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
           <div class="audit-feat"><div class="audit-feat-dot"></div>Competitor landscape mapped within your catchment zone</div>
           <div class="audit-feat"><div class="audit-feat-dot"></div>Top 3 expansion targets with clear reasoning</div>
           <div class="audit-feat"><div class="audit-feat-dot"></div>One-page PDF report — shareable with your team</div>
-          <div class="audit-feat"><div class="audit-feat-dot"></div>Completely free — no pitch, no invoice</div>
+          <div class="audit-feat"><div class="audit-feat-dot"></div>$299 — credited in full against your project</div>
         </div>
       </div>
     </div>
@@ -1219,7 +1229,7 @@ async function submitAudit() {
       throw new Error('Server error');
     }
   } catch(e) {
-    btn.textContent = 'Request audit';
+    btn.textContent = 'Order your audit — $299';
     btn.disabled = false;
     errorEl.textContent = 'Something went wrong. Please email us directly at hello@lokko.au';
     errorEl.style.display = 'block';
@@ -1343,6 +1353,7 @@ const lkSuburbs=[
   {name:"Seddon",slug:"seddon-vic-3011",cre:"seddon-3011",rank:5,score:74.5,color:"#5DCAA5",detail:"VIC 3011 · Pop. 9,000<br/>Median age 37 · Village pocket",compNear:1,brandNear:1,factors:[62,86,72,88,74],rev:"$1.4M",pop:"9,000",inc:"$2,318/wk",age:"37",km:"5.4km",spend:"High Discretionary · Premium spend",peak:[3,5,6,5,4,4,4,5,5,5,4,3],peakTime:"Peak 8am–10am · Weekend high"},
   {name:"Spotswood",slug:"spotswood-vic-3015",cre:"spotswood-3015",rank:6,score:68.4,color:"#888",detail:"VIC 3015 · Pop. 6,500<br/>Median age 36 · Industrial edge",compNear:1,brandNear:0,factors:[55,78,60,80,70],rev:"$1.1M",pop:"6,500",inc:"$1,976/wk",age:"36",km:"7.0km",spend:"Emerging · Mixed spend",peak:[2,3,4,4,5,5,4,3,3,3,2,2],peakTime:"Peak 11am–1pm · Weekday moderate"},
 ];
+var LK_COORDS={"Werribee":{lat:-37.9067,lng:144.6650},"Point Cook":{lat:-37.9026,lng:144.7430},"Yarraville":{lat:-37.8157,lng:144.8842},"Footscray":{lat:-37.8001,lng:144.9000},"Seddon":{lat:-37.8081,lng:144.8789},"Spotswood":{lat:-37.8303,lng:144.8875}};
 const lkBaseR=[36,32,28,24,20,16];
 let lkTIdx=0, lkKm=5, lkBrandKm=5, lkListType='rent';
 
@@ -1438,6 +1449,14 @@ function lkShowPopup(i){
   const mx=Math.max.apply(null,s.peak);
   s.peak.forEach(function(v){var b=document.createElement('div');b.className='lk-peak-bar';b.style.height=Math.round(v/mx*28+2)+'px';b.style.opacity=(0.35+v/mx*0.55);bars.appendChild(b);});
   document.getElementById('lkPopPeakTime').textContent=s.peakTime;
+  var _c=LK_COORDS[s.name];
+  var _q=encodeURIComponent(s.name+(_c?'':', Victoria, Australia'));
+  document.getElementById('lkPopVerify').href=_c
+    ?'https://www.google.com/maps/search/?api=1&query='+_c.lat+','+_c.lng
+    :'https://www.google.com/maps/search/?api=1&query='+_q;
+  document.getElementById('lkPopSat').href=_c
+    ?'https://www.google.com/maps/@'+_c.lat+','+_c.lng+',18z/data=!3m1!1e3'
+    :'https://www.google.com/maps/search/?api=1&query='+_q;
   document.getElementById('lkPopup').classList.add('show');
 }
 function lkClosePopup(){document.getElementById('lkPopup').classList.remove('show');}
