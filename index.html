@@ -6,7 +6,7 @@
 <title>Lokko — Location Intelligence, Melbourne</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --navy:#26215C;
@@ -419,6 +419,24 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
 .wp-btn{display:inline-block;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;padding:14px 32px;border-radius:8px;background:#F6C431;color:#1A1732;text-decoration:none;transition:background .18s}
 .wp-btn:hover{background:#E0A82A}
 @media(max-width:768px){.wp-headline{font-size:22px}}
+/* ── INTAKE FORM (scoped under .lk-intake) ── */
+.lk-intake{font-family:'Poppins',sans-serif}
+.lk-intake label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#F6C431;margin:18px 0 6px}
+.lk-intake input,.lk-intake select,.lk-intake textarea{width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:8px;color:#fff;padding:12px 14px;font-family:inherit;font-size:15px}
+.lk-intake select option{background:#26215C}
+.lk-intake input:focus,.lk-intake select:focus,.lk-intake textarea:focus{outline:2px solid #7F77DE;border-color:#7F77DE}
+.lk-intake textarea{min-height:110px;resize:vertical}
+.lk-intake .lk-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.lk-intake .lk-row{grid-template-columns:1fr}}
+.lk-intake .lk-consent{display:flex;gap:10px;align-items:flex-start;margin:22px 0;font-size:13px;color:rgba(255,255,255,.72);line-height:1.5}
+.lk-intake .lk-consent input{width:auto;margin-top:3px}
+.lk-intake .lk-btn{background:#F6C431;color:#1A1732;border:0;border-radius:8px;font-family:inherit;font-weight:800;font-size:16px;padding:14px 28px;cursor:pointer;width:100%}
+.lk-intake .lk-btn:hover{background:#7F77DE;color:#fff}
+.lk-intake .lk-btn:disabled{opacity:.55;cursor:wait}
+.lk-intake .lk-msg{margin-top:16px;font-size:14px;padding:12px 14px;border-radius:8px;display:none;line-height:1.5}
+.lk-intake .lk-msg.ok{display:block;background:rgba(246,196,49,.12);border:1px solid #F6C431;color:#fff}
+.lk-intake .lk-msg.err{display:block;background:rgba(255,80,80,.12);border:1px solid rgba(255,120,120,.6);color:#fff}
+.lk-intake .lk-hp{position:absolute;left:-9999px;height:0;overflow:hidden}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
@@ -459,7 +477,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <h1>Stop guessing<br/><strong>where to grow.</strong><br/><em>We show you exactly.</em></h1>
       <p class="hero-sub">Lokko is a boutique location intelligence consultancy. We help Australian businesses identify their best expansion locations, design efficient sales territories, and automate the reporting that used to take days — all backed by ABS Census data and live competitor intelligence.</p>
       <div class="hero-btns">
-        <a href="#audit" class="btn-primary">Get a territorial audit</a>
+        <a href="#audit" class="btn-primary">Request a Territory Audit</a>
         <a href="#work" class="btn-ghost">See our work</a>
       </div>
         <div class="hero-stats">
@@ -715,7 +733,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                 <div class="lk-auction-addr">12 Watton St, Werribee</div>
                 <div class="lk-auction-meta">
                   <span class="lk-auction-type">Retail / Commercial</span>
-                  <span class="lk-auction-date">Sat 14 Jun 2026</span>
+                  <span class="lk-auction-date">Sample data — for illustration</span>
                   <span class="lk-auction-guide">$480k–$520k</span>
                   <span class="lk-auction-agent">Hockingstuart</span>
                 </div>
@@ -727,7 +745,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                 <div class="lk-auction-addr">88 Synnot St, Werribee</div>
                 <div class="lk-auction-meta">
                   <span class="lk-auction-type">Mixed Use</span>
-                  <span class="lk-auction-date">Sat 21 Jun 2026</span>
+                  <span class="lk-auction-date">Sample data — for illustration</span>
                   <span class="lk-auction-guide">$610k–$650k</span>
                   <span class="lk-auction-agent">Ray White</span>
                 </div>
@@ -739,7 +757,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
                 <div class="lk-auction-addr">3/45 Station Pl, Werribee</div>
                 <div class="lk-auction-meta">
                   <span class="lk-auction-type">Retail Strip</span>
-                  <span class="lk-auction-date">Wed 18 Jun 2026</span>
+                  <span class="lk-auction-date">Sample data — for illustration</span>
                   <span class="lk-auction-guide">$290k–$310k</span>
                   <span class="lk-auction-agent">Barry Plant</span>
                 </div>
@@ -753,9 +771,9 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <span class="lk-pro-sat-btn">Coming with Lokko Pro</span>
             </div>
 
-            <div class="lk-pro-sec-hd">❄️ Enterprise Data (Snowflake)</div>
+            <div class="lk-pro-sec-hd">❄️ Enterprise Data Sharing</div>
             <div class="lk-pro-sat">
-              <div class="lk-pro-sat-txt">Secure data sharing directly to your enterprise warehouse. Pipe Lokko's proprietary opportunity scores, demographic layers, and competitor coordinates straight into your Snowflake environment for internal BI modeling.</div>
+              <div class="lk-pro-sat-txt">Secure data sharing directly to your enterprise warehouse. Pipe Lokko's proprietary opportunity scores, demographic layers, and competitor coordinates straight into your data environment for internal BI modelling.</div>
               <span class="lk-pro-sat-btn">Coming with Lokko Pro</span>
             </div>
 
@@ -787,10 +805,10 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
             <div class="lk-pro-lock">
               <div class="lk-pro-lock-icon">🔒</div>
               <div class="lk-pro-lock-ttl">Unlock Lokko Pro</div>
-              <div class="lk-pro-lock-txt">Live auction calendar · Automated weekly reports · BOM weather integration · Snowflake Data Share · QGIS Export</div>
+              <div class="lk-pro-lock-txt">Live auction calendar · Automated weekly reports · BOM weather integration · Enterprise Data Share · QGIS Export</div>
               <div class="lk-pro-lock-price">From $350 / month</div>
               <a class="lk-pro-lock-btn" href="mailto:hello@lokko.au?subject=Lokko%20Pro%20enquiry">Enquire about Lokko Pro</a>
-              <div class="lk-pro-fine">Auction data powered by Pricefinder · Enterprise sharing via Snowflake</div>
+              <div class="lk-pro-fine">Illustrative sample data — live feeds available on Lokko Pro plans</div>
             </div>
           </div>
         </div>
@@ -845,7 +863,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
               <div class="svc-item">Site selection modelling across 40+ suburbs</div>
               <div class="svc-item">Catchment area &amp; trade area analysis</div>
               <div class="svc-item">Competitor mapping &amp; whitespace scoring</div>
-              <div class="svc-item">Territorial audit to get started</div>
+              <div class="svc-item">Fixed-fee Territory Audit to get started</div>
             </div>
             <div class="svc-price">From $5,000 &middot; Project or retainer</div>
             <div class="flip-hint">&#8635; click to see live data</div>
@@ -928,12 +946,12 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="container fade-in">
     <div class="section-mono">How it works</div>
     <div class="section-title">From audit to insight in four steps</div>
-    <p class="section-sub">Evidence-based expansion. Start with a Territory Audit—a high-value, fixed-fee report designed to validate your expansion strategy with real data before you commit to a full-scale project.</p>
+    <p class="section-sub">Every engagement starts with a Territory Audit — a fixed-fee report that validates your expansion strategy with real data, fully credited against your project if you proceed.</p>
     <div class="process-grid">
       <div class="process-step">
         <div class="process-n">Step 01</div>
-        <h4>Free territorial audit</h4>
-        <p>We analyse your current footprint and identify your top 3 untapped opportunities using real ABS and competitor data. Delivered in 5 days, no commitment.</p>
+        <h4>Territory Audit — $299, fully credited</h4>
+        <p>We analyse your current footprint and identify your top 3 untapped opportunities using real ABS and competitor data. $299 fixed fee, fully credited against any full project — delivered in 5 business days.</p>
       </div>
       <div class="process-step">
         <div class="process-n">Step 02</div>
@@ -1089,7 +1107,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9a6 6 0 1 0 12 0A6 6 0 0 0 3 9z" stroke="#185FA5" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="val-title">Honest timelines</div>
-        <p class="val-desc">Predictable timelines. Our 5-day turnaround for a Territory Audit is guaranteed. For larger expansion projects, we clearly define the scope of work before we start, so there are never surprise</p>
+        <p class="val-desc">We say what we can deliver and when. A Territory Audit in 5 business days means 5 business days. A full analysis is scoped clearly before we start, not after.</p>
       </div>
     </div>
 
@@ -1121,7 +1139,6 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
       <span class="tool-pill">GNAF geocoding</span>
       <span class="tool-pill">Claude AI API</span>
       <span class="tool-pill">Supabase</span>
-      <span class="tool-pill">Snowflake</span>
       <span class="tool-pill">Mapbox</span>
       <span class="tool-pill">Power BI</span>
       <span class="tool-pill">Tableau</span>
@@ -1153,16 +1170,55 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
         <div class="section-mono">Strategic Audit</div>
         <div class="section-title">Request your Territory Audit</div>
         <p class="section-sub">Stop guessing where to grow. We identify your top 3 high-performance expansion opportunities using real ABS Census demographics and competitor mapping. A fixed-fee analysis to validate your next site.</p>
-        <form class="audit-form" action="https://formspree.io/f/mbdqlnqv" method="POST">
-          <input type="hidden" name="_subject" value="New Lokko audit request"/>
-          <input type="text" name="name" placeholder="Your name" required/>
-          <input type="text" name="company" placeholder="Company name" required/>
-          <input type="email" name="email" placeholder="Your business email" required/>
-          <input type="text" name="business_type" placeholder="Business type (e.g. franchise, retail, services)" required/>
-          <input type="text" name="location" placeholder="Current suburb or area" required/>
-          <button type="submit" class="btn-white">Request Territory Audit</button>
-        </form>
-        <p class="audit-note">Investment: $299 (fully credited against project) · 5-day turnaround</p>
+        <div class="lk-intake">
+          <div id="lkForm">
+            <div class="lk-row">
+              <div>
+                <label for="lkName">Your name</label>
+                <input id="lkName" type="text" autocomplete="name" required>
+              </div>
+              <div>
+                <label for="lkBusiness">Business name</label>
+                <input id="lkBusiness" type="text" autocomplete="organization" required>
+              </div>
+            </div>
+            <div class="lk-row">
+              <div>
+                <label for="lkEmail">Work email</label>
+                <input id="lkEmail" type="email" autocomplete="email" required>
+              </div>
+              <div>
+                <label for="lkPhone">Phone (optional)</label>
+                <input id="lkPhone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+            <label for="lkType">Business type</label>
+            <select id="lkType">
+              <option value="franchise_operator">Franchise operator / franchisor</option>
+              <option value="multi_site">Multi-site brand</option>
+              <option value="single_site">Single site, planning to expand</option>
+              <option value="other">Other</option>
+            </select>
+            <label for="lkRegion">Target region</label>
+            <input id="lkRegion" type="text" placeholder="e.g. Melbourne western corridor">
+            <label for="lkSites">Current site addresses (one per line)</label>
+            <textarea id="lkSites" placeholder="12 Watton St, Werribee VIC 3030&#10;45 Derrimut Rd, Hoppers Crossing VIC 3029"></textarea>
+            <div class="lk-hp" aria-hidden="true">
+              <label for="lkWebsite2">Website</label>
+              <input id="lkWebsite2" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="lk-consent">
+              <input id="lkConsent" type="checkbox">
+              <label for="lkConsent" style="all:unset;cursor:pointer">
+                I agree that Lokko stores these details to prepare my Territory
+                Audit and contact me about it, as described in the
+                <a href="privacy.html" style="color:#F6C431">privacy policy</a>.
+              </label>
+            </div>
+            <button id="lkSubmit" class="lk-btn" type="button">Request my Territory Audit — $299</button>
+            <div id="lkMsg" class="lk-msg" role="status"></div>
+          </div>
+        </div>
       </div>
       <div>
         <div class="audit-features">
@@ -1185,7 +1241,7 @@ footer{padding:28px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="footer-right">
     <a href="mailto:hello@lokko.au">hello@lokko.au</a>
     <a href="https://www.linkedin.com/company/lokko-au" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="#">Privacy</a>
+    <a href="privacy.html">Privacy</a>
   </div>
 </footer>
 
@@ -1205,56 +1261,61 @@ document.querySelectorAll('.mobile-link').forEach(link => {
   });
 });
 
-// ── AUDIT FORM ──────────────────────────────────────────────────────────────
-async function submitAudit() {
-  const btn = document.getElementById('auditSubmitBtn');
-  const errorEl = document.getElementById('auditError');
-  const name = document.getElementById('audit_name').value.trim();
-  const company = document.getElementById('audit_company').value.trim();
-  const email = document.getElementById('audit_email').value.trim();
-  const business_type = document.getElementById('audit_business_type').value.trim();
-  const location = document.getElementById('audit_location').value.trim();
+// ── INTAKE FORM ──────────────────────────────────────────────────────────────
+(function () {
+  var LK_INTAKE_ENDPOINT = "https://formspree.io/f/mbdqlnqv";
 
-  errorEl.style.display = 'none';
+  var btn = document.getElementById("lkSubmit");
+  var msg = document.getElementById("lkMsg");
 
-  if (!name || !company || !email || !business_type || !location) {
-    errorEl.textContent = 'Please fill in all fields before submitting.';
-    errorEl.style.display = 'block';
-    return;
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errorEl.textContent = 'Please enter a valid email address.';
-    errorEl.style.display = 'block';
-    return;
+  function show(kind, text) {
+    msg.className = "lk-msg " + kind;
+    msg.textContent = text;
   }
 
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
+  btn.addEventListener("click", function () {
+    var payload = {
+      name:          document.getElementById("lkName").value.trim(),
+      business:      document.getElementById("lkBusiness").value.trim(),
+      email:         document.getElementById("lkEmail").value.trim(),
+      phone:         document.getElementById("lkPhone").value.trim(),
+      business_type: document.getElementById("lkType").value,
+      target_region: document.getElementById("lkRegion").value.trim(),
+      sites:         document.getElementById("lkSites").value.trim(),
+      consent:       document.getElementById("lkConsent").checked,
+      hp:            document.getElementById("lkWebsite2").value,
+      source:        "lokko.au/territory-audit",
+      ts:            new Date().toISOString()
+    };
 
-  try {
-    const res = await fetch('https://formspree.io/f/mbdqlnqv', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, company, email, business_type, location,
-        _subject: 'New Lokko audit request',
-        _replyto: email
-      })
-    });
-
-    if (res.ok) {
-      document.getElementById('auditForm').style.display = 'none';
-      document.getElementById('auditNote').style.display = 'none';
-      document.getElementById('auditSuccess').style.display = 'block';
-    } else {
-      throw new Error('Server error');
+    if (!payload.name || !payload.business || !payload.email) {
+      show("err", "Add your name, business name and email so we can send the audit.");
+      return;
     }
-  } catch(e) {
-    btn.textContent = 'Request audit';
-    btn.disabled = false;
-    errorEl.textContent = 'Something went wrong. Please email us directly at hello@lokko.au';
-    errorEl.style.display = 'block';
-  }
-}
+    if (!payload.consent) {
+      show("err", "Tick the consent box so we're allowed to store your details.");
+      return;
+    }
+
+    btn.disabled = true;
+    show("ok", "Sending…");
+
+    fetch(LK_INTAKE_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(function (r) {
+      if (!r.ok) { throw new Error("HTTP " + r.status); }
+      show("ok", "Received. We'll email your Territory Audit details within one business day.");
+      btn.textContent = "Request sent";
+    })
+    .catch(function () {
+      btn.disabled = false;
+      show("err", "That didn't send. Try again, or email hello@lokko.au directly.");
+    });
+  });
+})();
 
 // Fade in on scroll
 const observer = new IntersectionObserver(entries => {
