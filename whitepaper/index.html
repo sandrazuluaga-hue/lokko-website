@@ -359,7 +359,7 @@
       <p class="hero-sub">A reverse-engineered approach to franchise site selection — starting with the financial goal, not the map.</p>
       <div class="hero-meta">
         <div><b>A LOKKO WHITE PAPER</b></div>
-        <div>Prepared for Melbourne Franchising Expo · August 2026</div>
+        <div>A Lokko methodology paper · 2026 edition</div>
         <div>lokko.au · hello@lokko.au · Melbourne, Australia</div>
       </div>
     </div>
@@ -483,6 +483,81 @@
       <p style="margin-top:26px">This is what the question on the cover actually costs. A ten-year lease is a commitment to roughly $15M of cumulative revenue <em>(modelled)</em> — and it gives the operator a success metric before signing: if the chosen suburb can't project the annual revenue the model requires, the ten-year term isn't ambitious. It's financially imprudent.</p>
 
       <p>Every number in this walk-through is modelled from underlying demographic and revenue assumptions calibrated to the client's business — not asserted. Revenue and rent figures are always labelled <em>(modelled)</em> in client deliverables, because the value we sell is the analysis, not a claim to measured fact.</p>
+    </div>
+  </section>
+
+  <!-- ================= 3b. WHY BOUNDARIES BEAT DISTANCE ================= -->
+  <section class="section on-paper">
+    <div class="wrap">
+      <div class="eyebrow">Geography &amp; Accuracy</div>
+      <h2 class="section-title">Why boundaries beat distance</h2>
+      <p>The Lokko model uses official ABS Statistical Area Level 2 (SA2) <em>boundary polygons</em> — not shortcuts to the centroid. That distinction is not cosmetic. SA2 centroids can sit kilometres from where people actually live: a suburb shaped by coastline, rail corridors, or urban growth boundaries will have its geographic centre in a paddock or a car park, not in its population core.</p>
+      <p>When a site is matched to a centroid rather than a polygon, the demographics assigned to it belong to the <em>geometric middle</em> of the suburb, not to the ground the site stands on. The result is a different suburb classification, a different score, and — critically — a different strategic recommendation.</p>
+
+      <div class="eyebrow" style="margin-top:40px">A real example: one site, two methods</div>
+      <p>When Apex evaluated a candidate site in Melbourne's western corridor, the two matching methods produced opposite advice.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px">
+
+        <div style="background:#fff;border:2px solid #e8e3f5;border-radius:12px;padding:28px;font-family:'DM Sans',sans-serif">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#7F77DE;margin-bottom:14px;font-weight:600">&#9654; Method A — Centroid matching</div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Suburb assigned</div>
+            <div style="font-weight:700;font-size:17px;color:#1A1730">Werribee – East</div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Market flag</div>
+            <div style="display:inline-block;background:#fff3e0;color:#b05a00;font-family:'DM Mono',monospace;font-size:11px;padding:3px 10px;border-radius:4px;font-weight:600">CONTESTED</div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Opportunity score</div>
+            <div style="font-weight:700;font-size:22px;color:#1A1730">86.3 <span style="font-size:13px;font-weight:400;color:#7C87A6">/ 100</span></div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Est. annual revenue</div>
+            <div style="font-weight:600;font-size:15px;color:#1A1730">$617,825 <span style="font-size:12px;font-weight:400;color:#7C87A6">(modelled)</span></div>
+          </div>
+          <div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Premium competitors within 3 km</div>
+            <div style="font-weight:700;font-size:17px;color:#b05a00">1 competitor</div>
+          </div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid #e8e3f5;font-size:13px;color:#7C87A6;font-style:italic">Strategic read: contested market — proceed with caution.</div>
+        </div>
+
+        <div style="background:#fff;border:2px solid #2EE6C0;border-radius:12px;padding:28px;font-family:'DM Sans',sans-serif;position:relative">
+          <div style="position:absolute;top:-1px;right:20px;background:#2EE6C0;color:#0B1A2E;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;padding:4px 12px;border-radius:0 0 6px 6px;font-weight:700">BOUNDARY MATCH</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1D9E75;margin-bottom:14px;font-weight:600">&#9654; Method B — ABS boundary polygon</div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Suburb assigned</div>
+            <div style="font-weight:700;font-size:17px;color:#1A1730">Werribee – South</div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Market flag</div>
+            <div style="display:inline-block;background:#e8f8f1;color:#1D7A50;font-family:'DM Mono',monospace;font-size:11px;padding:3px 10px;border-radius:4px;font-weight:600">WHITESPACE_PREMIUM</div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Opportunity score</div>
+            <div style="font-weight:700;font-size:22px;color:#1A1730">90.8 <span style="font-size:13px;font-weight:400;color:#7C87A6">/ 100</span></div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Est. annual revenue</div>
+            <div style="font-weight:600;font-size:15px;color:#1A1730">$546,325 <span style="font-size:12px;font-weight:400;color:#7C87A6">(modelled)</span></div>
+          </div>
+          <div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Premium competitors within 3 km</div>
+            <div style="font-weight:700;font-size:17px;color:#1D7A50">0 competitors</div>
+          </div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid #c8f0e4;font-size:13px;color:#1D7A50;font-style:italic">Strategic read: clear whitespace, first-mover advantage available.</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:28px;padding:22px 28px;background:#f5f3ff;border-left:4px solid #7F77DE;border-radius:0 8px 8px 0">
+        <p style="margin:0;color:#1A1730;font-size:15px">Same coordinates. Same site. Same date. <strong>Two completely different strategic recommendations.</strong> The centroid method assigns the site to the wrong SA2 — importing a competitor from the adjacent boundary — and flags a contested market. The boundary polygon places the site correctly: clear whitespace, higher score, green light.</p>
+      </div>
+
+      <p style="margin-top:28px">This is not an edge case. In high-growth corridors where suburb boundaries are drawn along roads, rivers, or rezoning lines — exactly the areas where franchise expansion is most active — centroid shortcuts misclassify sites routinely. Lokko's point-in-polygon matching eliminates the error at source.</p>
+      <p><em>All revenue figures in this example are modelled estimates derived from population-based demand modelling using ABS 2021 Census data. They are not representations of actual or likely earnings.</em></p>
     </div>
   </section>
 
