@@ -533,7 +533,7 @@
           </div>
           <div style="margin-bottom:12px">
             <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Market flag</div>
-            <div style="display:inline-block;background:#e8f8f1;color:#1D7A50;font-family:'DM Mono',monospace;font-size:11px;padding:3px 10px;border-radius:4px;font-weight:600">WHITESPACE_PREMIUM</div>
+            <div style="display:inline-block;background:#e8f8f1;color:#1D7A50;font-family:'DM Mono',monospace;font-size:11px;padding:3px 10px;border-radius:4px;font-weight:600">VERIFY_ON_GROUND</div>
           </div>
           <div style="margin-bottom:12px">
             <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Opportunity score</div>
@@ -544,20 +544,72 @@
             <div style="font-weight:600;font-size:15px;color:#1A1730">$546,325 <span style="font-size:12px;font-weight:400;color:#7C87A6">(modelled)</span></div>
           </div>
           <div>
-            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Premium competitors within 3 km</div>
-            <div style="font-weight:700;font-size:17px;color:#1D7A50">0 competitors</div>
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#7C87A6;margin-bottom:2px">Premium competitors (SA2-wide count)</div>
+            <div style="font-weight:700;font-size:17px;color:#1D7A50">Not site-verified</div>
           </div>
-          <div style="margin-top:18px;padding-top:16px;border-top:1px solid #c8f0e4;font-size:13px;color:#1D7A50;font-style:italic">Strategic read: clear whitespace, first-mover advantage available.</div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid #c8f0e4;font-size:13px;color:#1D7A50;font-style:italic">Strategic read: the boundary match is confirmed and the demographics are real — 16,810 residents, census-verified. But Werribee – South combines a residential strip with a large agricultural precinct, so this suburb-level aggregate is not itself a green light. The model tells you where to look; the ground decides. Site-level verification is required before any leasing decision.</div>
         </div>
 
       </div>
 
       <div style="margin-top:28px;padding:22px 28px;background:#f5f3ff;border-left:4px solid #7F77DE;border-radius:0 8px 8px 0">
-        <p style="margin:0;color:#1A1730;font-size:15px">Same coordinates. Same site. Same date. <strong>Two completely different strategic recommendations.</strong> The centroid method assigns the site to the wrong SA2 — importing a competitor from the adjacent boundary — and flags a contested market. The boundary polygon places the site correctly: clear whitespace, higher score, green light.</p>
+        <p style="margin:0;color:#1A1730;font-size:15px">Same coordinates. Same site. Same date. <strong>Two completely different strategic recommendations.</strong> The centroid method assigns the site to the wrong SA2 — importing a competitor from the adjacent boundary — and flags a contested market. The boundary polygon places the site correctly, with real, census-verified demographics behind it. But because this SA2 mixes residential and agricultural land, the higher score is a reason to look closer at the ground, not a green light on its own.</p>
       </div>
 
       <p style="margin-top:28px">This is not an edge case. In high-growth corridors where suburb boundaries are drawn along roads, rivers, or rezoning lines — exactly the areas where franchise expansion is most active — centroid shortcuts misclassify sites routinely. Lokko's point-in-polygon matching eliminates the error at source.</p>
       <p><em>All revenue figures in this example are modelled estimates derived from population-based demand modelling using ABS 2021 Census data. They are not representations of actual or likely earnings.</em></p>
+
+      <div class="eyebrow" style="margin-top:48px">Same name, two different maps</div>
+      <p>Type the suburb name into a consumer map app and it shows the gazetted locality — a mostly agricultural precinct that reads as empty and would make most operators dismiss it on sight. The ABS statistical boundary for the same name draws the line differently: it captures a residential strip of roughly 17,000 people concentrated in the north, hard against Werribee town centre. That strip already competes with the operators sitting in Werribee town centre — which is exactly why Lokko's land-use guard flags this aggregate for site-level verification rather than clearing it automatically. The model tells you where to look; the ground decides.</p>
+
+      <div class="map-compare" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px">
+
+        <div style="background:#fff;border:2px solid #e8e3f5;border-radius:12px;padding:24px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#7F77DE;margin-bottom:14px;font-weight:600">&#9654; What the map label shows</div>
+          <svg viewBox="0 0 480 396.4" style="width:100%;height:auto;display:block;background:#f7f5fb;border-radius:6px" role="img" aria-labelledby="mapA-title mapA-desc">
+            <title id="mapA-title">Werribee South — gazetted locality boundary</title>
+            <desc id="mapA-desc">Dashed outline of the Vicmap/OSM administrative locality "Werribee South", spanning mostly agricultural land.</desc>
+            <defs>
+              <pattern id="agriHatch" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="9" height="9" fill="#f7f5fb"/>
+                <line x1="0" y1="0" x2="0" y2="9" stroke="#d8d2ee" stroke-width="2"/>
+              </pattern>
+            </defs>
+            <polygon points="265.4,140.6 272.4,151.5 287.9,157.3 286.2,166.0 273.1,179.1 277.5,182.9 283.7,204.0 289.7,193.9 296.2,191.8 291.7,206.1 280.6,214.8 279.2,221.1 289.6,233.6 286.5,252.6 288.2,270.0 295.2,282.2 306.2,286.2 324.7,283.5 339.9,288.8 361.7,278.0 371.7,263.3 401.5,234.9 405.2,225.9 423.8,213.1 428.3,205.2 441.9,198.4 446.8,164.5 415.6,159.7 384.7,126.9 391.7,76.2 373.2,88.9 364.6,87.6 340.5,107.8 265.4,140.6"
+              fill="url(#agriHatch)" stroke="#7F77DE" stroke-width="2" stroke-dasharray="6 5"/>
+            <circle cx="273.6" cy="85.9" r="4" fill="#1A1730"/>
+            <text x="281" y="83" font-family="'DM Mono',monospace" font-size="10" fill="#1A1730">Werribee</text>
+            <text x="12" y="20" font-family="'DM Mono',monospace" font-size="9" fill="#7C87A6">144.53&#176;E&#8211;144.76&#176;E / 37.87&#176;S&#8211;38.01&#176;S</text>
+          </svg>
+          <p style="margin:14px 0 0;font-size:13px;color:#7C87A6;font-style:italic">The gazetted locality most map apps display for "Werribee South" — mostly agricultural precinct, dashed here because it is a legal/postal boundary, not a population boundary.</p>
+        </div>
+
+        <div style="background:#fff;border:2px solid #e8e3f5;border-radius:12px;padding:24px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#1D9E75;margin-bottom:14px;font-weight:600">&#9654; What the census measures</div>
+          <svg viewBox="0 0 480 396.4" style="width:100%;height:auto;display:block;background:#f7f5fb;border-radius:6px" role="img" aria-labelledby="mapB-title mapB-desc">
+            <title id="mapB-title">Werribee South — ABS SA2 statistical boundary</title>
+            <desc id="mapB-desc">Solid fill of the ABS SA2 "Werribee - South", with the northern residential strip marked near Werribee town centre.</desc>
+            <polygon points="258.7,95.9 250.0,98.9 247.4,104.3 253.0,107.0 254.0,119.4 265.3,140.7 201.3,168.2 57.2,269.2 33.1,287.3 37.6,291.6 35.7,299.4 41.2,309.1 48.4,316.9 58.6,315.1 65.9,320.5 71.6,320.2 71.6,313.7 74.2,314.5 75.7,325.6 86.3,341.2 83.3,350.9 100.8,363.4 127.0,369.0 192.1,356.9 212.5,361.5 251.5,361.7 330.9,285.4 343.4,287.8 360.9,278.9 372.6,262.4 401.8,234.6 405.6,225.4 442.0,198.2 446.9,164.4 416.0,159.9 384.5,126.9 396.2,27.3 357.7,44.6 356.6,42.2 257.5,92.9 258.7,95.9"
+              fill="#7F77DE" fill-opacity="0.18" stroke="#7F77DE" stroke-width="2"/>
+            <circle cx="273.6" cy="85.9" r="4" fill="#1A1730"/>
+            <text x="281" y="83" font-family="'DM Mono',monospace" font-size="10" fill="#1A1730">Werribee</text>
+            <circle cx="311.1" cy="100.2" r="6" fill="#1D9E75" stroke="#fff" stroke-width="1.5"/>
+            <text x="319" y="98" font-family="'DM Mono',monospace" font-size="10" font-weight="600" fill="#1D7A50">Residential strip</text>
+            <text x="319" y="110" font-family="'DM Mono',monospace" font-size="9" fill="#1D7A50">16,810 residents (census)</text>
+            <text x="12" y="20" font-family="'DM Mono',monospace" font-size="9" fill="#7C87A6">144.53&#176;E&#8211;144.76&#176;E / 37.87&#176;S&#8211;38.01&#176;S</text>
+          </svg>
+          <p style="margin:14px 0 0;font-size:13px;color:#1D7A50;font-style:italic">The ABS statistical area for the same name — its northern strip is where the suburb's 16,810 residents (census-verified) actually live, adjacent to Werribee town centre.</p>
+        </div>
+
+      </div>
+
+      <p style="margin-top:16px;font-family:'DM Mono',monospace;font-size:11px;color:#7C87A6">Locality boundary: &#169; OpenStreetMap contributors, ODbL 1.0 (via Nominatim). SA2 boundary: Australian Bureau of Statistics, ASGS 2021 (CC BY 4.0). Both simplified for display; not for surveying use.</p>
+
+      <style>
+        @media (max-width:640px){
+          .map-compare{grid-template-columns:1fr !important}
+        }
+      </style>
     </div>
   </section>
 
