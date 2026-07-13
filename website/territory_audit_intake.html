@@ -1,0 +1,158 @@
+<!-- ================================================================
+  LOKKO — Territory Audit intake form (Formspree edition)
+  Place at: lokko-analytics/website/territory_audit_intake.html
+  Integration target: #audit section of index_copy.html (never index.html)
+
+  Before deploy: replace FORMSPREE_ID with the real form ID from
+  formspree.io (form destination: hello@lokko.au).
+
+  DNA compliance: no emoji, no ban-list vocabulary, hairline borders,
+  Signal Yellow does exactly one job (the submit button).
+================================================================= -->
+<section class="lk-intake" id="territory-audit">
+  <style>
+    .lk-intake{background:#1A1732;color:#fff;padding:64px 24px;font-family:'Poppins',sans-serif}
+    .lk-intake .lk-wrap{max-width:640px;margin:0 auto}
+    .lk-intake h2{font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.12;margin:0 0 8px}
+    .lk-intake .lk-price{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#F6C431}
+    .lk-intake .lk-sub{color:rgba(255,255,255,.65);font-size:15px;margin:0 0 32px;line-height:1.55}
+    .lk-intake label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.65);margin:18px 0 6px}
+    .lk-intake input,.lk-intake select,.lk-intake textarea{width:100%;box-sizing:border-box;background:rgba(255,255,255,.05);border:0.5px solid rgba(255,255,255,.22);border-radius:6px;color:#fff;padding:12px 14px;font-family:inherit;font-size:15px}
+    .lk-intake input:focus,.lk-intake select:focus,.lk-intake textarea:focus{outline:1px solid #7F77DE;border-color:#7F77DE}
+    .lk-intake textarea{min-height:110px;resize:vertical;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px}
+    .lk-intake .lk-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:560px){.lk-intake .lk-row{grid-template-columns:1fr}}
+    .lk-intake .lk-consent{display:flex;gap:10px;align-items:flex-start;margin:22px 0;font-size:13px;color:rgba(255,255,255,.65);line-height:1.5}
+    .lk-intake .lk-consent input{width:auto;margin-top:3px}
+    .lk-intake .lk-consent a{color:#7F77DE}
+    .lk-intake button{background:#F6C431;color:#1A1732;border:0;border-radius:6px;font-family:inherit;font-weight:800;font-size:16px;padding:14px 28px;cursor:pointer;width:100%}
+    .lk-intake button:hover{filter:brightness(1.06)}
+    .lk-intake button:disabled{opacity:.55;cursor:wait}
+    .lk-intake .lk-msg{margin-top:16px;font-size:14px;padding:12px 14px;border-radius:6px;display:none;line-height:1.5;border:0.5px solid rgba(255,255,255,.22)}
+    .lk-intake .lk-msg.ok{display:block;border-color:#F6C431}
+    .lk-intake .lk-msg.err{display:block;border-color:rgba(255,120,120,.7)}
+    .lk-intake .lk-hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+  </style>
+
+  <div class="lk-wrap">
+    <h2>Request your Territory Audit — <span class="lk-price">$299</span></h2>
+    <p class="lk-sub">Tell us where you operate and where you want to grow.
+      We run your sites through our scoring engine and send back a ranked,
+      modelled view of your territory within five business days. The $299
+      is credited in full against any full project.</p>
+
+    <div id="lkForm">
+      <div class="lk-row">
+        <div>
+          <label for="lkName">Your name</label>
+          <input id="lkName" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="lkBusiness">Business name</label>
+          <input id="lkBusiness" name="business" type="text" autocomplete="organization" required>
+        </div>
+      </div>
+
+      <div class="lk-row">
+        <div>
+          <label for="lkEmail">Work email</label>
+          <input id="lkEmail" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div>
+          <label for="lkPhone">Phone (optional)</label>
+          <input id="lkPhone" name="phone" type="tel" autocomplete="tel">
+        </div>
+      </div>
+
+      <label for="lkType">Business type</label>
+      <select id="lkType" name="business_type">
+        <option value="franchise_operator">Franchise operator / franchisor</option>
+        <option value="multi_site">Multi-site brand</option>
+        <option value="single_site">Single site, planning to expand</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="lkRegion">Target region</label>
+      <input id="lkRegion" name="target_region" type="text"
+             placeholder="e.g. Melbourne western corridor">
+
+      <label for="lkSites">Current site addresses (one per line)</label>
+      <textarea id="lkSites" name="sites"
+        placeholder="12 Example St, Werribee VIC 3030&#10;45 Sample Rd, Hoppers Crossing VIC 3029"></textarea>
+
+      <!-- Formspree native honeypot: real users never see or fill this -->
+      <div class="lk-hp" aria-hidden="true">
+        <label for="lkGotcha">Leave this field empty</label>
+        <input id="lkGotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="lk-consent">
+        <input id="lkConsent" type="checkbox">
+        <label for="lkConsent" style="all:unset;cursor:pointer">
+          I agree that Lokko stores these details to prepare my Territory
+          Audit and contact me about it, as described in the
+          <a href="privacy.html">privacy notice</a>.
+        </label>
+      </div>
+
+      <button id="lkSubmit" type="button">Request my audit</button>
+      <div id="lkMsg" class="lk-msg" role="status"></div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    // Replace FORMSPREE_ID with the real form ID before deploy:
+    var LK_ENDPOINT = "https://formspree.io/f/FORMSPREE_ID";
+
+    var btn = document.getElementById("lkSubmit");
+    var msg = document.getElementById("lkMsg");
+
+    function show(kind, text) {
+      msg.className = "lk-msg " + kind;
+      msg.textContent = text;
+    }
+
+    btn.addEventListener("click", function () {
+      var payload = {
+        name: document.getElementById("lkName").value.trim(),
+        business: document.getElementById("lkBusiness").value.trim(),
+        email: document.getElementById("lkEmail").value.trim(),
+        phone: document.getElementById("lkPhone").value.trim(),
+        business_type: document.getElementById("lkType").value,
+        target_region: document.getElementById("lkRegion").value.trim(),
+        sites: document.getElementById("lkSites").value.trim(),
+        _gotcha: document.getElementById("lkGotcha").value,
+        _subject: "New Territory Audit lead — lokko.au"
+      };
+
+      if (!payload.name || !payload.business || !payload.email) {
+        show("err", "Add your name, business name and email so we can send the audit.");
+        return;
+      }
+      if (!document.getElementById("lkConsent").checked) {
+        show("err", "Tick the consent box so we're allowed to store your details.");
+        return;
+      }
+
+      btn.disabled = true;
+      show("ok", "Sending\u2026");
+
+      fetch(LK_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(function (r) {
+        if (!r.ok) { throw new Error("HTTP " + r.status); }
+        show("ok", "Received. We'll email you within one business day to confirm scope and payment.");
+        btn.textContent = "Request sent";
+      })
+      .catch(function () {
+        btn.disabled = false;
+        show("err", "That didn't send. Try again, or email hello@lokko.au directly.");
+      });
+    });
+  })();
+  </script>
+</section>

@@ -5,3 +5,6 @@ SQL/
 Documents Training/
 .claude/
 .env
+_archive/
+*.bak_*
+*.zip
